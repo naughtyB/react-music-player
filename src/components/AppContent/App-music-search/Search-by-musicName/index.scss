@@ -1,0 +1,36 @@
+.app-content-music-searchByMusicName-table{
+  table{
+    padding:0 !important;
+  }
+
+  .ant-table{
+    border:none;
+  }
+}
+
+.app-content-music-searchByMusicName-table-row:nth-of-type(even){
+  background-color: #f5f5f5;
+}
+
+
+.app-content-music-searchByMusicName-table-column{
+  &-orderNumber{
+    width: 40px;
+    text-align:right;
+  }
+  &-handle{
+    width: 80px;
+  }
+  &-musicName{
+    width: 400px;
+  }
+  &-singer{
+    width: 150px;
+  }
+  &-album{
+    width: 300px;
+  }
+  &-time{
+    width: 80px;
+  }
+}

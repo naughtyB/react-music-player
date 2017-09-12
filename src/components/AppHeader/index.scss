@@ -1,0 +1,18 @@
+.app-header{
+  display:flex;
+  align-items:center;
+  height: 64px;
+
+  &-logo{
+    height:64px;
+    flex-shrink: 0;
+
+    &-message{
+      font-size:25px;
+      color:white;
+    }
+
+  }
+
+
+}

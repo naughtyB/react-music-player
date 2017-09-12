@@ -1,0 +1,26 @@
+.app-music-play-controller{
+  display:flex;
+  align-items:center;
+  flex-shrink:0;
+  flex-grow:0;
+  justify-content: space-between;
+  padding:0 35px;
+  width: 240px;
+  height: 48px;
+}
+
+
+.app-music-play-controller-stepBackward-icon{
+  vertical-align: 1px;
+}
+.app-music-play-controller-play-button{
+  width: 35px;
+  height: 35px;
+}
+.app-music-play-controller-play-icon{
+  vertical-align: 1px;
+  font-size:20px;
+}
+.app-music-play-controller-stepForward-icon{
+  vertical-align: 1px;
+}

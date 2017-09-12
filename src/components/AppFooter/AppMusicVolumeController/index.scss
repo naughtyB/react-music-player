@@ -1,0 +1,17 @@
+
+.app-music-volume-controller{
+  display:flex;
+  align-items:center;
+  flex-grow:0;
+  flex-shrink:0;
+  margin-right: 5px;
+  width: 150px;
+}
+.app-music-volume-controller-slider{
+  flex-grow:1;
+}
+
+.app-music-volume-controller-icon{
+  font-size:20px;
+  margin-right: 5px;
+}
