@@ -8,11 +8,41 @@ import {Icon,Slider} from "antd";
 
 
 export class AppMusicVolumeController extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleChange=this.handleChange.bind(this);
+        this.handleAfterChange=this.handleAfterChange.bind(this);
+        this.handleClick=this.handleClick.bind(this);
+    }
+
+    handleChange(volume){
+        if(!this.props.volumeIsChanging){
+            this.props.onChangeCurrentMusicVolumeIsChanging();
+            this.props.onRecordCurrentMusicLastVolume(volume);
+        }
+        this.props.onChangeCurrentMusicVolume(volume);
+    }
+
+    handleAfterChange(){
+        this.props.onChangeCurrentMusicVolumeIsChanging();
+    }
+
+    handleClick(){
+        if(this.props.volume){
+            this.props.onRecordCurrentMusicLastVolume(this.props.volume);
+            this.props.onChangeCurrentMusicVolume(0)
+        }
+        else{
+            this.props.onChangeCurrentMusicVolume(this.props.lastVolume)
+        }
+    }
+
+
     render(){
         return (
             <div className="app-music-volume-controller">
-                <Icon type="sound" className="app-music-volume-controller-icon"/>
-                <Slider className="app-music-volume-controller-slider" defaultValue={40}/>
+                <Icon type={this.props.volume?"mySound":"myMuted"} onClick={this.handleClick} className="app-music-volume-controller-icon"/>
+                <Slider min={0} max={100} value={this.props.volume} onChange={this.handleChange} onAfterChange={this.handleAfterChange} className="app-music-volume-controller-slider"/>
             </div>
         )
     }

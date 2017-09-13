@@ -47,7 +47,7 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return {
-        onInputSearch:(keyword)=>dispatch(doInputSearch(keyword)),
+        onInputSearch:(keyword,type,limit,offset,musicNamePage)=>dispatch(doInputSearch(keyword,type,limit,offset,musicNamePage)),
         onChangeCurrentMusic:(id,duration)=>dispatch(doChangeCurrentMusic(id,duration)),
         onChangeMusicNamePage:(page)=>dispatch(doChangeMusicNamePage(page)),
         onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())

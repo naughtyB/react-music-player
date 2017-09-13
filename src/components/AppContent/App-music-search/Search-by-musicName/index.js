@@ -46,25 +46,31 @@ export class SearchByMusicName extends React.Component{
         super(props);
         this.onPageToTop=this.onPageToTop.bind(this);
         this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
-        this.handleChangeMusicNamePage=this.handleChangeMusicNamePage.bind(this);
-    }
-
-    componentWillMount(){
-        //这个是搜索框跳进来就要进行搜索
-        this.props.onInputSearch(this.props.keyword);
-    }
-
-    componentWillUpdate(nextProps){
-        //这个是本来就存在这个组件了，你这个时候进行搜索，就需要进行更新，更新的判断条件是关键词是否有变
-        if(this.props.keyword!=nextProps.keyword){
-            this.props.onInputSearch(nextProps.keyword);
-            this.onPageToTop();
-        }
+        this.handleTableChange=this.handleTableChange.bind(this);
     }
 
     onPageToTop(){
         //表格置顶
         this.props.onGetAppContent().parentNode.scrollTop=0;
+    }
+
+    componentWillMount(){
+        //这个是搜索框跳进来就要进行搜索
+        this.props.onInputSearch(this.props.keyword,1,30,0,1);
+    }
+
+    componentWillUpdate(nextProps){
+        //这个是本来就存在这个组件了，你这个时候进行搜索，就需要进行更新，更新的判断条件是关键词是否有变
+        if(this.props.keyword!=nextProps.keyword){
+            this.props.onInputSearch(nextProps.keyword,1,30,0,1);
+            this.onPageToTop();
+        }
+    }
+
+    //表格内容换页
+    handleTableChange(pagination, filters, sorter){
+        this.onPageToTop();
+        this.props.onInputSearch(this.props.keyword,1,30,30*(pagination.current-1),pagination.current);
     }
 
     handleRowDoubleClick(music){
@@ -82,21 +88,16 @@ export class SearchByMusicName extends React.Component{
         }
     }
 
-    //表格内容换页
-    handleChangeMusicNamePage(page){
-        this.onPageToTop();
-        this.props.onChangeMusicNamePage(page);
-    }
-
     render(){
         const {music}=this.props;
         console.log(music);
         const data = [];
+        const current=this.props.musicNamePage-1;
         if(music.result && music.result.songCount>0){
             for (let [index,musicData] of music.result.songs.entries()) {
                 data.push({
-                    key: index+1,
-                    orderNumber:index+1,
+                    key: 30*current+index+1,
+                    orderNumber:(current*30+index+1)<10?"0"+(current*30+index+1):current*30+index+1,
                     handle:<Rate count={1}/>,
                     musicName: musicData["name"],
                     singer: musicData["artists"][0]["name"],
@@ -106,20 +107,9 @@ export class SearchByMusicName extends React.Component{
                     duration:musicData["duration"]
                 });
             }
-            data.push({
-                key: 70,
-                orderNumber:70,
-                handle:<Rate count={1}/>,
-                musicName:"gg",
-                singer: "gg",
-                album:"gg",
-                time: "gg",
-                id:"gg",
-                duration:"gg"
-            });
             return (
                 <div>
-                    <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.musicNamePage,onChange:this.handleChangeMusicNamePage}} rowClassName={()=>"app-content-music-searchByMusicName-table-row"} size="small" className="app-content-music-searchByMusicName-table" onRowDoubleClick={this.handleRowDoubleClick}/>
+                    <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.musicNamePage,total:music.result.songCount}} rowClassName={()=>"app-content-music-searchByMusicName-table-row"} size="small" className="app-content-music-searchByMusicName-table" onRowDoubleClick={this.handleRowDoubleClick} onChange={this.handleTableChange}/>
                 </div>
             )
         }

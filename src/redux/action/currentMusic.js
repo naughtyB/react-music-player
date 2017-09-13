@@ -28,8 +28,14 @@ export const FINISH_TIME_SLIDER="FINISH_TIME_SLIDER";
 //滑动条任务完成后播放器读取到最新currentTime,然后进入就绪状态
 export const READY_TIME_SLIDER="READY_TIME_SLIDER";
 
+//修改音乐音量
+export const CHANGE_CURRENT_MUSIC_VOLUME="CHANGE_CURRENT_MUSIC_VOLUME";
 
+//滑动条音量是否进入修改状态
+export const CHANGE_CURRENT_MUSIC_VOLUME_IS_CHANGING="CHANGE_CURRENT_MUSIC_VOLUME_IS_CHANGING";
 
+//记录上次音乐音量
+export const RECORD_CURRENT_MUSIC_LAST_VOLUME="RECORD_CURRENT_MUSIC_LAST_VOLUME";
 
 
 
@@ -109,3 +115,24 @@ export const doReadyingTimeSlider=()=>{
     }
 };
 
+export const doChangeCurrentMusicVolume=(volume)=>{
+    return {
+        type:CHANGE_CURRENT_MUSIC_VOLUME,
+        volume
+    }
+};
+
+
+export const doChangeCurrentMusicVolumeIsChanging=()=>{
+    return {
+        type:CHANGE_CURRENT_MUSIC_VOLUME_IS_CHANGING
+    }
+};
+
+
+export const doRecordCurrentMusicLastVolume=(volume)=>{
+    return {
+        type:RECORD_CURRENT_MUSIC_LAST_VOLUME,
+        volume
+    }
+};

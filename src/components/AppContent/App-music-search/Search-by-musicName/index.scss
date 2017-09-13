@@ -6,6 +6,10 @@
   .ant-table{
     border:none;
   }
+
+  .ant-pagination{
+    float: none;
+  }
 }
 
 .app-content-music-searchByMusicName-table-row:nth-of-type(even){
@@ -15,7 +19,7 @@
 
 .app-content-music-searchByMusicName-table-column{
   &-orderNumber{
-    width: 40px;
+    width: 50px;
     text-align:right;
   }
   &-handle{

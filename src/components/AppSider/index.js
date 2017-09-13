@@ -4,7 +4,6 @@
 import "./index.scss"
 import React from "react";
 import {Menu,Icon} from "antd";
-import FaMusic from "react-icons/lib/fa/music"
 const {SubMenu}=Menu;
 export class AppSider extends React.Component{
     render(){
@@ -13,7 +12,7 @@ export class AppSider extends React.Component{
                 className="app-side-menu"
                 mode="inline"
             >
-                <SubMenu className="app-side-menu-recommend" key="sub1" title={<span><FaMusic className="app-side-menu-recommend-title-icon"/><span>发现音乐</span></span>}>
+                <SubMenu className="app-side-menu-recommend" key="sub1" title={<span><Icon type="findMusic"/><span>发现音乐</span></span>}>
                     <Menu.Item key="1">歌手</Menu.Item>
                     <Menu.Item key="2">歌单</Menu.Item>
                 </SubMenu>

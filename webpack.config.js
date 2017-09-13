@@ -5,7 +5,7 @@
 
 const path=require("path");
 const webpack=require("webpack");
-
+const theme=require("./src/static/theme");
 module.exports={
     devtool:"source-map",
     entry:{
@@ -25,12 +25,25 @@ module.exports={
             },
             {
                 test:/\.css$/,
-                exclude:/node_modules/,
                 use:["style-loader","css-loader"]
             },
             {
-                test: /\.scss/,
+                test: /\.scss$/,
                 use:["style-loader","css-loader","sass-loader"]
+            },
+            {
+                test:/\.less$/,
+                use:[
+                    { loader:"style-loader" },
+                    { loader:"css-loader" },
+                    {
+                        loader:"less-loader",
+                        options:{
+                            modifyVars:theme
+                        }
+                    }
+                ]
+
             }
         ]
     },

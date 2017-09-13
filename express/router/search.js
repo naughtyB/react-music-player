@@ -25,6 +25,6 @@ module.exports=(req, res)=> {
     music_req => res.send(music_req),
     err => res.status(502).send('fetch error')
   )
-}
+};
 
 

@@ -5,7 +5,6 @@
 import "./index.scss";
 import React from "react";
 import {Button,Icon} from "antd";
-
 export class AppMusicPlayController extends React.Component{
     constructor(props){
         super(props);

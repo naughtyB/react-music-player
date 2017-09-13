@@ -24,7 +24,7 @@ export class Audio extends React.Component{
     componentWillMount(){
 
     }
-    componentDidUpdate(){
+    componentDidUpdate(preProps){
         if(this.props.timeSliderState=="readying"){
             if(this.props.isPlaying){
                 this.refs["audio"].play();
@@ -38,11 +38,14 @@ export class Audio extends React.Component{
             this.refs["audio"].currentTime=this.props.currentTime;
             this.props.onReadyingTimeSlider();
         }
+        if(this.props.volume!=preProps.volume){
+            this.refs["audio"].volume=this.props.volume/100
+        }
     }
 
     render(){
         return (
-            <audio src={this.props.url} ref="audio" ></audio>
+            <audio src={this.props.url} ref="audio"></audio>
         )
     }
 }
@@ -53,7 +56,8 @@ const mapStateToProps=(state)=>{
         isFetching:false,//留着转圈，主要用于循环
         isPlaying:state.currentMusic.isPlaying,
         currentTime:state.currentMusic.currentTime,
-        timeSliderState:state.currentMusic.timeSliderState
+        timeSliderState:state.currentMusic.timeSliderState,
+        volume:state.currentMusic.volume
     }
 };
 

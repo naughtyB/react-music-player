@@ -32,10 +32,11 @@ export const doInputSearchRequestPost=()=>{
     }
 };
 
-export const doInputSearchReceivePost=(music)=>{
+export const doInputSearchReceivePost=(music,musicNamePage)=>{
     return {
         type:INPUT_SEARCH_RECEIVE_POST,
-        music
+        music,
+        musicNamePage
     }
 };
 
@@ -53,18 +54,18 @@ export const doChangeMusicNamePage=(page)=>{
     }
 };
 
-export const doInputSearch=(keyword)=>(dispatch)=>{
+export const doInputSearch=(keyword,type,limit,offset,musicNamePage)=>(dispatch)=>{
     dispatch(doInputSearchRequestPost());
     return fetch("/search",{
         method:"POST",
         headers:{
             "Content-Type":"application/x-www-form-urlencoded"
         },
-        body:"keywords="+keyword
+        body:"keywords="+keyword+"&type="+type+"&limit="+limit+"&offset="+offset
     }).then(res=>{
         return res.json();
     }).then(music=>{
-        dispatch(doInputSearchReceivePost(music));
+        dispatch(doInputSearchReceivePost(music,musicNamePage));
     })
 };
 
