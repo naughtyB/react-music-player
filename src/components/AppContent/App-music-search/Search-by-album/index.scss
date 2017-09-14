@@ -1,0 +1,31 @@
+.app-content-music-searchByAlbum-table{
+
+  img{
+    width: 75px;
+    height: 75px;
+    vertical-align: middle;
+  }
+
+  .ant-pagination{
+    float: none;
+  }
+
+}
+
+
+.app-content-music-searchByAlbum-table-row{
+  cursor:pointer;
+  &:nth-of-type(odd){
+    background-color: rgba(255,255,255,0.1);
+  }
+  &:nth-of-type(even){
+    background-color: rgba(245,245,245,0.2);
+  }
+  &-albumName{
+    margin-left:20px;
+  }
+}
+
+.app-content-music-searchByAlbum-table-row td{
+  padding:8px !important;
+}

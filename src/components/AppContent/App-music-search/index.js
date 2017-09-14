@@ -6,27 +6,43 @@ import {Tabs,Spin} from 'antd';
 import {connect} from "react-redux";
 import "./index.scss";
 import SearchByMusicName from "./Search-by-musicName/index";
-import {SearchByArtist} from "./Search-by-artist/index"
-import {doInputSearch,doChangeMusicNamePage} from "../../../redux/action/inputSearch";
+import SearchByArtist from "./Search-by-artist/index";
+import SearchByAlbum from "./Search-by-album/index";
+import {doInputSearch,doChangeInputSearchActiveKey} from "../../../redux/action/inputSearch";
 import {doChangeCurrentMusic,doChangeCurrentMusicIsPlaying} from "../../../redux/action/currentMusic";
 const TabPane = Tabs.TabPane;
 
 
 export class AppMusicSearch extends React.Component{
-    componentWillMount(){
-
+    constructor(props){
+        super(props);
+        this.handleChange=this.handleChange.bind(this);
     }
+
+    handleChange(activeKey){
+        this.props.onChangeInputSearchActiveKey(activeKey);
+    }
+
     render(){
-        const {loadState,music,keyword,musicNamePage,currentMusicId,currentMusicIsPlaying,onInputSearch,onChangeCurrentMusic,onChangeMusicNamePage,onChangeCurrentMusicIsPlaying}=this.props;
+        const {loadState,musicSearched,artistSearched,albumSearched,albumPage,
+            keyword,activeKey,musicNamePage,artistPage,currentMusicId,currentMusicIsPlaying,
+            onInputSearch,
+            onChangeCurrentMusic,
+            onChangeCurrentMusicIsPlaying,
+            }=this.props;
         return (
             <Spin spinning={loadState}>
                 <div className="app-content-music">
-                    <Tabs class="app-content-music-search" type="card">
+                    <Tabs class="app-content-music-search" type="card" activeKey={activeKey} onChange={this.handleChange}>
                         <TabPane tab="单曲" key="1">
-                            <SearchByMusicName music={music} onInputSearch={onInputSearch} keyword={keyword} onChangeCurrentMusic={onChangeCurrentMusic} onGetAppContent={this.props.onGetAppContent} onChangeMusicNamePage={onChangeMusicNamePage} musicNamePage={musicNamePage} currentMusicId={currentMusicId} onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying} currentMusicIsPlaying={currentMusicIsPlaying}/>
+                            <SearchByMusicName musicSearched={musicSearched} onInputSearch={onInputSearch} keyword={keyword} onChangeCurrentMusic={onChangeCurrentMusic} onGetAppContent={this.props.onGetAppContent} musicNamePage={musicNamePage} currentMusicId={currentMusicId} onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying} currentMusicIsPlaying={currentMusicIsPlaying} activeKey={activeKey}/>
                         </TabPane>
-                        <TabPane tab="歌手" key="2"><SearchByArtist /></TabPane>
-                        <TabPane tab="专辑" key="3">Content of Tab Pane 3</TabPane>
+                        <TabPane tab="歌手" key="2">
+                            <SearchByArtist onGetAppContent={this.props.onGetAppContent} artistPage={artistPage} keyword={keyword} onInputSearch={onInputSearch} artistSearched={artistSearched} activeKey={activeKey}/>
+                        </TabPane>
+                        <TabPane tab="专辑" key="3">
+                            <SearchByAlbum  onGetAppContent={this.props.onGetAppContent} albumPage={albumPage} keyword={keyword} onInputSearch={onInputSearch} albumSearched={albumSearched} activeKey={activeKey}/>
+                        </TabPane>
                     </Tabs>
                 </div>
             </Spin>
@@ -37,9 +53,14 @@ export class AppMusicSearch extends React.Component{
 const mapStateToProps=(state)=>{
     return {
         loadState:state.inputSearch.loadState,
-        music:state.inputSearch.music,
+        musicSearched:state.inputSearch.musicSearched,
+        artistSearched:state.inputSearch.artistSearched,
+        albumSearched:state.inputSearch.albumSearched,
         keyword:state.inputSearch.keyword,
+        activeKey:state.inputSearch.activeKey,
         musicNamePage:state.inputSearch.musicNamePage,
+        artistPage:state.inputSearch.artistPage,
+        albumPage:state.inputSearch.albumPage,
         currentMusicId:state.currentMusic.id,
         currentMusicIsPlaying:state.currentMusic.isPlaying
     }
@@ -47,9 +68,9 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return {
-        onInputSearch:(keyword,type,limit,offset,musicNamePage)=>dispatch(doInputSearch(keyword,type,limit,offset,musicNamePage)),
+        onInputSearch:(keyword,inputType,limit,offset,page)=>dispatch(doInputSearch(keyword,inputType,limit,offset,page)),
+        onChangeInputSearchActiveKey:(activeKey)=>dispatch(doChangeInputSearchActiveKey(activeKey)),
         onChangeCurrentMusic:(id,duration)=>dispatch(doChangeCurrentMusic(id,duration)),
-        onChangeMusicNamePage:(page)=>dispatch(doChangeMusicNamePage(page)),
         onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())
     }
 };

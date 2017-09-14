@@ -21,8 +21,8 @@ export const INPUT_SEARCH_RECEIVE_POST="INPUT_SEARCH_RECEIVE_POST";
 //修改搜索关键词
 export const CHANGE_KEYWORD_SEARCHED="CHANGE_KEYWORD_SEARCHED";
 
-//修改第一页页码数，也就是跳转
-export const CHANGE_SEARCH_MUSIC_NAME_PAGE="CHANGE_SEARCH_MUSIC_NAME_PAGE";
+//修改标签页面
+export const CHANGE_INPUT_SEARCH_ACTIVEKEY="CHANGE_INPUT_SEARCH_ACTIVEKEY";
 
 
 
@@ -32,11 +32,12 @@ export const doInputSearchRequestPost=()=>{
     }
 };
 
-export const doInputSearchReceivePost=(music,musicNamePage)=>{
+export const doInputSearchReceivePost=(data,inputType,page)=>{
     return {
         type:INPUT_SEARCH_RECEIVE_POST,
-        music,
-        musicNamePage
+        data,
+        page,
+        inputType
     }
 };
 
@@ -47,26 +48,28 @@ export const doChangeKeywordSearched=(keyword)=>{
     }
 };
 
-export const doChangeMusicNamePage=(page)=>{
-    return {
-        type:CHANGE_SEARCH_MUSIC_NAME_PAGE,
-        page
-    }
-};
 
-export const doInputSearch=(keyword,type,limit,offset,musicNamePage)=>(dispatch)=>{
+
+export const doInputSearch=(keyword,inputType,limit,offset,page)=>(dispatch)=>{
     dispatch(doInputSearchRequestPost());
     return fetch("/search",{
         method:"POST",
         headers:{
             "Content-Type":"application/x-www-form-urlencoded"
         },
-        body:"keywords="+keyword+"&type="+type+"&limit="+limit+"&offset="+offset
+        body:"keywords="+keyword+"&type="+inputType+"&limit="+limit+"&offset="+offset
     }).then(res=>{
         return res.json();
-    }).then(music=>{
-        dispatch(doInputSearchReceivePost(music,musicNamePage));
+    }).then(data=>{
+        dispatch(doInputSearchReceivePost(data,inputType,page));
     })
+};
+
+export const doChangeInputSearchActiveKey=(activeKey)=>{
+    return {
+        type:CHANGE_INPUT_SEARCH_ACTIVEKEY,
+        activeKey
+    }
 };
 
 

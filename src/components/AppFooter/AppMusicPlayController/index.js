@@ -4,7 +4,7 @@
  */
 import "./index.scss";
 import React from "react";
-import {Button,Icon} from "antd";
+import {Button,Icon,message} from "antd";
 export class AppMusicPlayController extends React.Component{
     constructor(props){
         super(props);
@@ -12,7 +12,12 @@ export class AppMusicPlayController extends React.Component{
     }
 
     handlePlayButtonClick(){
-        this.props.onChangeCurrentMusicIsPlaying();
+        if(this.props.url){
+            this.props.onChangeCurrentMusicIsPlaying();
+        }
+        else{
+            message.info('请先选择音乐播放');
+        }
     }
 
     render(){

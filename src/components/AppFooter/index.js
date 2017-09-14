@@ -20,7 +20,7 @@ import {
 export class AppFooter extends React.Component{
     render(){
         const {
-            isPlaying,currentTime,duration,timeSliderState,volume,lastVolume,volumeIsChanging,
+            url,isPlaying,currentTime,duration,timeSliderState,volume,lastVolume,volumeIsChanging,
             onChangeCurrentMusicIsPlaying,
             onFinishTimeSlider,
             onUsingTimeSlider,
@@ -30,7 +30,7 @@ export class AppFooter extends React.Component{
             }=this.props;
         return (
             <div className="app-footer">
-                <AppMusicPlayController isPlaying={isPlaying} onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying}/>
+                <AppMusicPlayController isPlaying={isPlaying} onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying} url={url}/>
                 <AppMusicScheduleController currentTime={currentTime} duration={duration} onFinishTimeSlider={onFinishTimeSlider} onUsingTimeSlider={onUsingTimeSlider}/>
                 <AppMusicVolumeController volume={volume} lastVolume={lastVolume} volumeIsChanging={volumeIsChanging} onChangeCurrentMusicVolume={onChangeCurrentMusicVolume} onChangeCurrentMusicVolumeIsChanging={onChangeCurrentMusicVolumeIsChanging} onRecordCurrentMusicLastVolume={onRecordCurrentMusicLastVolume}/>
             </div>
@@ -40,6 +40,7 @@ export class AppFooter extends React.Component{
 
 const mapStateToProps=(state)=>{
     return {
+        url:state.currentMusic.url,
         isPlaying:state.currentMusic.isPlaying,
         currentTime:state.currentMusic.currentTime,
         duration:state.currentMusic.duration,

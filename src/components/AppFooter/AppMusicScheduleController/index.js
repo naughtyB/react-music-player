@@ -32,7 +32,7 @@ export class AppMusicScheduleController extends React.Component{
     render(){
         return (
             <div className="app-music-schedule-controller">
-                <span ref="gg">{transformSecondsToMinutes(this.props.currentTime)}</span>
+                <span>{transformSecondsToMinutes(this.props.currentTime)}</span>
                 <Slider min={0} max={this.props.duration}  className="app-music-schedule-controller-slider" value={this.props.currentTime} onChange={this.onHandleChange} onAfterChange={this.onHandleAfterChange} tipFormatter={(currentTime)=>{return transformSecondsToMinutes(currentTime)}}/>
                 <span>{transformSecondsToMinutes(this.props.duration)}</span>
             </div>

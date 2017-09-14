@@ -10,11 +10,30 @@
   .ant-pagination{
     float: none;
   }
+
+  .anticon-heart{
+    margin-top:6px;
+    margin-bottom:5px;
+    color:#e3e3e3;
+    font-size:15px;
+    cursor:pointer;
+    transition:transform 200ms,color 200ms;
+    &:hover{
+      color:rgb(255, 134, 134);
+      transform:scale(1.2);
+    }
+  }
 }
 
-.app-content-music-searchByMusicName-table-row:nth-of-type(even){
-  background-color: #f5f5f5;
+.app-content-music-searchByMusicName-table-row{
+  &:nth-of-type(odd){
+    background-color: rgba(255,255,255,0.1);
+  }
+  &:nth-of-type(even){
+    background-color: rgba(245,245,245,0.2);
+  }
 }
+
 
 
 .app-content-music-searchByMusicName-table-column{
@@ -37,4 +56,9 @@
   &-time{
     width: 80px;
   }
+}
+
+.app-content-music-searchByMusicName-table-row-isPlaying{
+  color:#4d00ff;
+  font-size:15px;
 }

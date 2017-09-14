@@ -17,8 +17,8 @@ import {
 } from "../action/currentMusic";
 
 const initialCurrentMusic={
-    id:37196629,//音乐id
-    url:"http://m10.music.126.net/20170912191757/d5e41eb81888066bdc48ac6243d7fd25/ymusic/d70e/1d35/a7c7/019385ed76213cd161f3bec40dfe6fae.mp3",
+    id:"",//id:37196629,//音乐id
+    url:"",
     isFetching:false,//留着转圈，主要用于循环
     playlist:"",//歌单 以后扩展，主要用于循环
     isPlaying:false,//歌曲是否正在播放

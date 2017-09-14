@@ -5,41 +5,49 @@
 
 import React from "react";
 import {connect} from "react-redux";
-import {doChangeCurrentMusicCurrentTime,doReadyingTimeSlider} from "../../redux/action/currentMusic"
+import {doChangeCurrentMusicCurrentTime,doReadyingTimeSlider,doChangeCurrentMusicIsPlaying} from "../../redux/action/currentMusic"
 
-function fn(){
-    if(this.props.timeSliderState=="readying"){
-        let currentTime = Math.floor(this.refs["audio"].currentTime);
-        if (this.props.currentTime!= currentTime) {
-            //就比较currentTime是否变化(变化起步为1，不足1不算)，从而归纳到状态中
-            this.props.onChangeCurrentMusicCurrentTime(currentTime)
-        }
-        else{
-            setTimeout(fn.bind(this),1000)
-        }
-    }
-}
 
 export class Audio extends React.Component{
-    componentWillMount(){
-
-    }
-    componentDidUpdate(preProps){
-        if(this.props.timeSliderState=="readying"){
-            if(this.props.isPlaying){
-                this.refs["audio"].play();
-                this::fn();
+    componentDidMount(){
+        let timer=setInterval(()=>{
+            let currentTime = Math.floor(this.refs["audio"].currentTime);
+            if(this.props.currentTime!=currentTime&&this.props.timeSliderState=="readying"){
+                this.props.onChangeCurrentMusicCurrentTime(currentTime)
             }
-            else{
+            if(this.props.currentTime==this.props.duration){
+                this.refs["audio"].currentTime=0;
+                this.props.onChangeCurrentMusicCurrentTime(0);
+                this.props.onChangeCurrentMusicIsPlaying();
+            }
+        },500)
+    }
+
+    componentDidUpdate(preProps){
+        if(this.props.currentTime==this.props.duration){
+            this.refs["audio"].currentTime=0;
+            //不加这个，this.props.currentTime永远不会变，因为他只会经过这个条件代码
+            this.props.onChangeCurrentMusicCurrentTime(0);
+            this.props.onChangeCurrentMusicIsPlaying();
+        }
+        else{
+            let currentTime=Math.floor(this.refs["audio"].currentTime);
+            if(this.props.isPlaying && currentTime!=this.props.duration){
+                this.refs["audio"].play();
+            }
+            else if(!this.props.isPlaying){
                 this.refs["audio"].pause();
             }
-        }
-        else if(this.props.timeSliderState=="finish"){
-            this.refs["audio"].currentTime=this.props.currentTime;
-            this.props.onReadyingTimeSlider();
-        }
-        if(this.props.volume!=preProps.volume){
-            this.refs["audio"].volume=this.props.volume/100
+            if(this.props.volume!=preProps.volume){
+                this.refs["audio"].volume=this.props.volume/100
+            }
+            if(this.props.currentTime!=currentTime&&this.props.timeSliderState=="readying"){
+                this.props.onChangeCurrentMusicCurrentTime(currentTime)
+            }
+            if(this.props.timeSliderState=="finish"){
+                this.refs["audio"].currentTime=this.props.currentTime;
+                this.props.onReadyingTimeSlider();
+            }
         }
     }
 
@@ -57,14 +65,16 @@ const mapStateToProps=(state)=>{
         isPlaying:state.currentMusic.isPlaying,
         currentTime:state.currentMusic.currentTime,
         timeSliderState:state.currentMusic.timeSliderState,
-        volume:state.currentMusic.volume
+        volume:state.currentMusic.volume,
+        duration:state.currentMusic.duration
     }
 };
 
 const mapDispatchToProps=(dispatch)=>{
     return {
         onChangeCurrentMusicCurrentTime:(timeSliderState,currentTime)=>dispatch(doChangeCurrentMusicCurrentTime(timeSliderState,currentTime)),
-        onReadyingTimeSlider:()=>dispatch(doReadyingTimeSlider())
+        onReadyingTimeSlider:()=>dispatch(doReadyingTimeSlider()),
+        onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())
     }
 };
 
