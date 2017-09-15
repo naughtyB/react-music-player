@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/9/6.
  */
 import React from "react";
-import {Table,Icon,message} from "antd";
+import {Table,Icon,message,Spin} from "antd";
 import "./index.scss"
 
 
@@ -61,7 +61,7 @@ export class SearchByMusicName extends React.Component{
 
     componentWillUpdate(nextProps){
         //这个是本来就存在这个组件了，你这个时候进行搜索，就需要进行更新，更新的判断条件是关键词是否有变
-        if((this.props.activeKey!=nextProps.activeKey && nextProps.activeKey=="1") || (this.props.activeKey==nextProps.activeKey && this.props.activeKey=="1" && this.props.keyword!=nextProps.keyword)){
+        if((this.props.activeKey!=nextProps.activeKey && nextProps.activeKey=="music") || (this.props.activeKey==nextProps.activeKey && this.props.activeKey=="music" && this.props.keyword!=nextProps.keyword)){
             this.props.onInputSearch(nextProps.keyword,1,30,0,1);
             this.onPageToTop();
         }
@@ -89,7 +89,7 @@ export class SearchByMusicName extends React.Component{
     }
 
     render(){
-        const {musicSearched}=this.props;
+        const {musicSearched,musicLoadState}=this.props;
         const data = [];
         const current=this.props.musicNamePage-1;
         if(musicSearched.result && musicSearched.result.songCount>0){
@@ -107,13 +107,19 @@ export class SearchByMusicName extends React.Component{
                 });
             }
             return (
-                <div>
-                    <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.musicNamePage,total:musicSearched.result.songCount}} rowClassName={()=>"app-content-music-searchByMusicName-table-row"} size="small" className="app-content-music-searchByMusicName-table" onRowDoubleClick={this.handleRowDoubleClick} onChange={this.handleTableChange}/>
-                </div>
+                <Spin spinning={musicLoadState}>
+                    <div>
+                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.musicNamePage,total:musicSearched.result.songCount}} rowClassName={()=>"app-content-music-searchByMusicName-table-row"} size="small" className="app-content-music-searchByMusicName-table" onRowDoubleClick={this.handleRowDoubleClick} onChange={this.handleTableChange}/>
+                    </div>
+                </Spin>
             )
         }
         else{
-            return <div></div>
+            return (
+                <Spin spinning={musicLoadState}>
+                    <div style={{height:"500px"}}>gg</div>
+                </Spin>
+            )
         }
     }
 }

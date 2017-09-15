@@ -3,7 +3,7 @@
  * Created by Administrator on 2017/9/6.
  */
 import React from "react";
-import {Table} from "antd";
+import {Table,Spin} from "antd";
 import "./index.scss"
 const columns = [{
     title: 'Artist',
@@ -28,7 +28,7 @@ export class SearchByArtist extends React.Component{
 
     componentWillUpdate(nextProps){
         //这个是本来就存在这个组件了，你这个时候进行搜索，就需要进行更新，更新的判断条件是关键词是否有变
-        if((this.props.activeKey!=nextProps.activeKey && nextProps.activeKey=="2") || (this.props.activeKey==nextProps.activeKey && nextProps.activeKey=="2" && this.props.keyword!=nextProps.keyword)){
+        if((this.props.activeKey!=nextProps.activeKey && nextProps.activeKey=="artist") || (this.props.activeKey==nextProps.activeKey && nextProps.activeKey=="artist" && this.props.keyword!=nextProps.keyword)){
             this.props.onInputSearch(nextProps.keyword,100,30,0,1);
             this.onPageToTop();
         }
@@ -41,7 +41,7 @@ export class SearchByArtist extends React.Component{
     }
 
     render(){
-        const {artistSearched}=this.props;
+        const {artistSearched,artistLoadState}=this.props;
         const data = [];
         const current=this.props.artistPage-1;
         if(artistSearched.result && artistSearched.result.artistCount>0){
@@ -52,13 +52,19 @@ export class SearchByArtist extends React.Component{
                 });
             }
             return (
-                <div>
-                    <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.artistPage,total:artistSearched.result.artistCount}} rowClassName={()=>"app-content-music-searchByArtist-table-row"} showHeader={false} className="app-content-music-searchByArtist-table" onChange={this.handleTableChange}/>
-                </div>
+                <Spin spinning={artistLoadState}>
+                    <div>
+                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.artistPage,total:artistSearched.result.artistCount}} rowClassName={()=>"app-content-music-searchByArtist-table-row"} showHeader={false} className="app-content-music-searchByArtist-table" onChange={this.handleTableChange}/>
+                    </div>
+                </Spin>
             )
         }
         else{
-            return <div></div>
+            return (
+                <Spin spinning={artistLoadState}>
+                    <div style={{height:"500px"}}>asd</div>
+                </Spin>
+            )
         }
     }
 }

@@ -1,0 +1,32 @@
+.app-content-music-artist-detailDesc-list-album-item{
+  display: flex;
+  width: 100%;
+}
+.app-content-music-artist-detailDesc-list-album-item-img{
+  flex-shrink:0;
+  margin-right: 50px;
+}
+.app-content-music-artist-detailDesc-list-album-item-img-content{
+  width: 120px;
+}
+.app-content-music-artist-detailDesc-list-album-item-main{
+  flex-grow: 1;
+}
+.app-content-music-artist-detailDesc-list-album-item-main-title{
+  margin-bottom: 10px;
+  font-size:12px;
+}
+.app-content-music-artist-detailDesc-list-album-item-main-table{
+  table{
+    padding:0 !important;
+  }
+}
+
+.app-content-music-artist-detailDesc-list-album-item-main-table-row{
+  &:nth-of-type(odd){
+    background-color: rgba(255,255,255,0.1);
+  }
+  &:nth-of-type(even){
+    background-color: rgba(245,245,245,0.2);
+  }
+}

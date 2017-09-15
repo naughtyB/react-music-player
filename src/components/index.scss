@@ -37,6 +37,7 @@ html,body,#root{
 }
 
 .app-layout-side{
+  border-right: 1px solid rgba(204, 204, 204, 0.33);
   background-color: white;
   overflow:auto;
 }
@@ -96,7 +97,7 @@ html,body,#root{
 }
 
 .app-layout-content{
-  background-color: #fdfdff;
+  background-color: white;
 }
 
 

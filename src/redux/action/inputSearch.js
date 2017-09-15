@@ -26,9 +26,10 @@ export const CHANGE_INPUT_SEARCH_ACTIVEKEY="CHANGE_INPUT_SEARCH_ACTIVEKEY";
 
 
 
-export const doInputSearchRequestPost=()=>{
+export const doInputSearchRequestPost=(inputType)=>{
     return {
-        type:INPUT_SEARCH_REQUEST_POST
+        type:INPUT_SEARCH_REQUEST_POST,
+        inputType
     }
 };
 
@@ -51,7 +52,7 @@ export const doChangeKeywordSearched=(keyword)=>{
 
 
 export const doInputSearch=(keyword,inputType,limit,offset,page)=>(dispatch)=>{
-    dispatch(doInputSearchRequestPost());
+    dispatch(doInputSearchRequestPost(inputType));
     return fetch("/search",{
         method:"POST",
         headers:{

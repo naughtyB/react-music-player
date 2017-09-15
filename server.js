@@ -18,7 +18,7 @@ app.use(express.static(__dirname));
 app.use('/comment/music',urlencodeParser,require('./express/router/comment_music'));
 app.use('/music/url', urlencodeParser,require('./express/router/musicUrl'));
 app.use('/search',urlencodeParser, require('./express/router/search'));
-app.use("/tenyearvamp_gottome.mp3",(req,res)=>{res.sendFile(path.join(__dirname,"./tenyearvamp_gottome.mp3"))});
+
 /*app.get("/login",(req,res)=>{
     res.sendfile(path.join(__dirname,"./index.html"))
 });*/
