@@ -7,7 +7,7 @@ import {combineReducers} from "redux";
 import inputSearch from "./inputSearch"
 import currentMusic from "./currentMusic"
 
-export const reducer=combineReducers({
+export const reducer = combineReducers({
     inputSearch,
     currentMusic
 });

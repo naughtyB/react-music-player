@@ -70,7 +70,7 @@ const mapDispatchToProps=(dispatch)=>{
     return {
         onInputSearch:(keyword,inputType,limit,offset,page)=>dispatch(doInputSearch(keyword,inputType,limit,offset,page)),
         onChangeInputSearchActiveKey:(activeKey)=>dispatch(doChangeInputSearchActiveKey(activeKey)),
-        onChangeCurrentMusic:(id,duration)=>dispatch(doChangeCurrentMusic(id,duration)),
+        onChangeCurrentMusic:(id,duration,message)=>dispatch(doChangeCurrentMusic(id,duration,message)),
         onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())
     }
 };

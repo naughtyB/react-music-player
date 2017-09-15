@@ -9,13 +9,25 @@ import {doChangeCurrentMusicCurrentTime,doReadyingTimeSlider,doChangeCurrentMusi
 
 
 export class Audio extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleCanPlay=this.handleCanPlay.bind(this);
+    }
+
+    handleCanPlay(){
+        console.log(1);
+        if(this.props.isPlaying){
+            this.refs["audio"].play();
+        }
+    }
+
     componentDidMount(){
         let timer=setInterval(()=>{
             let currentTime = Math.floor(this.refs["audio"].currentTime);
             if(this.props.currentTime!=currentTime&&this.props.timeSliderState=="readying"){
                 this.props.onChangeCurrentMusicCurrentTime(currentTime)
             }
-            if(this.props.currentTime==this.props.duration){
+            if(this.refs["audio"].ended){
                 this.refs["audio"].currentTime=0;
                 this.props.onChangeCurrentMusicCurrentTime(0);
                 this.props.onChangeCurrentMusicIsPlaying();
@@ -24,7 +36,7 @@ export class Audio extends React.Component{
     }
 
     componentDidUpdate(preProps){
-        if(this.props.currentTime==this.props.duration){
+        if(this.refs["audio"].ended){
             this.refs["audio"].currentTime=0;
             //不加这个，this.props.currentTime永远不会变，因为他只会经过这个条件代码
             this.props.onChangeCurrentMusicCurrentTime(0);
@@ -32,7 +44,7 @@ export class Audio extends React.Component{
         }
         else{
             let currentTime=Math.floor(this.refs["audio"].currentTime);
-            if(this.props.isPlaying && currentTime!=this.props.duration){
+            if(this.props.isPlaying){
                 this.refs["audio"].play();
             }
             else if(!this.props.isPlaying){
@@ -53,7 +65,7 @@ export class Audio extends React.Component{
 
     render(){
         return (
-            <audio src={this.props.url} ref="audio"></audio>
+            <audio src={this.props.url} onCanPlay={this.handleCanPlay} ref="audio">1</audio>
         )
     }
 }

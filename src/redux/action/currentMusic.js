@@ -67,7 +67,7 @@ export const doChangeCurrentMusicIsPlaying=()=>{
 };
 
 
-export const doChangeCurrentMusic=(id,duration)=>(dispatch)=>{
+export const doChangeCurrentMusic=(id,duration,message)=>(dispatch)=>{
     dispatch(doChangeCurrentMusicRequestPost());
     return fetch("/music/url",{
         method:"POST",
@@ -84,6 +84,7 @@ export const doChangeCurrentMusic=(id,duration)=>(dispatch)=>{
         //没版权
         else{
             dispatch(doChangeCurrentMusicReceivePostERROR());
+            message.info("没版权啊哥哥");
         }
     })
 };

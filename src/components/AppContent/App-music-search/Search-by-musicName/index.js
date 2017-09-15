@@ -75,7 +75,7 @@ export class SearchByMusicName extends React.Component{
 
     handleRowDoubleClick(music){
         if(music.id!=this.props.currentMusicId){
-            this.props.onChangeCurrentMusic(music.id,Math.floor(music.duration/1000))
+            this.props.onChangeCurrentMusic(music.id,Math.floor(music.duration/1000),message)
         }
         else{
             if(!this.props.currentMusicIsPlaying){

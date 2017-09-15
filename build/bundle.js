@@ -15947,7 +15947,7 @@ var doChangeCurrentMusicIsPlaying = exports.doChangeCurrentMusicIsPlaying = func
     };
 };
 
-var doChangeCurrentMusic = exports.doChangeCurrentMusic = function doChangeCurrentMusic(id, duration) {
+var doChangeCurrentMusic = exports.doChangeCurrentMusic = function doChangeCurrentMusic(id, duration, message) {
     return function (dispatch) {
         dispatch(doChangeCurrentMusicRequestPost());
         return fetch("/music/url", {
@@ -15965,6 +15965,7 @@ var doChangeCurrentMusic = exports.doChangeCurrentMusic = function doChangeCurre
             //没版权
             else {
                     dispatch(doChangeCurrentMusicReceivePostERROR());
+                    message.info("没版权啊哥哥");
                 }
         });
     };
@@ -46274,8 +46275,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         onChangeInputSearchActiveKey: function onChangeInputSearchActiveKey(activeKey) {
             return dispatch((0, _inputSearch.doChangeInputSearchActiveKey)(activeKey));
         },
-        onChangeCurrentMusic: function onChangeCurrentMusic(id, duration) {
-            return dispatch((0, _currentMusic.doChangeCurrentMusic)(id, duration));
+        onChangeCurrentMusic: function onChangeCurrentMusic(id, duration, message) {
+            return dispatch((0, _currentMusic.doChangeCurrentMusic)(id, duration, message));
         },
         onChangeCurrentMusicIsPlaying: function onChangeCurrentMusicIsPlaying() {
             return dispatch((0, _currentMusic.doChangeCurrentMusicIsPlaying)());
@@ -48381,7 +48382,7 @@ var SearchByMusicName = exports.SearchByMusicName = function (_React$Component) 
         key: "handleRowDoubleClick",
         value: function handleRowDoubleClick(music) {
             if (music.id != this.props.currentMusicId) {
-                this.props.onChangeCurrentMusic(music.id, Math.floor(music.duration / 1000));
+                this.props.onChangeCurrentMusic(music.id, Math.floor(music.duration / 1000), _message2.default);
             } else {
                 if (!this.props.currentMusicIsPlaying) {
                     this.props.onChangeCurrentMusicIsPlaying();
@@ -61953,12 +61954,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Audio = exports.Audio = function (_React$Component) {
     (0, _inherits3.default)(Audio, _React$Component);
 
-    function Audio() {
+    function Audio(props) {
         (0, _classCallCheck3.default)(this, Audio);
-        return (0, _possibleConstructorReturn3.default)(this, (Audio.__proto__ || (0, _getPrototypeOf2.default)(Audio)).apply(this, arguments));
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Audio.__proto__ || (0, _getPrototypeOf2.default)(Audio)).call(this, props));
+
+        _this.handleCanPlay = _this.handleCanPlay.bind(_this);
+        return _this;
     }
 
     (0, _createClass3.default)(Audio, [{
+        key: "handleCanPlay",
+        value: function handleCanPlay() {
+            console.log(1);
+            if (this.props.isPlaying) {
+                this.refs["audio"].play();
+            }
+        }
+    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
             var _this2 = this;
@@ -61968,7 +61981,7 @@ var Audio = exports.Audio = function (_React$Component) {
                 if (_this2.props.currentTime != currentTime && _this2.props.timeSliderState == "readying") {
                     _this2.props.onChangeCurrentMusicCurrentTime(currentTime);
                 }
-                if (_this2.props.currentTime == _this2.props.duration) {
+                if (_this2.refs["audio"].ended) {
                     _this2.refs["audio"].currentTime = 0;
                     _this2.props.onChangeCurrentMusicCurrentTime(0);
                     _this2.props.onChangeCurrentMusicIsPlaying();
@@ -61978,14 +61991,14 @@ var Audio = exports.Audio = function (_React$Component) {
     }, {
         key: "componentDidUpdate",
         value: function componentDidUpdate(preProps) {
-            if (this.props.currentTime == this.props.duration) {
+            if (this.refs["audio"].ended) {
                 this.refs["audio"].currentTime = 0;
                 //不加这个，this.props.currentTime永远不会变，因为他只会经过这个条件代码
                 this.props.onChangeCurrentMusicCurrentTime(0);
                 this.props.onChangeCurrentMusicIsPlaying();
             } else {
                 var currentTime = Math.floor(this.refs["audio"].currentTime);
-                if (this.props.isPlaying && currentTime != this.props.duration) {
+                if (this.props.isPlaying) {
                     this.refs["audio"].play();
                 } else if (!this.props.isPlaying) {
                     this.refs["audio"].pause();
@@ -62005,7 +62018,11 @@ var Audio = exports.Audio = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            return _react2.default.createElement("audio", { src: this.props.url, ref: "audio" });
+            return _react2.default.createElement(
+                "audio",
+                { src: this.props.url, onCanPlay: this.handleCanPlay, ref: "audio" },
+                "1"
+            );
         }
     }]);
     return Audio;
