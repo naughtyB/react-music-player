@@ -10,6 +10,7 @@ import SearchByArtist from "./Search-by-artist/index";
 import SearchByAlbum from "./Search-by-album/index";
 import {doInputSearch,doChangeInputSearchActiveKey} from "../../../redux/action/inputSearch";
 import {doChangeCurrentMusic,doChangeCurrentMusicIsPlaying} from "../../../redux/action/currentMusic";
+import {transformHash} from "../../../common/js/index"
 const TabPane = Tabs.TabPane;
 
 
@@ -20,16 +21,28 @@ export class AppMusicSearch extends React.Component{
     }
 
     handleChange(activeKey){
-        this.props.onChangeInputSearchActiveKey(activeKey);
+        let newHashObj={...transformHash(this.props.location.hash),activeKey};
+        this.props.history.push({
+            pathname:"/music-search",
+            hash:Object.keys(newHashObj).reduce((prev,current,index,arr)=>{
+                if(index<arr.length-1){
+                    return prev+current+"="+encodeURIComponent(newHashObj[current])+"&";
+                }
+                else{
+                    return prev+current+"="+encodeURIComponent(newHashObj[current]);
+                }
+            },"")
+        })
     }
 
     render(){
-        const {history,musicLoadState,artistLoadState,albumLoadState,musicSearched,artistSearched,albumSearched,albumPage,
-            keyword,activeKey,musicNamePage,artistPage,currentMusicId,currentMusicIsPlaying,
+        const {history,location,musicLoadState,artistLoadState,albumLoadState,musicSearched,artistSearched,albumSearched,albumPage,
+            musicNamePage,artistPage,currentMusicId,currentMusicIsPlaying,
             onInputSearch,
             onChangeCurrentMusic,
             onChangeCurrentMusicIsPlaying,
             }=this.props;
+        const {keyword,activeKey}=transformHash(location.hash);
         return (
             <div className="app-content-music-search">
                 <Tabs class="app-content-music-search-list" type="card" activeKey={activeKey} onChange={this.handleChange}>
@@ -56,8 +69,6 @@ const mapStateToProps=(state)=>{
         musicSearched:state.inputSearch.musicSearched,
         artistSearched:state.inputSearch.artistSearched,
         albumSearched:state.inputSearch.albumSearched,
-        keyword:state.inputSearch.keyword,
-        activeKey:state.inputSearch.activeKey,
         musicNamePage:state.inputSearch.musicNamePage,
         artistPage:state.inputSearch.artistPage,
         albumPage:state.inputSearch.albumPage,
@@ -69,7 +80,6 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps=(dispatch)=>{
     return {
         onInputSearch:(keyword,inputType,limit,offset,page)=>dispatch(doInputSearch(keyword,inputType,limit,offset,page)),
-        onChangeInputSearchActiveKey:(activeKey)=>dispatch(doChangeInputSearchActiveKey(activeKey)),
         onChangeCurrentMusic:(id,duration,message)=>dispatch(doChangeCurrentMusic(id,duration,message)),
         onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())
     }

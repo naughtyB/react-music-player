@@ -6,10 +6,12 @@
 import {combineReducers} from "redux";
 import inputSearch from "./inputSearch"
 import currentMusic from "./currentMusic"
+import artist from "./artist";
 
 export const reducer = combineReducers({
     inputSearch,
-    currentMusic
+    currentMusic,
+    artist
 });
 
 export default reducer;

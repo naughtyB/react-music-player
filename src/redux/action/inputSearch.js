@@ -18,11 +18,7 @@ export const INPUT_SEARCH_REQUEST_POST="INPUT_SEARCH_REQUEST_POST";
 //搜索收到网络请求
 export const INPUT_SEARCH_RECEIVE_POST="INPUT_SEARCH_RECEIVE_POST";
 
-//修改搜索关键词
-export const CHANGE_KEYWORD_SEARCHED="CHANGE_KEYWORD_SEARCHED";
 
-//修改标签页面
-export const CHANGE_INPUT_SEARCH_ACTIVEKEY="CHANGE_INPUT_SEARCH_ACTIVEKEY";
 
 
 
@@ -42,12 +38,6 @@ export const doInputSearchReceivePost=(data,inputType,page)=>{
     }
 };
 
-export const doChangeKeywordSearched=(keyword)=>{
-    return {
-        type:CHANGE_KEYWORD_SEARCHED,
-        keyword
-    }
-};
 
 
 
@@ -66,11 +56,6 @@ export const doInputSearch=(keyword,inputType,limit,offset,page)=>(dispatch)=>{
     })
 };
 
-export const doChangeInputSearchActiveKey=(activeKey)=>{
-    return {
-        type:CHANGE_INPUT_SEARCH_ACTIVEKEY,
-        activeKey
-    }
-};
+
 
 

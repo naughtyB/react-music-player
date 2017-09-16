@@ -1,6 +1,7 @@
 .app-content-music-artist-detailDesc-list-album-item{
   display: flex;
   width: 100%;
+  margin-bottom: 70px;
 }
 .app-content-music-artist-detailDesc-list-album-item-img{
   flex-shrink:0;
@@ -48,3 +49,7 @@
   width: 13px;
 }
 
+.app-content-music-artist-detailDesc-list-album-item-main-table-row-isPlaying{
+  color:#4d00ff;
+  font-size:15px;
+}

@@ -42,7 +42,11 @@ export class SearchByArtist extends React.Component{
     }
 
     handleRowClick(artist){
-        this.props.history.push("/music-artist");
+        this.props.history.push({
+            pathname:"/music-artist",
+            hash:"artistId="+artist["artistId"]
+        });
+        this.onPageToTop();
     }
 
     render(){

@@ -53,10 +53,6 @@ export const inputSearch=(state=initialInputSearch,action)=>{
             return {...state,...typeTransformWhenRequest(action.inputType)};
         case INPUT_SEARCH_RECEIVE_POST:
             return {...state,...(typeTransformWhenReceive(action.data,action.inputType,action.page))};
-        case CHANGE_KEYWORD_SEARCHED:
-            return {...state,keyword:action.keyword};
-        case CHANGE_INPUT_SEARCH_ACTIVEKEY:
-            return {...state,activeKey:action.activeKey};
         default:
             return state;
     }

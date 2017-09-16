@@ -3,6 +3,7 @@
  */
 import React from "react";
 import {Table,Icon,message,Spin} from "antd";
+import {timeTransform} from "../../../../common/js/index"
 import "./index.scss"
 
 
@@ -31,13 +32,6 @@ const columns = [{
 }];
 
 
-const timeTransform=(time)=>{
-    let mins=Math.floor(time/(1000*60));
-    let seconds=Math.floor(time%(1000*60)/1000);
-    mins=mins<10?"0"+mins:""+mins;
-    seconds=seconds<10?"0"+seconds:""+seconds;
-    return mins+":"+seconds;
-};
 
 export class SearchByMusicName extends React.Component{
     constructor(props){

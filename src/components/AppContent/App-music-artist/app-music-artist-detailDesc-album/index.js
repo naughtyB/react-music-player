@@ -12,9 +12,10 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
     }
 
     render(){
+        const {currentMusicId,artistData,onChangeCurrentMusic,currentMusicIsPlaying,onChangeCurrentMusicIsPlaying}=this.props;
         return (
             <div className="app-content-music-artist-detailDesc-list-album">
-                <AppMusicArtistDetailDescAlbumItem/>
+                <AppMusicArtistDetailDescAlbumItem artistData={artistData} onChangeCurrentMusic={onChangeCurrentMusic} currentMusicId={currentMusicId} currentMusicIsPlaying={currentMusicIsPlaying} onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying}/>
             </div>
         )
     }

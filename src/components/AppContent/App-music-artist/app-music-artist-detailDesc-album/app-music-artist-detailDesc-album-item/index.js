@@ -5,7 +5,8 @@
  */
 import "./index.scss"
 import React from "react";
-import {Table,Icon} from "antd";
+import {Table,Icon,message} from "antd";
+import {timeTransform} from "../../../../../common/js/index"
 
 const columns = [{
     title:"序号",
@@ -13,7 +14,6 @@ const columns = [{
 },{
     title:"操作",
     dataIndex:"handle"
-
 },{
     title: '单曲',
     dataIndex: 'music',
@@ -24,64 +24,52 @@ const columns = [{
     width:"20%"
 }];
 
-const data=[
-    {
-        key:"1",
-        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">01</span>,
-        handle:<Icon type="heart"/>,
-        music:"不为谁而作的歌",
-        time:"04:30"
-    },
-    {
-        key:"2",
-        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">02</span>,
-        handle:<Icon type="heart"/>,
-        music:"生生",
-        time:"03:30"
-    },
-    {
-        key:"3",
-        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">03</span>,
-        handle:<Icon type="heart"/>,
-        music:"生生",
-        time:"03:30"
-    },
-    {
-        key:"4",
-        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">04</span>,
-        handle:<Icon type="heart"/>,
-        music:"生生",
-        time:"03:30"
-    },
-    {
-        key:"5",
-        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">05</span>,
-        handle:<Icon type="heart"/>,
-        music:"生生",
-        time:"03:30"
-    },
-    {
-        key:"6",
-        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">06</span>,
-        handle:<Icon type="heart"/>,
-        music:"生生",
-        time:"03:30"
-    }
-];
 
 export class AppMusicArtistDetailDescAlbumItem extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
+        this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
     }
+
+    handleRowDoubleClick(music){
+        if(music.musicId!=this.props.currentMusicId){
+            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),message)
+        }
+        else{
+            if(!this.props.currentMusicIsPlaying){
+                this.props.onChangeCurrentMusicIsPlaying()
+            }
+            //正在播放这首歌
+            else{
+                message.info("正在播放这首歌曲")
+            }
+        }
+    }
+
     render(){
+        const {artistData}=this.props;
+        let data=[];
+        if(artistData){
+            for(let [index,song] of artistData["hotSongs"].entries()){
+                data.push({
+                    key:index,
+                    orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">{song["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-artist-detailDesc-list-album-item-main-table-row-isPlaying"/>:index+1<10?"0"+(index+1):index+1}</span>,
+                    handle:<Icon type="heart"/>,
+                    music:song["name"],
+                    time:timeTransform(song["dt"]),
+                    musicId:song["id"],
+                    duration:song["dt"]
+                })
+            }
+        }
         return (
             <div className="app-content-music-artist-detailDesc-list-album-item">
                 <div className="app-content-music-artist-detailDesc-list-album-item-img">
-                    <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src="/src/common/img/top50.png"/>
+                    <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src={artistData?"/src/common/img/top50.png":"呵呵"}/>
                 </div>
                 <div className="app-content-music-artist-detailDesc-list-album-item-main">
-                    <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">热门50首</h3>
-                    <Table columns={columns} dataSource={data} showHeader={false} size="small" pagination={false} className="app-content-music-artist-detailDesc-list-album-item-main-table" rowClassName={()=>"app-content-music-artist-detailDesc-list-album-item-main-table-row"}/>
+                    <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">{artistData?"热门50首":"呵呵"}</h3>
+                    <Table columns={columns} dataSource={data} showHeader={false} size="small" pagination={false} className="app-content-music-artist-detailDesc-list-album-item-main-table" rowClassName={()=>"app-content-music-artist-detailDesc-list-album-item-main-table-row"} onRowDoubleClick={this.handleRowDoubleClick}/>
                 </div>
             </div>
         )
