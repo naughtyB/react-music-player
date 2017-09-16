@@ -23,7 +23,7 @@ export class AppContent extends React.Component{
     render(){
         return (
             <div className="app-content" ref="app-content">
-                <Route path="/music-search" render={()=>{return <AppMusicSearch onGetAppContent={this.handleGetAppContent} />}}/>
+                <Route path="/music-search" render={({history})=>{return <AppMusicSearch onGetAppContent={this.handleGetAppContent} history={history}/>}}/>
                 <Route path="/music-artist" component={AppMusicArtist}/>
             </div>
         )

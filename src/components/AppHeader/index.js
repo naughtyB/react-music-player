@@ -1,7 +1,7 @@
 import "./index.scss";
 import React from "react";
 import {connect} from "react-redux";
-import {doInputSearch,doChangeKeywordSearched} from "../../redux/action/inputSearch";
+import {doInputSearch,doChangeKeywordSearched,doChangeInputSearchActiveKey} from "../../redux/action/inputSearch";
 import InputSearch from "./InputSearch/index";
 
 
@@ -15,7 +15,7 @@ export class AppHeader extends React.Component{
                 <div className="app-header-logo">
                     <span className="app-header-logo-message">Music Player</span>
                 </div>
-                <InputSearch onChangeKeywordSearched={this.props.onChangeKeywordSearched}/>
+                <InputSearch onChangeKeywordSearched={this.props.onChangeKeywordSearched} onChangeInputSearchActiveKey={this.props.onChangeInputSearchActiveKey}/>
             </div>
         )
     }
@@ -32,7 +32,8 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return {
-        onChangeKeywordSearched:(keyword)=>dispatch(doChangeKeywordSearched(keyword))
+        onChangeKeywordSearched:(keyword)=>dispatch(doChangeKeywordSearched(keyword)),
+        onChangeInputSearchActiveKey:(activeKey)=>dispatch(doChangeInputSearchActiveKey(activeKey))
     }
 };
 

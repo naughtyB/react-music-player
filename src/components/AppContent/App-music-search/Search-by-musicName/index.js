@@ -8,28 +8,26 @@ import "./index.scss"
 
 const columns = [{
     title:"",
-    dataIndex:"orderNumber",
-    className:"app-content-music-searchByMusicName-table-column-orderNumber"
+    dataIndex:"orderNumber"
 },{
     title:"操作",
-    dataIndex:"handle",
-    className:"app-content-music-searchByMusicName-table-column-handle"
+    dataIndex:"handle"
 },{
     title: '音乐标题',
     dataIndex: 'musicName',
-    className:"app-content-music-searchByMusicName-table-column-musicName"
+    width:"40%"
 }, {
     title: '歌手',
     dataIndex: 'singer',
-    className:"app-content-music-searchByMusicName-table-column-singer"
+    width:"20%"
 },{
     title:"专辑",
     dataIndex:"album",
-    className:"app-content-music-searchByMusicName-table-column-album"
+    width:"28%"
 },{
     title: '时长',
     dataIndex: 'time',
-    className:"app-content-music-searchByMusicName-table-column-time"
+    width:"12%"
 }];
 
 
@@ -74,8 +72,8 @@ export class SearchByMusicName extends React.Component{
     }
 
     handleRowDoubleClick(music){
-        if(music.id!=this.props.currentMusicId){
-            this.props.onChangeCurrentMusic(music.id,Math.floor(music.duration/1000),message)
+        if(music.musicId!=this.props.currentMusicId){
+            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),message)
         }
         else{
             if(!this.props.currentMusicIsPlaying){
@@ -96,13 +94,13 @@ export class SearchByMusicName extends React.Component{
             for (let [index,musicData] of musicSearched.result.songs.entries()) {
                 data.push({
                     key: 30*current+index+1,
-                    orderNumber:musicData["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-searchByMusicName-table-row-isPlaying"/>:(current*30+index+1)<10?"0"+(current*30+index+1):current*30+index+1,
-                    handle:<Icon type="heart"/>,
+                    orderNumber:<span className="app-content-music-searchByMusicName-table-row-orderNumber-content">{musicData["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-searchByMusicName-table-row-isPlaying"/>:(current*30+index+1)<10?"0"+(current*30+index+1):current*30+index+1}</span>,
+                    handle:<Icon type="heart" style={{width:"25px"}}/>,
                     musicName: musicData["name"],
                     singer: musicData["artists"][0]["name"],
                     album:musicData["album"]["name"],
                     time: timeTransform(musicData["duration"]),
-                    id:musicData["id"],
+                    musicId:musicData["id"],
                     duration:musicData["duration"]
                 });
             }

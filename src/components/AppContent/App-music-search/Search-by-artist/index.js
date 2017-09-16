@@ -15,6 +15,7 @@ export class SearchByArtist extends React.Component{
         super(props);
         this.onPageToTop=this.onPageToTop.bind(this);
         this.handleTableChange=this.handleTableChange.bind(this);
+        this.handleRowClick=this.handleRowClick.bind(this);
     }
 
     onPageToTop(){
@@ -40,6 +41,10 @@ export class SearchByArtist extends React.Component{
         this.props.onInputSearch(this.props.keyword,100,30,30*(pagination.current-1),pagination.current);
     }
 
+    handleRowClick(artist){
+        this.props.history.push("/music-artist");
+    }
+
     render(){
         const {artistSearched,artistLoadState}=this.props;
         const data = [];
@@ -48,13 +53,14 @@ export class SearchByArtist extends React.Component{
             for (let [index,artistData] of artistSearched.result.artists.entries()) {
                 data.push({
                     key: 30*current+index+1,
-                    artist: <span><img src={artistData["img1v1Url"]}/><span className="app-content-music-searchByArtist-table-row-artistName">{artistData["name"]}</span></span>
+                    artist: <span><img src={artistData["img1v1Url"]}/><span className="app-content-music-searchByArtist-table-row-artistName">{artistData["name"]}</span></span>,
+                    artistId:artistData["id"]
                 });
             }
             return (
                 <Spin spinning={artistLoadState}>
                     <div>
-                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.artistPage,total:artistSearched.result.artistCount}} rowClassName={()=>"app-content-music-searchByArtist-table-row"} showHeader={false} className="app-content-music-searchByArtist-table" onChange={this.handleTableChange}/>
+                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.artistPage,total:artistSearched.result.artistCount}} rowClassName={()=>"app-content-music-searchByArtist-table-row"} showHeader={false} className="app-content-music-searchByArtist-table" onChange={this.handleTableChange} onRowClick={this.handleRowClick}/>
                     </div>
                 </Spin>
             )

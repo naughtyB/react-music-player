@@ -21,6 +21,7 @@ export class AppMusicArtist extends React.Component{
                     <Tabs class="app-content-music-artist-detailDesc-list" type="card">
                         <TabPane tab="专辑" key="album">
                             <AppMusicArtistDetailDescAlbum/>
+                            <AppMusicArtistDetailDescAlbum/>
                         </TabPane>
                         <TabPane tab="歌手详情" key="artistDetailDesc">
 

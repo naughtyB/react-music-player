@@ -24,7 +24,7 @@ export class AppMusicSearch extends React.Component{
     }
 
     render(){
-        const {musicLoadState,artistLoadState,albumLoadState,musicSearched,artistSearched,albumSearched,albumPage,
+        const {history,musicLoadState,artistLoadState,albumLoadState,musicSearched,artistSearched,albumSearched,albumPage,
             keyword,activeKey,musicNamePage,artistPage,currentMusicId,currentMusicIsPlaying,
             onInputSearch,
             onChangeCurrentMusic,
@@ -37,7 +37,7 @@ export class AppMusicSearch extends React.Component{
                         <SearchByMusicName musicSearched={musicSearched} onInputSearch={onInputSearch} keyword={keyword} onChangeCurrentMusic={onChangeCurrentMusic} onGetAppContent={this.props.onGetAppContent} musicNamePage={musicNamePage} currentMusicId={currentMusicId} onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying} currentMusicIsPlaying={currentMusicIsPlaying} activeKey={activeKey} musicLoadState={musicLoadState}/>
                     </TabPane>
                     <TabPane tab="歌手" key="artist">
-                        <SearchByArtist onGetAppContent={this.props.onGetAppContent} artistPage={artistPage} keyword={keyword} onInputSearch={onInputSearch} artistSearched={artistSearched} activeKey={activeKey} artistLoadState={artistLoadState}/>
+                        <SearchByArtist onGetAppContent={this.props.onGetAppContent} artistPage={artistPage} keyword={keyword} onInputSearch={onInputSearch} artistSearched={artistSearched} activeKey={activeKey} artistLoadState={artistLoadState} history={history}/>
                     </TabPane>
                     <TabPane tab="专辑" key="album">
                         <SearchByAlbum  onGetAppContent={this.props.onGetAppContent} albumPage={albumPage} keyword={keyword} onInputSearch={onInputSearch} albumSearched={albumSearched} activeKey={activeKey} albumLoadState={albumLoadState}/>

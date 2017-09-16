@@ -5,24 +5,65 @@
  */
 import "./index.scss"
 import React from "react";
-import {Table} from "antd";
+import {Table,Icon} from "antd";
 
 const columns = [{
+    title:"序号",
+    dataIndex:"orderNumber"
+},{
+    title:"操作",
+    dataIndex:"handle"
+
+},{
     title: '单曲',
-    dataIndex: 'music'
+    dataIndex: 'music',
+    width:"80%"
 },{
     title:"时长",
-    dataIndex:"time"
+    dataIndex:"time",
+    width:"20%"
 }];
 
 const data=[
     {
         key:"1",
+        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">01</span>,
+        handle:<Icon type="heart"/>,
         music:"不为谁而作的歌",
         time:"04:30"
     },
     {
         key:"2",
+        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">02</span>,
+        handle:<Icon type="heart"/>,
+        music:"生生",
+        time:"03:30"
+    },
+    {
+        key:"3",
+        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">03</span>,
+        handle:<Icon type="heart"/>,
+        music:"生生",
+        time:"03:30"
+    },
+    {
+        key:"4",
+        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">04</span>,
+        handle:<Icon type="heart"/>,
+        music:"生生",
+        time:"03:30"
+    },
+    {
+        key:"5",
+        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">05</span>,
+        handle:<Icon type="heart"/>,
+        music:"生生",
+        time:"03:30"
+    },
+    {
+        key:"6",
+        orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">06</span>,
+        handle:<Icon type="heart"/>,
         music:"生生",
         time:"03:30"
     }
