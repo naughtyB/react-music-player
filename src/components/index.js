@@ -27,10 +27,16 @@ export class AppLayout extends React.Component{
                         <AppHeader />
                     </Header>
                     <Layout className="app-layout-body">
-                        <Sider className="app-layout-side" width="240">
+                        <Sider
+                            className="app-layout-side"
+                               width="240"
+                        >
                             <AppSider />
                         </Sider>
-                        <Content className="app-layout-content" ref="app-layout-content">
+                        <Content
+                            className="app-layout-content"
+                            ref="app-layout-content"
+                        >
                             <AppContent/>
                         </Content>
                     </Layout>

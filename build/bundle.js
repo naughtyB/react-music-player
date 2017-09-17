@@ -40325,12 +40325,18 @@ var AppLayout = exports.AppLayout = function (_React$Component) {
                         { className: "app-layout-body" },
                         _react2.default.createElement(
                             Sider,
-                            { className: "app-layout-side", width: "240" },
+                            {
+                                className: "app-layout-side",
+                                width: "240"
+                            },
                             _react2.default.createElement(_index4.default, null)
                         ),
                         _react2.default.createElement(
                             Content,
-                            { className: "app-layout-content", ref: "app-layout-content" },
+                            {
+                                className: "app-layout-content",
+                                ref: "app-layout-content"
+                            },
                             _react2.default.createElement(_index6.default, null)
                         )
                     ),
@@ -46440,13 +46446,27 @@ var AppContent = exports.AppContent = function (_React$Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "app-content", ref: "app-content" },
-                _react2.default.createElement(_reactRouterDom.Route, { path: "/music-search", render: function render(_ref) {
+                {
+                    className: "app-content",
+                    ref: "app-content"
+                },
+                _react2.default.createElement(_reactRouterDom.Route, {
+                    path: "/music-search",
+                    render: function render(_ref) {
                         var history = _ref.history,
                             location = _ref.location;
-                        return _react2.default.createElement(_index2.default, { onGetAppContent: _this2.handleGetAppContent, history: history, location: location });
-                    } }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: "/music-artist", component: _index4.default })
+
+                        return _react2.default.createElement(_index2.default, {
+                            onGetAppContent: _this2.handleGetAppContent,
+                            history: history,
+                            location: location
+                        });
+                    }
+                }),
+                _react2.default.createElement(_reactRouterDom.Route, {
+                    path: "/music-artist",
+                    component: _index4.default
+                })
             );
         }
     }]);
@@ -46635,21 +46655,64 @@ var AppMusicSearch = exports.AppMusicSearch = function (_React$Component) {
                 { className: "app-content-music-search" },
                 _react2.default.createElement(
                     _tabs2.default,
-                    { "class": "app-content-music-search-list", type: "card", activeKey: activeKey, onChange: this.handleChange },
+                    {
+                        className: "app-content-music-search-list",
+                        type: "card",
+                        activeKey: activeKey,
+                        onChange: this.handleChange
+                    },
                     _react2.default.createElement(
                         TabPane,
-                        { tab: "\u5355\u66F2", key: "music" },
-                        _react2.default.createElement(_index2.default, { musicSearched: musicSearched, onInputSearch: onInputSearch, keyword: keyword, onChangeCurrentMusic: onChangeCurrentMusic, onGetAppContent: this.props.onGetAppContent, musicNamePage: musicNamePage, currentMusicId: currentMusicId, onChangeCurrentMusicIsPlaying: onChangeCurrentMusicIsPlaying, currentMusicIsPlaying: currentMusicIsPlaying, activeKey: activeKey, musicLoadState: musicLoadState })
+                        {
+                            tab: "\u5355\u66F2",
+                            key: "music"
+                        },
+                        _react2.default.createElement(_index2.default, {
+                            musicSearched: musicSearched,
+                            onInputSearch: onInputSearch,
+                            keyword: keyword,
+                            onChangeCurrentMusic: onChangeCurrentMusic,
+                            onGetAppContent: this.props.onGetAppContent,
+                            musicNamePage: musicNamePage,
+                            currentMusicId: currentMusicId,
+                            onChangeCurrentMusicIsPlaying: onChangeCurrentMusicIsPlaying,
+                            currentMusicIsPlaying: currentMusicIsPlaying,
+                            activeKey: activeKey,
+                            musicLoadState: musicLoadState
+                        })
                     ),
                     _react2.default.createElement(
                         TabPane,
-                        { tab: "\u6B4C\u624B", key: "artist" },
-                        _react2.default.createElement(_index4.default, { onGetAppContent: this.props.onGetAppContent, artistPage: artistPage, keyword: keyword, onInputSearch: onInputSearch, artistSearched: artistSearched, activeKey: activeKey, artistLoadState: artistLoadState, history: history })
+                        {
+                            tab: "\u6B4C\u624B",
+                            key: "artist"
+                        },
+                        _react2.default.createElement(_index4.default, {
+                            onGetAppContent: this.props.onGetAppContent,
+                            artistPage: artistPage,
+                            keyword: keyword,
+                            onInputSearch: onInputSearch,
+                            artistSearched: artistSearched,
+                            activeKey: activeKey,
+                            artistLoadState: artistLoadState,
+                            history: history
+                        })
                     ),
                     _react2.default.createElement(
                         TabPane,
-                        { tab: "\u4E13\u8F91", key: "album" },
-                        _react2.default.createElement(_index6.default, { onGetAppContent: this.props.onGetAppContent, albumPage: albumPage, keyword: keyword, onInputSearch: onInputSearch, albumSearched: albumSearched, activeKey: activeKey, albumLoadState: albumLoadState })
+                        {
+                            tab: "\u4E13\u8F91",
+                            key: "album"
+                        },
+                        _react2.default.createElement(_index6.default, {
+                            onGetAppContent: this.props.onGetAppContent,
+                            albumPage: albumPage,
+                            keyword: keyword,
+                            onInputSearch: onInputSearch,
+                            albumSearched: albumSearched,
+                            activeKey: activeKey,
+                            albumLoadState: albumLoadState
+                        })
                     )
                 )
             );
@@ -48575,9 +48638,18 @@ var SearchByMusicName = exports.SearchByMusicName = function (_React$Component) 
                     _react2.default.createElement(
                         "div",
                         null,
-                        _react2.default.createElement(_table2.default, { columns: columns, dataSource: data, pagination: { pageSize: 30, current: this.props.musicNamePage, total: musicSearched.result.songCount }, rowClassName: function rowClassName() {
+                        _react2.default.createElement(_table2.default, {
+                            columns: columns,
+                            dataSource: data,
+                            pagination: { pageSize: 30, current: this.props.musicNamePage, total: musicSearched.result.songCount },
+                            rowClassName: function rowClassName() {
                                 return "app-content-music-searchByMusicName-table-row";
-                            }, size: "small", className: "app-content-music-searchByMusicName-table", onRowDoubleClick: this.handleRowDoubleClick, onChange: this.handleTableChange })
+                            },
+                            size: "small",
+                            className: "app-content-music-searchByMusicName-table",
+                            onRowDoubleClick: this.handleRowDoubleClick,
+                            onChange: this.handleTableChange
+                        })
                     )
                 );
             } else {
@@ -60233,9 +60305,17 @@ var SearchByArtist = exports.SearchByArtist = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         null,
-                        _react2.default.createElement(_table2.default, { columns: columns, dataSource: data, pagination: { pageSize: 30, current: this.props.artistPage, total: artistSearched.result.artistCount }, rowClassName: function rowClassName() {
+                        _react2.default.createElement(_table2.default, {
+                            columns: columns,
+                            dataSource: data,
+                            pagination: { pageSize: 30, current: this.props.artistPage, total: artistSearched.result.artistCount },
+                            rowClassName: function rowClassName() {
                                 return "app-content-music-searchByArtist-table-row";
-                            }, showHeader: false, className: "app-content-music-searchByArtist-table", onChange: this.handleTableChange, onRowClick: this.handleRowClick })
+                            },
+                            showHeader: false, className: "app-content-music-searchByArtist-table",
+                            onChange: this.handleTableChange,
+                            onRowClick: this.handleRowClick
+                        })
                     )
                 );
             } else {
@@ -60472,9 +60552,17 @@ var SearchByAlbum = exports.SearchByAlbum = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         null,
-                        _react2.default.createElement(_table2.default, { columns: columns, dataSource: data, pagination: { pageSize: 30, current: this.props.albumPage, total: albumSearched.result.albumCount }, rowClassName: function rowClassName() {
+                        _react2.default.createElement(_table2.default, {
+                            columns: columns,
+                            dataSource: data,
+                            pagination: { pageSize: 30, current: this.props.albumPage, total: albumSearched.result.albumCount },
+                            rowClassName: function rowClassName() {
                                 return "app-content-music-searchByAlbum-table-row";
-                            }, showHeader: false, className: "app-content-music-searchByAlbum-table", onChange: this.handleTableChange })
+                            },
+                            showHeader: false,
+                            className: "app-content-music-searchByAlbum-table",
+                            onChange: this.handleTableChange
+                        })
                     )
                 );
             } else {
@@ -61370,9 +61458,25 @@ var AppFooter = exports.AppFooter = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "app-footer" },
-                _react2.default.createElement(_index2.default, { isPlaying: isPlaying, onChangeCurrentMusicIsPlaying: onChangeCurrentMusicIsPlaying, url: url }),
-                _react2.default.createElement(_index4.default, { currentTime: currentTime, duration: duration, onFinishTimeSlider: onFinishTimeSlider, onUsingTimeSlider: onUsingTimeSlider }),
-                _react2.default.createElement(_index6.default, { volume: volume, lastVolume: lastVolume, volumeIsChanging: volumeIsChanging, onChangeCurrentMusicVolume: onChangeCurrentMusicVolume, onChangeCurrentMusicVolumeIsChanging: onChangeCurrentMusicVolumeIsChanging, onRecordCurrentMusicLastVolume: onRecordCurrentMusicLastVolume })
+                _react2.default.createElement(_index2.default, {
+                    isPlaying: isPlaying,
+                    onChangeCurrentMusicIsPlaying: onChangeCurrentMusicIsPlaying,
+                    url: url
+                }),
+                _react2.default.createElement(_index4.default, {
+                    currentTime: currentTime,
+                    duration: duration,
+                    onFinishTimeSlider: onFinishTimeSlider,
+                    onUsingTimeSlider: onUsingTimeSlider
+                }),
+                _react2.default.createElement(_index6.default, {
+                    volume: volume,
+                    lastVolume: lastVolume,
+                    volumeIsChanging: volumeIsChanging,
+                    onChangeCurrentMusicVolume: onChangeCurrentMusicVolume,
+                    onChangeCurrentMusicVolumeIsChanging: onChangeCurrentMusicVolumeIsChanging,
+                    onRecordCurrentMusicLastVolume: onRecordCurrentMusicLastVolume
+                })
             );
         }
     }]);
@@ -61556,18 +61660,39 @@ var AppMusicPlayController = exports.AppMusicPlayController = function (_React$C
                 { className: "app-music-play-controller" },
                 _react2.default.createElement(
                     _button2.default,
-                    { type: "primary", className: "app-music-play-controller-stepBackward-button", shape: "circle" },
-                    _react2.default.createElement(_icon2.default, { className: "app-music-play-controller-stepBackward-icon", type: "step-backward" })
+                    {
+                        type: "primary",
+                        className: "app-music-play-controller-stepBackward-button",
+                        shape: "circle"
+                    },
+                    _react2.default.createElement(_icon2.default, {
+                        className: "app-music-play-controller-stepBackward-icon",
+                        type: "step-backward"
+                    })
                 ),
                 _react2.default.createElement(
                     _button2.default,
-                    { type: "primary", className: "app-music-play-controller-play-button", shape: "circle", onClick: this.handlePlayButtonClick },
-                    _react2.default.createElement(_icon2.default, { className: "app-music-play-controller-play-icon", type: this.props.isPlaying ? "pause" : "caret-right" })
+                    {
+                        type: "primary",
+                        className: "app-music-play-controller-play-button",
+                        shape: "circle",
+                        onClick: this.handlePlayButtonClick
+                    },
+                    _react2.default.createElement(_icon2.default, {
+                        className: "app-music-play-controller-play-icon",
+                        type: this.props.isPlaying ? "pause" : "caret-right"
+                    })
                 ),
                 _react2.default.createElement(
                     _button2.default,
-                    { type: "primary", className: "app-music-play-controller-stepForward-button", shape: "circle" },
-                    _react2.default.createElement(_icon2.default, { className: "app-music-play-controller-stepForward-icon", type: "step-forward" })
+                    {
+                        type: "primary",
+                        className: "app-music-play-controller-stepForward-button",
+                        shape: "circle"
+                    },
+                    _react2.default.createElement(_icon2.default, {
+                        className: "app-music-play-controller-stepForward-icon",
+                        type: "step-forward" })
                 )
             );
         }
@@ -61688,19 +61813,19 @@ var AppMusicScheduleController = exports.AppMusicScheduleController = function (
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (AppMusicScheduleController.__proto__ || (0, _getPrototypeOf2.default)(AppMusicScheduleController)).call(this, props));
 
-        _this.onHandleChange = _this.onHandleChange.bind(_this);
-        _this.onHandleAfterChange = _this.onHandleAfterChange.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleAfterChange = _this.handleAfterChange.bind(_this);
         return _this;
     }
 
     (0, _createClass3.default)(AppMusicScheduleController, [{
-        key: "onHandleChange",
-        value: function onHandleChange(currentTime) {
+        key: "handleChange",
+        value: function handleChange(currentTime) {
             this.props.onUsingTimeSlider(currentTime);
         }
     }, {
-        key: "onHandleAfterChange",
-        value: function onHandleAfterChange() {
+        key: "handleAfterChange",
+        value: function handleAfterChange() {
             this.props.onFinishTimeSlider();
         }
     }, {
@@ -61714,9 +61839,17 @@ var AppMusicScheduleController = exports.AppMusicScheduleController = function (
                     null,
                     transformSecondsToMinutes(this.props.currentTime)
                 ),
-                _react2.default.createElement(_slider2.default, { min: 0, max: this.props.duration, className: "app-music-schedule-controller-slider", value: this.props.currentTime, onChange: this.onHandleChange, onAfterChange: this.onHandleAfterChange, tipFormatter: function tipFormatter(currentTime) {
+                _react2.default.createElement(_slider2.default, {
+                    min: 0,
+                    max: this.props.duration,
+                    className: "app-music-schedule-controller-slider",
+                    value: this.props.currentTime,
+                    onChange: this.handleChange,
+                    onAfterChange: this.handleAfterChange,
+                    tipFormatter: function tipFormatter(currentTime) {
                         return transformSecondsToMinutes(currentTime);
-                    } }),
+                    }
+                }),
                 _react2.default.createElement(
                     "span",
                     null,
@@ -62871,8 +63004,19 @@ var AppMusicVolumeController = exports.AppMusicVolumeController = function (_Rea
             return _react2.default.createElement(
                 "div",
                 { className: "app-music-volume-controller" },
-                _react2.default.createElement(_icon2.default, { type: this.props.volume ? "mySound" : "myMuted", onClick: this.handleClick, className: "app-music-volume-controller-icon" }),
-                _react2.default.createElement(_slider2.default, { min: 0, max: 100, value: this.props.volume, onChange: this.handleChange, onAfterChange: this.handleAfterChange, className: "app-music-volume-controller-slider" })
+                _react2.default.createElement(_icon2.default, {
+                    type: this.props.volume ? "mySound" : "myMuted",
+                    onClick: this.handleClick,
+                    className: "app-music-volume-controller-icon"
+                }),
+                _react2.default.createElement(_slider2.default, {
+                    min: 0,
+                    max: 100,
+                    value: this.props.volume,
+                    onChange: this.handleChange,
+                    onAfterChange: this.handleAfterChange,
+                    className: "app-music-volume-controller-slider"
+                })
             );
         }
     }]);
@@ -62983,10 +63127,7 @@ var Audio = exports.Audio = function (_React$Component) {
     (0, _createClass3.default)(Audio, [{
         key: "handleCanPlay",
         value: function handleCanPlay() {
-            console.log(1);
-            if (this.props.isPlaying) {
-                this.refs["audio"].play();
-            }
+            this.playController(this.props.isPlaying);
         }
     }, {
         key: "componentDidMount",
@@ -63004,6 +63145,24 @@ var Audio = exports.Audio = function (_React$Component) {
                     _this2.props.onChangeCurrentMusicIsPlaying();
                 }
             }, 500);
+
+            //通过时间控制器解决play pause冲突问题，同时不能在等待的时候实质性的
+            this.playTimer = null;
+            this.playController = function (isPlaying) {
+                if (_this2.refs["audio"].readyState >= 3) {
+                    if (isPlaying) {
+                        clearTimeout(_this2.playTimer);
+                        _this2.playTimer = setTimeout(function () {
+                            _this2.refs["audio"].play();
+                        }, 100);
+                    } else if (!isPlaying) {
+                        clearTimeout(_this2.playTimer);
+                        _this2.playTimer = setTimeout(function () {
+                            _this2.refs["audio"].pause();
+                        }, 100);
+                    }
+                }
+            };
         }
     }, {
         key: "componentDidUpdate",
@@ -63015,10 +63174,8 @@ var Audio = exports.Audio = function (_React$Component) {
                 this.props.onChangeCurrentMusicIsPlaying();
             } else {
                 var currentTime = Math.floor(this.refs["audio"].currentTime);
-                if (this.props.isPlaying) {
-                    this.refs["audio"].play();
-                } else if (!this.props.isPlaying) {
-                    this.refs["audio"].pause();
+                if (preProps.isPlaying != this.props.isPlaying) {
+                    this.playController(this.props.isPlaying);
                 }
                 if (this.props.volume != preProps.volume) {
                     this.refs["audio"].volume = this.props.volume / 100;
@@ -63035,11 +63192,11 @@ var Audio = exports.Audio = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            return _react2.default.createElement(
-                "audio",
-                { src: this.props.url, onCanPlay: this.handleCanPlay, ref: "audio" },
-                "1"
-            );
+            return _react2.default.createElement("audio", {
+                src: this.props.url,
+                onCanPlay: this.handleCanPlay,
+                ref: "audio"
+            });
         }
     }]);
     return Audio;

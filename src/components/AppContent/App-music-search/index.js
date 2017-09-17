@@ -36,8 +36,19 @@ export class AppMusicSearch extends React.Component{
     }
 
     render(){
-        const {history,location,musicLoadState,artistLoadState,albumLoadState,musicSearched,artistSearched,albumSearched,albumPage,
-            musicNamePage,artistPage,currentMusicId,currentMusicIsPlaying,
+        const {history,
+            location,
+            musicLoadState,
+            artistLoadState,
+            albumLoadState,
+            musicSearched,
+            artistSearched,
+            albumSearched,
+            albumPage,
+            musicNamePage,
+            artistPage,
+            currentMusicId,
+            currentMusicIsPlaying,
             onInputSearch,
             onChangeCurrentMusic,
             onChangeCurrentMusicIsPlaying,

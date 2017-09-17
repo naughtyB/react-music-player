@@ -7,7 +7,6 @@ import React from "react";
 import {connect} from "react-redux";
 import {doChangeCurrentMusicCurrentTime,doReadyingTimeSlider,doChangeCurrentMusicIsPlaying} from "../../redux/action/currentMusic"
 
-
 export class Audio extends React.Component{
     constructor(props){
         super(props);
@@ -15,10 +14,7 @@ export class Audio extends React.Component{
     }
 
     handleCanPlay(){
-        console.log(1);
-        if(this.props.isPlaying){
-            this.refs["audio"].play();
-        }
+        this.playController(this.props.isPlaying)
     }
 
     componentDidMount(){
@@ -32,7 +28,26 @@ export class Audio extends React.Component{
                 this.props.onChangeCurrentMusicCurrentTime(0);
                 this.props.onChangeCurrentMusicIsPlaying();
             }
-        },500)
+        },500);
+
+        //通过时间控制器解决play pause冲突问题，同时不能在等待的时候实质性的
+        this.playTimer=null;
+        this.playController=(isPlaying)=>{
+            if(this.refs["audio"].readyState>=3){
+                if(isPlaying){
+                    clearTimeout(this.playTimer);
+                    this.playTimer=setTimeout(()=>{
+                        this.refs["audio"].play();
+                    },100)
+                }
+                else if(!isPlaying){
+                    clearTimeout(this.playTimer);
+                    this.playTimer=setTimeout(()=>{
+                        this.refs["audio"].pause();
+                    },100)
+                }
+            }
+        }
     }
 
     componentDidUpdate(preProps){
@@ -44,11 +59,8 @@ export class Audio extends React.Component{
         }
         else{
             let currentTime=Math.floor(this.refs["audio"].currentTime);
-            if(this.props.isPlaying){
-                this.refs["audio"].play();
-            }
-            else if(!this.props.isPlaying){
-                this.refs["audio"].pause();
+            if(preProps.isPlaying!=this.props.isPlaying){
+                this.playController(this.props.isPlaying);
             }
             if(this.props.volume!=preProps.volume){
                 this.refs["audio"].volume=this.props.volume/100
@@ -65,7 +77,11 @@ export class Audio extends React.Component{
 
     render(){
         return (
-            <audio src={this.props.url} onCanPlay={this.handleCanPlay} ref="audio">1</audio>
+            <audio
+                src={this.props.url}
+                onCanPlay={this.handleCanPlay}
+                ref="audio"
+            />
         )
     }
 }
