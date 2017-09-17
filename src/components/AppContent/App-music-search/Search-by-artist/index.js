@@ -64,7 +64,15 @@ export class SearchByArtist extends React.Component{
             return (
                 <Spin spinning={artistLoadState}>
                     <div>
-                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.artistPage,total:artistSearched.result.artistCount}} rowClassName={()=>"app-content-music-searchByArtist-table-row"} showHeader={false} className="app-content-music-searchByArtist-table" onChange={this.handleTableChange} onRowClick={this.handleRowClick}/>
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                            pagination={{ pageSize: 30,current:this.props.artistPage,total:artistSearched.result.artistCount}}
+                            rowClassName={()=>"app-content-music-searchByArtist-table-row"}
+                            showHeader={false} className="app-content-music-searchByArtist-table"
+                            onChange={this.handleTableChange}
+                            onRowClick={this.handleRowClick}
+                        />
                     </div>
                 </Spin>
             )

@@ -23,14 +23,35 @@ export class AppMusicPlayController extends React.Component{
     render(){
         return (
             <div className="app-music-play-controller">
-                <Button type="primary" className="app-music-play-controller-stepBackward-button" shape="circle">
-                    <Icon className="app-music-play-controller-stepBackward-icon" type="step-backward"/>
+                <Button
+                    type="primary"
+                    className="app-music-play-controller-stepBackward-button"
+                    shape="circle"
+                >
+                    <Icon
+                        className="app-music-play-controller-stepBackward-icon"
+                        type="step-backward"
+                    />
                 </Button>
-                <Button type="primary" className="app-music-play-controller-play-button" shape="circle" onClick={this.handlePlayButtonClick}>
-                    <Icon className="app-music-play-controller-play-icon" type={this.props.isPlaying?"pause":"caret-right"}/>
+                <Button
+                    type="primary"
+                    className="app-music-play-controller-play-button"
+                    shape="circle"
+                    onClick={this.handlePlayButtonClick}
+                >
+                    <Icon
+                        className="app-music-play-controller-play-icon"
+                        type={this.props.isPlaying?"pause":"caret-right"}
+                    />
                 </Button>
-                <Button type="primary" className="app-music-play-controller-stepForward-button" shape="circle">
-                    <Icon className="app-music-play-controller-stepForward-icon" type="step-forward"/>
+                <Button
+                    type="primary"
+                    className="app-music-play-controller-stepForward-button"
+                    shape="circle"
+                >
+                    <Icon
+                        className="app-music-play-controller-stepForward-icon"
+                        type="step-forward"/>
                 </Button>
             </div>
         )

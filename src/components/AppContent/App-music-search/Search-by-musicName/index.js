@@ -101,7 +101,16 @@ export class SearchByMusicName extends React.Component{
             return (
                 <Spin spinning={musicLoadState}>
                     <div>
-                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.musicNamePage,total:musicSearched.result.songCount}} rowClassName={()=>"app-content-music-searchByMusicName-table-row"} size="small" className="app-content-music-searchByMusicName-table" onRowDoubleClick={this.handleRowDoubleClick} onChange={this.handleTableChange}/>
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                            pagination={{ pageSize: 30,current:this.props.musicNamePage,total:musicSearched.result.songCount}}
+                            rowClassName={()=>"app-content-music-searchByMusicName-table-row"}
+                            size="small"
+                            className="app-content-music-searchByMusicName-table"
+                            onRowDoubleClick={this.handleRowDoubleClick}
+                            onChange={this.handleTableChange}
+                        />
                     </div>
                 </Spin>
             )

@@ -41,8 +41,19 @@ export class AppMusicVolumeController extends React.Component{
     render(){
         return (
             <div className="app-music-volume-controller">
-                <Icon type={this.props.volume?"mySound":"myMuted"} onClick={this.handleClick} className="app-music-volume-controller-icon"/>
-                <Slider min={0} max={100} value={this.props.volume} onChange={this.handleChange} onAfterChange={this.handleAfterChange} className="app-music-volume-controller-slider"/>
+                <Icon
+                    type={this.props.volume?"mySound":"myMuted"}
+                    onClick={this.handleClick}
+                    className="app-music-volume-controller-icon"
+                />
+                <Slider
+                    min={0}
+                    max={100}
+                    value={this.props.volume}
+                    onChange={this.handleChange}
+                    onAfterChange={this.handleAfterChange}
+                    className="app-music-volume-controller-slider"
+                />
             </div>
         )
     }

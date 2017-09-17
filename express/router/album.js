@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     const data = {
         csrf_token: ''
     };
-    const id = req.query.id;
+    const id = req.body.id;
     createWebAPIRequest(
         'music.163.com',
         `/weapi/v1/album/${id}`,

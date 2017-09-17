@@ -17,24 +17,36 @@ const transformSecondsToMinutes=(seconds)=>{
 export class AppMusicScheduleController extends React.Component{
     constructor(props){
         super(props);
-        this.onHandleChange=this.onHandleChange.bind(this);
-        this.onHandleAfterChange=this.onHandleAfterChange.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+        this.handleAfterChange=this.handleAfterChange.bind(this);
     }
 
-    onHandleChange(currentTime){
+    handleChange(currentTime){
         this.props.onUsingTimeSlider(currentTime)
     }
 
-    onHandleAfterChange(){
+    handleAfterChange(){
         this.props.onFinishTimeSlider();
     }
 
     render(){
         return (
             <div className="app-music-schedule-controller">
-                <span>{transformSecondsToMinutes(this.props.currentTime)}</span>
-                <Slider min={0} max={this.props.duration}  className="app-music-schedule-controller-slider" value={this.props.currentTime} onChange={this.onHandleChange} onAfterChange={this.onHandleAfterChange} tipFormatter={(currentTime)=>{return transformSecondsToMinutes(currentTime)}}/>
-                <span>{transformSecondsToMinutes(this.props.duration)}</span>
+                <span>
+                    {transformSecondsToMinutes(this.props.currentTime)}
+                </span>
+                <Slider
+                    min={0}
+                    max={this.props.duration}
+                    className="app-music-schedule-controller-slider"
+                    value={this.props.currentTime}
+                    onChange={this.handleChange}
+                    onAfterChange={this.handleAfterChange}
+                    tipFormatter={(currentTime)=>{return transformSecondsToMinutes(currentTime)}}
+                />
+                <span>
+                    {transformSecondsToMinutes(this.props.duration)}
+                </span>
             </div>
         )
     }

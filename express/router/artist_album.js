@@ -5,11 +5,11 @@ const { createWebAPIRequest } = require('../util/util');
 
 module.exports = (req, res) => {
     const cookie = req.get('Cookie') ? req.get('Cookie') : '';
-    const id = req.query.id;
+    const id = req.body.id;
     const data = {
-        offset: req.query.offset || 0,
+        offset: req.body.offset || 0,
         total: true,
-        limit: req.query.limit || 30,
+        limit: req.body.limit || 30,
         csrf_token: ''
     };
     createWebAPIRequest(

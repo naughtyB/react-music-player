@@ -59,7 +59,15 @@ export class SearchByAlbum extends React.Component{
             return (
                 <Spin spinning={albumLoadState}>
                     <div>
-                        <Table columns={columns} dataSource={data} pagination={{ pageSize: 30,current:this.props.albumPage,total:albumSearched.result.albumCount}} rowClassName={()=>"app-content-music-searchByAlbum-table-row"} showHeader={false} className="app-content-music-searchByAlbum-table" onChange={this.handleTableChange}/>
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                            pagination={{ pageSize: 30,current:this.props.albumPage,total:albumSearched.result.albumCount}}
+                            rowClassName={()=>"app-content-music-searchByAlbum-table-row"}
+                            showHeader={false}
+                            className="app-content-music-searchByAlbum-table"
+                            onChange={this.handleTableChange}
+                        />
                     </div>
                 </Spin>
             )
