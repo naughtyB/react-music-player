@@ -35555,9 +35555,10 @@ var doSearchArtistAlbumReceivePost = exports.doSearchArtistAlbumReceivePost = fu
     };
 };
 
-var doSearchAlbumRequestPost = exports.doSearchAlbumRequestPost = function doSearchAlbumRequestPost() {
+var doSearchAlbumRequestPost = exports.doSearchAlbumRequestPost = function doSearchAlbumRequestPost(albumIndex) {
     return {
-        type: SEARCH_ALBUM_REQUEST_POST
+        type: SEARCH_ALBUM_REQUEST_POST,
+        albumIndex: albumIndex
     };
 };
 
@@ -35620,7 +35621,7 @@ var doSearchArtistAlbum = exports.doSearchArtistAlbum = function doSearchArtistA
 
 var doSearchAlbum = exports.doSearchAlbum = function doSearchAlbum(albumId, albumIndex) {
     return function (dispatch) {
-        dispatch(doSearchAlbumRequestPost());
+        dispatch(doSearchAlbumRequestPost(albumIndex));
         return (0, _isomorphicFetch2.default)("/album", {
             method: "POST",
             headers: {
@@ -40315,7 +40316,8 @@ var initialArtist = {
     artistAlbumData: {},
     albumData: [],
     topItemCheckAllState: false,
-    itemCheckAllStates: [] //注意s跟没s，穿进来的是没岁DE
+    itemCheckAllStates: [], //注意s跟没s，穿进来的是没岁DE
+    itemAlbumDataLoadStates: []
 }; /**
     * Created by Administrator on 2017/9/17.
     */
@@ -40341,6 +40343,16 @@ var transformNewItemState = function transformNewItemState(itemCheckAllStates, i
     }
 };
 
+var transformNewAlbumDataLoadState = function transformNewAlbumDataLoadState(itemAlbumDataLoadStates, itemAlbumDataLoadState, index) {
+    if (itemAlbumDataLoadStates.length <= index) {
+        var arr = [].concat((0, _toConsumableArray3.default)(itemAlbumDataLoadStates));
+        arr[index] = itemAlbumDataLoadState;
+        return (0, _from2.default)(arr);
+    } else {
+        return [].concat((0, _toConsumableArray3.default)(itemAlbumDataLoadStates)).fill(itemAlbumDataLoadState, index, index + 1);
+    }
+};
+
 var artist = exports.artist = function artist() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialArtist;
     var action = arguments[1];
@@ -40354,9 +40366,15 @@ var artist = exports.artist = function artist() {
             return (0, _extends3.default)({}, state, { artistAlbumLoadState: true });
         case _artist.SEARCH_ARTIST_ALBUM_RECEIVE_POST:
             return (0, _extends3.default)({}, state, { artistAlbumLoadState: false, artistAlbumData: action.artistAlbumData });
+        case _artist.SEARCH_ALBUM_REQUEST_POST:
+            return (0, _extends3.default)({}, state, { itemAlbumDataLoadStates: transformNewAlbumDataLoadState(state.itemAlbumDataLoadStates, true, action.albumIndex) });
         case _artist.SEARCH_ALBUM_RECEIVE_POST:
             console.log(transformNewAlbumData(state.albumData, action.albumData, action.albumIndex));
-            return (0, _extends3.default)({}, state, { albumData: transformNewAlbumData(state.albumData, action.albumData, action.albumIndex), itemCheckAllStates: transformNewItemState(state.itemCheckAllStates, action.albumIndex) });
+            return (0, _extends3.default)({}, state, {
+                albumData: transformNewAlbumData(state.albumData, action.albumData, action.albumIndex),
+                itemCheckAllStates: transformNewItemState(state.itemCheckAllStates, action.albumIndex),
+                itemAlbumDataLoadStates: transformNewAlbumDataLoadState(state.itemAlbumDataLoadStates, false, action.albumIndex)
+            });
         case _artist.CHANGE_TOP_ITEM_CHECK_ALL_STATE:
             return (0, _extends3.default)({}, state, { topItemCheckAllState: action.topItemCheckAllState });
         case _artist.CHANGE_ITEM_CHECK_ALL_STATE:
@@ -60886,6 +60904,7 @@ var AppMusicArtist = exports.AppMusicArtist = function (_React$Component) {
                 topItemCheckAllState = _props.topItemCheckAllState,
                 artistData = _props.artistData,
                 artistAlbumLoadState = _props.artistAlbumLoadState,
+                itemAlbumDataLoadStates = _props.itemAlbumDataLoadStates,
                 artistAlbumData = _props.artistAlbumData,
                 albumData = _props.albumData,
                 currentMusicId = _props.currentMusicId,
@@ -60896,7 +60915,8 @@ var AppMusicArtist = exports.AppMusicArtist = function (_React$Component) {
                 onSearchAlbum = _props.onSearchAlbum,
                 onSearchArtistAlbum = _props.onSearchArtistAlbum,
                 onChangeTopItemCheckAllState = _props.onChangeTopItemCheckAllState,
-                onChangeItemCheckAllState = _props.onChangeItemCheckAllState;
+                onChangeItemCheckAllState = _props.onChangeItemCheckAllState,
+                onGetAppContent = _props.onGetAppContent;
 
             if (artistData.code == 200) {
                 return _react2.default.createElement(
@@ -60921,6 +60941,7 @@ var AppMusicArtist = exports.AppMusicArtist = function (_React$Component) {
                                         albumData: albumData,
                                         artistAlbumData: artistAlbumData,
                                         artistAlbumLoadState: artistAlbumLoadState,
+                                        itemAlbumDataLoadStates: itemAlbumDataLoadStates,
                                         currentMusicId: currentMusicId,
                                         currentMusicIsPlaying: currentMusicIsPlaying,
                                         itemCheckAllStates: itemCheckAllStates,
@@ -60930,7 +60951,8 @@ var AppMusicArtist = exports.AppMusicArtist = function (_React$Component) {
                                         onSearchAlbum: onSearchAlbum,
                                         onSearchArtistAlbum: onSearchArtistAlbum,
                                         onChangeTopItemCheckAllState: onChangeTopItemCheckAllState,
-                                        onChangeItemCheckAllState: onChangeItemCheckAllState
+                                        onChangeItemCheckAllState: onChangeItemCheckAllState,
+                                        onGetAppContent: onGetAppContent
                                     })
                                 ),
                                 _react2.default.createElement(TabPane, { tab: "\u6B4C\u624B\u8BE6\u60C5", key: "artistDetailDesc" })
@@ -60960,7 +60982,8 @@ var mapStateToProps = function mapStateToProps(state) {
         currentMusicId: state.currentMusic.id,
         currentMusicIsPlaying: state.currentMusic.isPlaying,
         topItemCheckAllState: state.artist.topItemCheckAllState,
-        itemCheckAllStates: state.artist.itemCheckAllStates
+        itemCheckAllStates: state.artist.itemCheckAllStates,
+        itemAlbumDataLoadStates: state.artist.itemAlbumDataLoadStates
     };
 };
 
@@ -61286,7 +61309,33 @@ var AppMusicArtistDetailDescAlbum = exports.AppMusicArtistDetailDescAlbum = func
         key: "componentWillMount",
         value: function componentWillMount() {
             var newHashObj = (0, _index5.transformHash)(this.props.location.hash);
+            this.props.onChangeTopItemCheckAllState(false);
             this.props.onSearchArtistAlbum(newHashObj["artistId"]);
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.timer = setInterval(function () {
+                var _props = _this2.props,
+                    onGetAppContent = _props.onGetAppContent,
+                    albumData = _props.albumData,
+                    onSearchAlbum = _props.onSearchAlbum,
+                    artistAlbumData = _props.artistAlbumData,
+                    itemAlbumDataLoadStates = _props.itemAlbumDataLoadStates;
+
+                var container = onGetAppContent().parentNode;
+                if (container.scrollHeight - container.scrollTop - container.clientHeight < 150 && albumData.length >= 5 && artistAlbumData["hotAlbums"].length > albumData.length && itemAlbumDataLoadStates[albumData.length] != true) {
+                    onSearchAlbum(artistAlbumData["hotAlbums"][albumData.length]["id"], albumData.length);
+                }
+            }, 200);
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            console.log(this.timer);
+            clearInterval(this.timer);
         }
     }, {
         key: "componentDidUpdate",
@@ -61302,19 +61351,20 @@ var AppMusicArtistDetailDescAlbum = exports.AppMusicArtistDetailDescAlbum = func
     }, {
         key: "render",
         value: function render() {
-            var _props = this.props,
-                currentMusicId = _props.currentMusicId,
-                artistData = _props.artistData,
-                albumData = _props.albumData,
-                artistAlbumData = _props.artistAlbumData,
-                artistAlbumLoadState = _props.artistAlbumLoadState,
-                topItemCheckAllState = _props.topItemCheckAllState,
-                itemCheckAllStates = _props.itemCheckAllStates,
-                onChangeCurrentMusic = _props.onChangeCurrentMusic,
-                currentMusicIsPlaying = _props.currentMusicIsPlaying,
-                onChangeCurrentMusicIsPlaying = _props.onChangeCurrentMusicIsPlaying,
-                onChangeTopItemCheckAllState = _props.onChangeTopItemCheckAllState,
-                onChangeItemCheckAllState = _props.onChangeItemCheckAllState;
+            var _props2 = this.props,
+                currentMusicId = _props2.currentMusicId,
+                artistData = _props2.artistData,
+                albumData = _props2.albumData,
+                artistAlbumData = _props2.artistAlbumData,
+                artistAlbumLoadState = _props2.artistAlbumLoadState,
+                topItemCheckAllState = _props2.topItemCheckAllState,
+                itemCheckAllStates = _props2.itemCheckAllStates,
+                itemAlbumDataLoadStates = _props2.itemAlbumDataLoadStates,
+                onChangeCurrentMusic = _props2.onChangeCurrentMusic,
+                currentMusicIsPlaying = _props2.currentMusicIsPlaying,
+                onChangeCurrentMusicIsPlaying = _props2.onChangeCurrentMusicIsPlaying,
+                onChangeTopItemCheckAllState = _props2.onChangeTopItemCheckAllState,
+                onChangeItemCheckAllState = _props2.onChangeItemCheckAllState;
 
             var appMusicArtistDetailDescAlbumItemArr = [];
             if (albumData.length > 0 && !albumData.includes(undefined)) {
@@ -61330,7 +61380,8 @@ var AppMusicArtistDetailDescAlbum = exports.AppMusicArtistDetailDescAlbum = func
                         albumData: albumData,
                         artistAlbumData: artistAlbumData,
                         itemCheckAllStates: itemCheckAllStates,
-                        onChangeItemCheckAllState: onChangeItemCheckAllState
+                        onChangeItemCheckAllState: onChangeItemCheckAllState,
+                        itemAlbumDataLoadStates: itemAlbumDataLoadStates
                     }));
                 }
             }
@@ -61350,6 +61401,11 @@ var AppMusicArtistDetailDescAlbum = exports.AppMusicArtistDetailDescAlbum = func
                     _spin2.default,
                     { spinning: artistAlbumLoadState, tip: "Loading..." },
                     appMusicArtistDetailDescAlbumItemArr.length > 0 ? appMusicArtistDetailDescAlbumItemArr : _react2.default.createElement("div", { style: { height: "300px" } })
+                ),
+                _react2.default.createElement(
+                    _spin2.default,
+                    { spinning: itemAlbumDataLoadStates.length >= 5 && itemAlbumDataLoadStates.includes(true), tip: "Loading..." },
+                    _react2.default.createElement("div", { style: { height: "200px", display: itemAlbumDataLoadStates.includes(true) ? "block" : "none" } })
                 )
             );
         }

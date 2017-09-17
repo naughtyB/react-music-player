@@ -16,7 +16,23 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
 
     componentWillMount(){
         let newHashObj=transformHash(this.props.location.hash);
+        this.props.onChangeTopItemCheckAllState(false);
         this.props.onSearchArtistAlbum(newHashObj["artistId"]);
+    }
+
+    componentDidMount(){
+        this.timer=setInterval(()=>{
+            let {onGetAppContent,albumData,onSearchAlbum,artistAlbumData,itemAlbumDataLoadStates}=this.props;
+            let container=onGetAppContent().parentNode;
+            if(container.scrollHeight-container.scrollTop-container.clientHeight<150 && albumData.length>=5 && artistAlbumData["hotAlbums"].length>albumData.length && itemAlbumDataLoadStates[albumData.length]!=true){
+                onSearchAlbum(artistAlbumData["hotAlbums"][albumData.length]["id"],albumData.length)
+            }
+        },200)
+    }
+
+    componentWillUnmount(){
+        console.log(this.timer);
+        clearInterval(this.timer);
     }
 
     componentDidUpdate(preProps){
@@ -38,6 +54,7 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
             artistAlbumLoadState,
             topItemCheckAllState,
             itemCheckAllStates,
+            itemAlbumDataLoadStates,
             onChangeCurrentMusic,
             currentMusicIsPlaying,
             onChangeCurrentMusicIsPlaying,
@@ -60,6 +77,7 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
                         artistAlbumData={artistAlbumData}
                         itemCheckAllStates={itemCheckAllStates}
                         onChangeItemCheckAllState={onChangeItemCheckAllState}
+                        itemAlbumDataLoadStates={itemAlbumDataLoadStates}
                     />
                 )
             }
@@ -77,6 +95,9 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
                 />
                 <Spin spinning={artistAlbumLoadState} tip="Loading...">
                     {appMusicArtistDetailDescAlbumItemArr.length>0?appMusicArtistDetailDescAlbumItemArr:<div style={{height:"300px"}}></div>}
+                </Spin>
+                <Spin spinning={itemAlbumDataLoadStates.length>=5 && itemAlbumDataLoadStates.includes(true)} tip="Loading...">
+                    <div style={{height:"200px",display:itemAlbumDataLoadStates.includes(true)?"block":"none"}}></div>
                 </Spin>
             </div>
         )

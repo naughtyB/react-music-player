@@ -62,9 +62,10 @@ export const doSearchArtistAlbumReceivePost=(artistAlbumData)=>{
     }
 };
 
-export const doSearchAlbumRequestPost=()=>{
+export const doSearchAlbumRequestPost=(albumIndex)=>{
     return {
-        type:SEARCH_ALBUM_REQUEST_POST
+        type:SEARCH_ALBUM_REQUEST_POST,
+        albumIndex
     }
 };
 
@@ -124,7 +125,7 @@ export const doSearchArtistAlbum=(artistId)=>(dispatch)=>{
 };
 
 export const doSearchAlbum=(albumId,albumIndex)=>(dispatch)=>{
-    dispatch(doSearchAlbumRequestPost());
+    dispatch(doSearchAlbumRequestPost(albumIndex));
     return fetch("/album",{
         method:"POST",
         headers:{

@@ -29,6 +29,7 @@ export class AppMusicArtist extends React.Component{
             topItemCheckAllState,
             artistData,
             artistAlbumLoadState,
+            itemAlbumDataLoadStates,
             artistAlbumData,
             albumData,
             currentMusicId,
@@ -39,7 +40,8 @@ export class AppMusicArtist extends React.Component{
             onSearchAlbum,
             onSearchArtistAlbum,
             onChangeTopItemCheckAllState,
-            onChangeItemCheckAllState
+            onChangeItemCheckAllState,
+            onGetAppContent
             }=this.props;
         if(artistData.code==200){
             return (
@@ -55,6 +57,7 @@ export class AppMusicArtist extends React.Component{
                                         albumData={albumData}
                                         artistAlbumData={artistAlbumData}
                                         artistAlbumLoadState={artistAlbumLoadState}
+                                        itemAlbumDataLoadStates={itemAlbumDataLoadStates}
                                         currentMusicId={currentMusicId}
                                         currentMusicIsPlaying={currentMusicIsPlaying}
                                         itemCheckAllStates={itemCheckAllStates}
@@ -65,6 +68,7 @@ export class AppMusicArtist extends React.Component{
                                         onSearchArtistAlbum={onSearchArtistAlbum}
                                         onChangeTopItemCheckAllState={onChangeTopItemCheckAllState}
                                         onChangeItemCheckAllState={onChangeItemCheckAllState}
+                                        onGetAppContent={onGetAppContent}
                                     />
                                 </TabPane>
                                 <TabPane tab="歌手详情" key="artistDetailDesc">
@@ -97,7 +101,8 @@ const mapStateToProps=(state)=>{
         currentMusicId:state.currentMusic.id,
         currentMusicIsPlaying:state.currentMusic.isPlaying,
         topItemCheckAllState:state.artist.topItemCheckAllState,
-        itemCheckAllStates:state.artist.itemCheckAllStates
+        itemCheckAllStates:state.artist.itemCheckAllStates,
+        itemAlbumDataLoadStates:state.artist.itemAlbumDataLoadStates
     }
 };
 

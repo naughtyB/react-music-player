@@ -20,7 +20,8 @@ const initialArtist={
     artistAlbumData:{},
     albumData:[],
     topItemCheckAllState:false,
-    itemCheckAllStates:[] //注意s跟没s，穿进来的是没岁DE
+    itemCheckAllStates:[], //注意s跟没s，穿进来的是没岁DE
+    itemAlbumDataLoadStates:[]
 };
 
 const transformNewAlbumData=(albumData,newAlbumData,index)=>{
@@ -45,6 +46,18 @@ const transformNewItemState=(itemCheckAllStates,index)=>{
     }
 };
 
+const transformNewAlbumDataLoadState=(itemAlbumDataLoadStates,itemAlbumDataLoadState,index)=>{
+    if(itemAlbumDataLoadStates.length<=index){
+        let arr=[...itemAlbumDataLoadStates];
+        arr[index]=itemAlbumDataLoadState;
+        return Array.from(arr);
+    }
+    else{
+        return [...itemAlbumDataLoadStates].fill(itemAlbumDataLoadState,index,index+1)
+    }
+};
+
+
 export const artist=(state=initialArtist,action)=>{
     switch(action.type){
         case SEARCH_ARTIST_REQUEST_POST:
@@ -55,9 +68,16 @@ export const artist=(state=initialArtist,action)=>{
             return {...state,artistAlbumLoadState:true};
         case SEARCH_ARTIST_ALBUM_RECEIVE_POST:
             return {...state,artistAlbumLoadState:false,artistAlbumData:action.artistAlbumData};
+        case SEARCH_ALBUM_REQUEST_POST:
+            return {...state,itemAlbumDataLoadStates:transformNewAlbumDataLoadState(state.itemAlbumDataLoadStates,true,action.albumIndex)};
         case SEARCH_ALBUM_RECEIVE_POST:
             console.log(transformNewAlbumData(state.albumData,action.albumData,action.albumIndex));
-            return {...state,albumData:transformNewAlbumData(state.albumData,action.albumData,action.albumIndex),itemCheckAllStates:transformNewItemState(state.itemCheckAllStates,action.albumIndex)};
+            return {
+                ...state,
+                albumData:transformNewAlbumData(state.albumData,action.albumData,action.albumIndex),
+                itemCheckAllStates:transformNewItemState(state.itemCheckAllStates,action.albumIndex),
+                itemAlbumDataLoadStates:transformNewAlbumDataLoadState(state.itemAlbumDataLoadStates,false,action.albumIndex)
+            };
         case CHANGE_TOP_ITEM_CHECK_ALL_STATE:
             return {...state,topItemCheckAllState:action.topItemCheckAllState};
         case CHANGE_ITEM_CHECK_ALL_STATE:
