@@ -99,7 +99,7 @@ export class SearchByMusicName extends React.Component{
                 });
             }
             return (
-                <Spin spinning={musicLoadState}>
+                <Spin spinning={musicLoadState} tip="Loading...">
                     <div>
                         <Table
                             columns={columns}
@@ -117,7 +117,7 @@ export class SearchByMusicName extends React.Component{
         }
         else{
             return (
-                <Spin spinning={musicLoadState}>
+                <Spin spinning={musicLoadState} tip="Loading...">
                     <div style={{height:"500px"}}>gg</div>
                 </Spin>
             )

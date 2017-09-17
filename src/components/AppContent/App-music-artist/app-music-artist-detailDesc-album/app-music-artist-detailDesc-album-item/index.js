@@ -27,6 +27,11 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
     constructor(props){
         super(props);
         this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
+        this.handleCheckAll=this.handleCheckAll.bind(this);
+    }
+
+    handleCheckAll(){
+        this.props.onChangeItemCheckAllState(true,this.props.albumIndex)
     }
 
     handleRowDoubleClick(music){
@@ -45,29 +50,39 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
     }
 
     render(){
-        const {artistData}=this.props;
+        const {artistAlbumData,albumData,albumIndex,itemCheckAllStates}=this.props;
         let data=[];
-        if(artistData){
-            for(let [index,song] of artistData["hotSongs"].entries()){
-                data.push({
-                    key:index,
-                    orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">{song["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-artist-detailDesc-list-album-item-main-table-row-isPlaying"/>:index+1<10?"0"+(index+1):index+1}</span>,
-                    handle:<Icon type="heart"/>,
-                    music:song["name"],
-                    time:timeTransform(song["dt"]),
-                    musicId:song["id"],
-                    duration:song["dt"]
-                })
+        for(let [index,song] of albumData[albumIndex]["songs"].entries()){
+            data.push({
+                key:index,
+                orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">{song["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-artist-detailDesc-list-album-item-main-table-row-isPlaying"/>:index+1<10?"0"+(index+1):index+1}</span>,
+                handle:<Icon type="heart"/>,
+                music:song["name"],
+                time:timeTransform(song["dt"]),
+                musicId:song["id"],
+                duration:song["dt"]
+            });
+            if(index>=9 && !itemCheckAllStates[albumIndex]){
+                break;
             }
         }
+
         return (
             <div className="app-content-music-artist-detailDesc-list-album-item">
                 <div className="app-content-music-artist-detailDesc-list-album-item-img">
-                    <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src={artistData?"/src/common/img/top50.png":"呵呵"}/>
+                    <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src={artistAlbumData["hotAlbums"][albumIndex]["blurPicUrl"]}/>
                 </div>
                 <div className="app-content-music-artist-detailDesc-list-album-item-main">
-                    <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">{artistData?"热门50首":"呵呵"}</h3>
+                    <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">{artistAlbumData["hotAlbums"][albumIndex]["name"]}</h3>
                     <Table columns={columns} dataSource={data} showHeader={false} size="small" pagination={false} className="app-content-music-artist-detailDesc-list-album-item-main-table" rowClassName={()=>"app-content-music-artist-detailDesc-list-album-item-main-table-row"} onRowDoubleClick={this.handleRowDoubleClick}/>
+                    {!itemCheckAllStates[albumIndex] && albumData[albumIndex]["songs"].length>10?<div className="app-content-music-artist-detailDesc-list-album-item-checkAll">
+                    <span
+                        onClick={this.handleCheckAll}
+                        className="app-content-music-artist-detailDesc-list-album-item-checkAll-button"
+                    >
+                        {"查看全部"+albumData[albumIndex]["songs"].length+"首>"}
+                    </span>
+                    </div>:""}
                 </div>
             </div>
         )

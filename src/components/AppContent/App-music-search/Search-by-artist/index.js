@@ -62,7 +62,7 @@ export class SearchByArtist extends React.Component{
                 });
             }
             return (
-                <Spin spinning={artistLoadState}>
+                <Spin spinning={artistLoadState} tip="Loading...">
                     <div>
                         <Table
                             columns={columns}
@@ -79,7 +79,7 @@ export class SearchByArtist extends React.Component{
         }
         else{
             return (
-                <Spin spinning={artistLoadState}>
+                <Spin spinning={artistLoadState} tip="Loading...">
                     <div style={{height:"500px"}}>asd</div>
                 </Spin>
             )

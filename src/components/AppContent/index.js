@@ -20,6 +20,14 @@ export class AppContent extends React.Component{
         return this.refs["app-content"];
     }
 
+    componentDidMount(){
+        /*setInterval(()=>{
+            console.log(this.refs["app-content"].parentNode.scrollHeight);
+            console.log(this.refs["app-content"].parentNode.scrollTop);
+            console.log(this.refs["app-content"].parentNode.clientHeight);
+        },500)*/
+    }
+
     render(){
         return (
             <div
@@ -38,7 +46,13 @@ export class AppContent extends React.Component{
                 />
                 <Route
                     path="/music-artist"
-                    component={AppMusicArtist}
+                    render={({history,location})=>{
+                        return <AppMusicArtist
+                                    onGetAppContent={this.handleGetAppContent}
+                                    history={history}
+                                    location={location}
+                                 />
+                    }}
                 />
             </div>
         )

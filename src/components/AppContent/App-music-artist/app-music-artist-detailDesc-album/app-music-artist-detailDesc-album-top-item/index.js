@@ -29,6 +29,11 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
     constructor(props){
         super(props);
         this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
+        this.handleCheckAll=this.handleCheckAll.bind(this);
+    }
+
+    handleCheckAll(){
+        this.props.onChangeTopItemCheckAllState(true)
     }
 
     handleRowDoubleClick(music){
@@ -47,8 +52,7 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
     }
 
     render(){
-        console.log(1);
-        const {artistData}=this.props;
+        const {artistData,topItemCheckAllState}=this.props;
         let data=[];
         for(let [index,song] of artistData["hotSongs"].entries()){
             data.push({
@@ -59,7 +63,10 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
                 time:timeTransform(song["dt"]),
                 musicId:song["id"],
                 duration:song["dt"]
-            })
+            });
+            if(index>=9 && !topItemCheckAllState){
+                break;
+            }
         }
 
         return (
@@ -70,6 +77,14 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
                 <div className="app-content-music-artist-detailDesc-list-album-item-main">
                     <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">热门50首</h3>
                     <Table columns={columns} dataSource={data} showHeader={false} size="small" pagination={false} className="app-content-music-artist-detailDesc-list-album-item-main-table" rowClassName={()=>"app-content-music-artist-detailDesc-list-album-item-main-table-row"} onRowDoubleClick={this.handleRowDoubleClick}/>
+                    {!topItemCheckAllState && artistData["hotSongs"].length>10?<div className="app-content-music-artist-detailDesc-list-album-item-checkAll">
+                    <span
+                        onClick={this.handleCheckAll}
+                        className="app-content-music-artist-detailDesc-list-album-item-checkAll-button"
+                    >
+                        {"查看全部"+artistData["hotSongs"].length+"首>"}
+                    </span>
+                    </div>:""}
                 </div>
             </div>
         )

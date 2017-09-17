@@ -57,7 +57,7 @@ export class SearchByAlbum extends React.Component{
                 });
             }
             return (
-                <Spin spinning={albumLoadState}>
+                <Spin spinning={albumLoadState} tip="Loading...">
                     <div>
                         <Table
                             columns={columns}
@@ -74,7 +74,7 @@ export class SearchByAlbum extends React.Component{
         }
         else{
             return (
-                <Spin spinning={albumLoadState}>
+                <Spin spinning={albumLoadState} tip="Loading...">
                     <div style={{height:"500px"}}>as</div>
                 </Spin>
             )

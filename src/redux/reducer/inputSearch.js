@@ -4,8 +4,6 @@
 import {combineReducers} from "redux";
 import {INPUT_SEARCH_RECEIVE_POST,
     INPUT_SEARCH_REQUEST_POST,
-    CHANGE_KEYWORD_SEARCHED,
-    CHANGE_INPUT_SEARCH_ACTIVEKEY
 } from "../action/inputSearch"
 
 
