@@ -1,0 +1,36 @@
+.app-content-music-album-BriefDesc{
+  display:flex;
+  padding:20px 30px 70px;
+  width: 100%;
+  box-sizing:border-box;
+
+  &-cover-img{
+    width: 160px;
+  }
+
+  &-introduction{
+    margin-left: 20px;
+
+    &-name{
+      margin-bottom:40px;
+
+      &-tag{
+        display: inline-block;
+        padding: 2px 8px;
+        margin-right: 10px;
+        border-radius: 6px;
+        color: white;
+        font-size: 12px;
+        background-color: #11598c;
+      }
+    }
+
+    ul li+li{
+      margin-top:5px;
+    }
+
+    li span:nth-of-type(1){
+      margin-right: 5px;
+    }
+  }
+}

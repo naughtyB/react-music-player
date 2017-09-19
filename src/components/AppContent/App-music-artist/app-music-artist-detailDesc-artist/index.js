@@ -29,10 +29,18 @@ export class AppMusicArtistDetailDescArtist extends React.Component{
             let briefArr=[];
             if(briefDesc){
                 briefArr.push(
-                    <div className="app-content-music-artist-detailDesc-artist" key="brief">
+                    <div
+                        className="app-content-music-artist-detailDesc-artist"
+                        key="brief"
+                    >
                         <h3 className="app-content-music-artist-detailDesc-artist-title">简介</h3>
                         {briefDesc.split("\n").map((item,index)=>{
-                            return <p key={index} className="app-content-music-artist-detailDesc-artist-content">{item}</p>
+                            return <p
+                                key={index}
+                                className="app-content-music-artist-detailDesc-artist-content"
+                            >
+                                {item}
+                            </p>
                         })}
                     </div>
                 )
@@ -48,14 +56,20 @@ export class AppMusicArtistDetailDescArtist extends React.Component{
                 )
             }
             return (
-                <Spin spinning={artistDescDataLoadState} tip="Loading...">
+                <Spin
+                    spinning={artistDescDataLoadState}
+                    tip="Loading..."
+                >
                     {briefArr}
                 </Spin>
             )
         }
         else{
             return (
-                <Spin spinning={artistDescDataLoadState} tip="Loading...">
+                <Spin
+                    spinning={artistDescDataLoadState}
+                    tip="Loading..."
+                >
                     <div style={{textAlign:"center",height:"300px",lineHeight:"300px"}}>
                         {artistDescDataLoadState?"":"暂无介绍"}
                     </div>

@@ -8,12 +8,7 @@ import {BrowserRouter,Route,Link} from "react-router-dom";
 import {Spin} from "antd";
 import AppMusicSearch from "./App-music-search/index";
 import AppMusicArtist from "./App-music-artist/index";
-import fetch from "isomorphic-fetch";
-/*import Promise from "promise-polyfill";
-//兼容性处理
-if(!window.Promise){
-    window.Promise=Promise
-}*/
+import AppMusicAlbum from "./App-music-album/index";
 
 
 export class AppContent extends React.Component{
@@ -21,21 +16,6 @@ export class AppContent extends React.Component{
         super(props);
         this.handleGetAppContent=this.handleGetAppContent.bind(this);
     }
-
-    /*componentWillMount() {
-        fetch("/simi/artist", {
-            //credentials: 'include',
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: "id=3684"
-        }).then(res=> {
-            return res.json()
-        }).then(data=> {
-            console.log(data);
-        })
-    }*/
 
     handleGetAppContent(){
         return this.refs["app-content"];
@@ -61,6 +41,16 @@ export class AppContent extends React.Component{
                     path="/music-artist"
                     render={({history,location})=>{
                         return <AppMusicArtist
+                                    onGetAppContent={this.handleGetAppContent}
+                                    history={history}
+                                    location={location}
+                                 />
+                    }}
+                />
+                <Route
+                    path="/music-album"
+                    render={({history,location})=>{
+                        return <AppMusicAlbum
                                     onGetAppContent={this.handleGetAppContent}
                                     history={history}
                                     location={location}
