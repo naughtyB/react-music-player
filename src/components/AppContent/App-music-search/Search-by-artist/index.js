@@ -44,7 +44,7 @@ export class SearchByArtist extends React.Component{
     handleRowClick(artist){
         this.props.history.push({
             pathname:"/music-artist",
-            hash:"artistId="+artist["artistId"]
+            hash:"artistId="+artist["artistId"]+"&activeKey=artistDetailAlbum"
         });
         this.onPageToTop();
     }
@@ -80,7 +80,9 @@ export class SearchByArtist extends React.Component{
         else{
             return (
                 <Spin spinning={artistLoadState} tip="Loading...">
-                    <div style={{height:"500px"}}>asd</div>
+                    <div style={{height:"300px",lineHeight:"300px",textAlign:"center"}}>
+                        {artistLoadState?"":"搜索不到相关歌手"}
+                    </div>
                 </Spin>
             )
         }

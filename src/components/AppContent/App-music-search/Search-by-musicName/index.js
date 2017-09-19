@@ -3,6 +3,7 @@
  */
 import React from "react";
 import {Table,Icon,message,Spin} from "antd";
+import {Link} from "react-router-dom";
 import {timeTransform} from "../../../../common/js/index"
 import "./index.scss"
 
@@ -91,7 +92,12 @@ export class SearchByMusicName extends React.Component{
                     orderNumber:<span className="app-content-music-searchByMusicName-table-row-orderNumber-content">{musicData["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-searchByMusicName-table-row-isPlaying"/>:(current*30+index+1)<10?"0"+(current*30+index+1):current*30+index+1}</span>,
                     handle:<Icon type="heart" style={{width:"25px"}}/>,
                     musicName: musicData["name"],
-                    singer: musicData["artists"][0]["name"],
+                    singer:<Link  to={{
+                            pathname:"/music-artist",
+                            hash:"artistId="+musicData["artists"][0]["id"]+"&activeKey=artistDetailAlbum"
+                        }}>
+                        {musicData["artists"][0]["name"]}
+                    </Link>,
                     album:musicData["album"]["name"],
                     time: timeTransform(musicData["duration"]),
                     musicId:musicData["id"],
@@ -118,7 +124,9 @@ export class SearchByMusicName extends React.Component{
         else{
             return (
                 <Spin spinning={musicLoadState} tip="Loading...">
-                    <div style={{height:"500px"}}>gg</div>
+                    <div style={{height:"300px",lineHeight:"300px",textAlign:"center"}}>
+                        {musicLoadState?"":"搜索不到相关单曲"}
+                    </div>
                 </Spin>
             )
         }

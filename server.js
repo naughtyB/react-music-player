@@ -32,6 +32,10 @@ app.use('/artist',urlencodeParser,require('./express/router/artist'));
 app.use('/album',urlencodeParser,require('./express/router/album'));
 
 
+//获取相似歌手（在登录网易云帐号的前提下才能获取）
+app.use('/simi/artist',urlencodeParser,require('./express/router/simi_artists'));
+
+
 
 
 /*app.get("/login",(req,res)=>{

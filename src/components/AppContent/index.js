@@ -8,6 +8,12 @@ import {BrowserRouter,Route,Link} from "react-router-dom";
 import {Spin} from "antd";
 import AppMusicSearch from "./App-music-search/index";
 import AppMusicArtist from "./App-music-artist/index";
+import fetch from "isomorphic-fetch";
+/*import Promise from "promise-polyfill";
+//兼容性处理
+if(!window.Promise){
+    window.Promise=Promise
+}*/
 
 
 export class AppContent extends React.Component{
@@ -16,16 +22,23 @@ export class AppContent extends React.Component{
         this.handleGetAppContent=this.handleGetAppContent.bind(this);
     }
 
+    /*componentWillMount() {
+        fetch("/simi/artist", {
+            //credentials: 'include',
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "id=3684"
+        }).then(res=> {
+            return res.json()
+        }).then(data=> {
+            console.log(data);
+        })
+    }*/
+
     handleGetAppContent(){
         return this.refs["app-content"];
-    }
-
-    componentDidMount(){
-        /*setInterval(()=>{
-            console.log(this.refs["app-content"].parentNode.scrollHeight);
-            console.log(this.refs["app-content"].parentNode.scrollTop);
-            console.log(this.refs["app-content"].parentNode.clientHeight);
-        },500)*/
     }
 
     render(){

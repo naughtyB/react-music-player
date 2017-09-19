@@ -75,7 +75,9 @@ export class SearchByAlbum extends React.Component{
         else{
             return (
                 <Spin spinning={albumLoadState} tip="Loading...">
-                    <div style={{height:"500px"}}>as</div>
+                    <div style={{height:"300px",lineHeight:"300px",textAlign:"center"}}>
+                        {albumLoadState?"":"搜索不到相关专辑"}
+                    </div>
                 </Spin>
             )
         }

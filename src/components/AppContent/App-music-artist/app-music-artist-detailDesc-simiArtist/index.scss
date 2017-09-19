@@ -1,0 +1,25 @@
+.app-content-music-artist-detailDesc-simiArtist{
+  padding:20px 30px;
+}
+
+.app-content-music-artist-detailDesc-simiArtist-item{
+  float: left;
+  margin:0 30px 30px 0;
+}
+
+.app-content-music-artist-detailDesc-simiArtist-item-img{
+  width: 100px;
+  border-radius:20px;
+  transition:transform 500ms,box-shadow 500ms;
+}
+
+.app-content-music-artist-detailDesc-simiArtist-item-img:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 10px 0 #4e4e4e;
+}
+
+.app-content-music-artist-detailDesc-simiArtist-item-name{
+  height: 30px;
+  text-align:center;
+  line-height:30px;
+}

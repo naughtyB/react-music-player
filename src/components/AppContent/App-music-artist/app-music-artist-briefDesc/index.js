@@ -25,15 +25,15 @@ export class AppMusicArtistBriefDesc extends React.Component{
                     <ul>
                         <li className="app-content-music-artist-BriefDesc-introduction-musicSize">
                             <span className="app-content-music-artist-BriefDesc-introduction-musicSize-tag">单曲数:</span>
-                            <span>{artistData["artist"]["musicSize"]}</span>
+                            <span>{artistData["artist"]["musicSize"]?artistData["artist"]["musicSize"]:0}</span>
                         </li>
                         <li className="app-content-music-artist-BriefDesc-introduction-albumSize">
                             <span className="app-content-music-artist-BriefDesc-introduction-albumSize-tag">专辑数:</span>
-                            <span>{artistData["artist"]["albumSize"]}</span>
+                            <span>{artistData["artist"]["albumSize"]?artistData["artist"]["albumSize"]:0}</span>
                         </li>
                         <li className="app-content-music-artist-BriefDesc-introduction-mvSize">
                             <span className="app-content-music-artist-BriefDesc-introduction-mvSize-tag">MV数:</span>
-                            <span>{artistData["artist"]["mvSize"]}</span>
+                            <span>{artistData["artist"]["mvSize"]?artistData["artist"]["mvSize"]:0}</span>
                         </li>
                     </ul>
                 </div>
