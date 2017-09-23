@@ -19,6 +19,7 @@ export class SearchByAlbum extends React.Component{
         super(props);
         this.onPageToTop=this.onPageToTop.bind(this);
         this.handleTableChange=this.handleTableChange.bind(this);
+        this.handleRowClick=this.handleRowClick.bind(this);
     }
 
     onPageToTop(){
@@ -44,6 +45,14 @@ export class SearchByAlbum extends React.Component{
         this.props.onInputSearch(this.props.keyword,10,30,30*(pagination.current-1),pagination.current);
     }
 
+    handleRowClick(album){
+        this.props.history.push({
+            pathname:"/music-album",
+            hash:"albumId="+album["albumId"]+"&activeKey=albumContent"
+        });
+        this.onPageToTop();
+    }
+
     render(){
         const {albumSearched,albumLoadState}=this.props;
         const data = [];
@@ -53,7 +62,8 @@ export class SearchByAlbum extends React.Component{
                 data.push({
                     key: 30*current+index+1,
                     album: <span><img src={albumData["picUrl"]}/><span className="app-content-music-searchByAlbum-table-row-albumName">{albumData["name"]}</span></span>,
-                    artist:albumData["artist"]["name"]
+                    artist:albumData["artist"]["name"],
+                    albumId:albumData["id"]
                 });
             }
             return (
@@ -67,6 +77,7 @@ export class SearchByAlbum extends React.Component{
                             showHeader={false}
                             className="app-content-music-searchByAlbum-table"
                             onChange={this.handleTableChange}
+                            onRowClick={this.handleRowClick}
                         />
                     </div>
                 </Spin>

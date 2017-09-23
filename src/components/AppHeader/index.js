@@ -1,8 +1,8 @@
 import "./index.scss";
 import React from "react";
 import InputSearch from "./InputSearch/index";
-
-
+import AppHeaderUser from "./app-header-user/index"
+import {withRouter} from "react-router-dom";
 export class AppHeader extends React.Component{
     render(){
         return (
@@ -10,7 +10,8 @@ export class AppHeader extends React.Component{
                 <div className="app-header-logo">
                     <span className="app-header-logo-message">Music Player</span>
                 </div>
-                <InputSearch/>
+                <InputSearch history={this.props.history}/>
+                <AppHeaderUser history={this.props.history}/>
             </div>
         )
     }
@@ -18,5 +19,5 @@ export class AppHeader extends React.Component{
 
 
 
-export default AppHeader;
+export default withRouter(AppHeader);
 

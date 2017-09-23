@@ -72,8 +72,8 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
             }
             return (
                 <div className="app-content-music-artist-detailDesc-list-album-item">
-                    <div className="app-content-music-artist-detailDesc-list-album-item-img">
-                        <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src="/src/common/img/top50.png"/>
+                    <div className="app-content-music-artist-detailDesc-list-album-top-item-img">
+                        <img className="app-content-music-artist-detailDesc-list-album-top-item-img-content" src="/src/common/img/top50.png"/>
                     </div>
                     <div className="app-content-music-artist-detailDesc-list-album-item-main">
                         <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">热门50首</h3>

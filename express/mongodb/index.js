@@ -3,7 +3,7 @@
  * Created by Administrator on 2017/9/4.
  */
 const mongoose=require("mongoose");
-const DB_URL="mongodb://127.0.0.1:27017/blog";
+const DB_URL="mongodb://127.0.0.1:27017/music";
 
 mongoose.connect(DB_URL);
 
@@ -21,7 +21,8 @@ mongoose.connection.on("discontented",()=>{
 
 let UserSchema=new mongoose.Schema({
     username:{type:String},
-    password:{type:String}
+    password:{type:String},
+    mobileNumber:{type:String}
 });
 let User=mongoose.model("users",UserSchema);
 

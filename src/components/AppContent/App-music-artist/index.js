@@ -30,6 +30,7 @@ export class AppMusicArtist extends React.Component{
         let newArtistId=transformHash(nextProps.location.hash)["artistId"];
         if(artistId!=newArtistId){
             this.props.onSearchArtist(newArtistId);
+            this.props.onGetAppContent().parentNode.scrollTop=0;
         }
     }
 

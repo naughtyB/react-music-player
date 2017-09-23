@@ -1,0 +1,22 @@
+$app-header-user-login-input-height:40px;
+
+.app-header-user-login-mobileNumber-input{
+  height:$app-header-user-login-input-height;
+}
+
+.app-header-user-login-password-input{
+  height: $app-header-user-login-input-height;
+}
+
+.app-header-user-login-submit-input{
+  width: 100%;
+  height: $app-header-user-login-input-height;
+  margin-bottom: 40px;
+}
+
+.app-header-user-login{
+  .has-feedback:after{
+    height:$app-header-user-login-input-height !important;
+    line-height:$app-header-user-login-input-height !important;
+  }
+}

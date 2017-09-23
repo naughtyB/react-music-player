@@ -10,7 +10,9 @@ import "./index.scss";
 export class AppMusicArtistDetailDescArtist extends React.Component{
     componentWillMount(){
         this.props.onSearchArtistDesc(this.props.artistId);
-        this.props.onGetAppContent().parentNode.scrollTop = 0;
+        setTimeout(()=>{
+            this.props.onGetAppContent().parentNode.scrollTop=0;
+        },50)
     }
 
     componentWillUpdate(nextProps){

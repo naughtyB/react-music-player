@@ -9,6 +9,7 @@ import {Spin} from "antd";
 import AppMusicSearch from "./App-music-search/index";
 import AppMusicArtist from "./App-music-artist/index";
 import AppMusicAlbum from "./App-music-album/index";
+import AppMusicUser from "./App-music-user/index"
 
 
 export class AppContent extends React.Component{
@@ -56,6 +57,10 @@ export class AppContent extends React.Component{
                                     location={location}
                                  />
                     }}
+                />
+                <Route
+                    path="/music-user"
+                    component={AppMusicUser}
                 />
             </div>
         )

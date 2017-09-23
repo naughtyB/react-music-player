@@ -1,0 +1,42 @@
+$app-header-user-register-input-height:40px;
+
+.app-header-user-register-mobileNumber-input{
+  height:$app-header-user-register-input-height;
+}
+
+.app-header-user-register-password-input{
+  height:$app-header-user-register-input-height;
+}
+
+.app-header-user-register-username-input{
+  height:$app-header-user-register-input-height;
+}
+.app-header-user-register-captcha{
+  display: flex;
+  align-items: center;
+  height: $app-header-user-register-input-height;
+  width: 100%;
+}
+
+.app-header-user-register-captcha-input{
+  width: 350px;
+  height: $app-header-user-register-input-height;
+}
+
+.app-header-user-register-captcha-button{
+  width: 138px;
+  height: $app-header-user-register-input-height;
+}
+
+.app-header-user-register{
+  .has-feedback:after{
+    height:$app-header-user-register-input-height !important;
+    line-height:$app-header-user-register-input-height !important;
+  }
+}
+
+.app-header-user-register-submit-input{
+  width: 100%;
+  height:$app-header-user-register-input-height;
+  margin-bottom: 40px;
+}

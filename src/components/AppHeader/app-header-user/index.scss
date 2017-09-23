@@ -1,0 +1,37 @@
+.app-header-user{
+  display:flex;
+  flex-direction: row-reverse;
+  flex-grow:1;
+  height: 64px;
+}
+
+.app-header-user-message{
+  display: flex;
+  align-items: center;
+  flex-grow:0;
+  flex-shrink:0;
+  cursor:pointer;
+}
+
+.app-header-user-message-headPortrait{
+  margin-right: 10px;
+}
+
+.app-header-user-message-name{
+  color: #e9e9e9;
+}
+.app-header-user-message:hover{
+  .app-header-user-message-name{
+    color:white;
+  }
+}
+
+.app-header-user-loginFrame{
+  .ant-modal-footer{
+    margin: 0 16px;
+    padding:10px 0;
+  }
+  .ant-tabs-bar{
+    margin-bottom: 40px;
+  }
+}

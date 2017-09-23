@@ -1,0 +1,39 @@
+$app-header-user-resetPassword-input-height:40px;
+
+.app-header-user-resetPassword-mobileNumber-input{
+  height:$app-header-user-resetPassword-input-height;
+}
+
+.app-header-user-resetPassword-password-input{
+  height:$app-header-user-resetPassword-input-height;
+}
+
+.app-header-user-resetPassword-captcha{
+  display: flex;
+  align-items: center;
+  height: $app-header-user-resetPassword-input-height;
+  width: 100%;
+}
+
+.app-header-user-resetPassword-captcha-input{
+  width: 350px;
+  height: $app-header-user-resetPassword-input-height;
+}
+
+.app-header-user-resetPassword-captcha-button{
+  width: 138px;
+  height: $app-header-user-resetPassword-input-height;
+}
+
+.app-header-user-resetPassword{
+  .has-feedback:after{
+    height:$app-header-user-resetPassword-input-height !important;
+    line-height:$app-header-user-resetPassword-input-height !important;
+  }
+}
+
+.app-header-user-resetPassword-submit-input{
+  width: 100%;
+  height:$app-header-user-resetPassword-input-height;
+  margin-bottom: 40px;
+}

@@ -20,6 +20,20 @@ export class AppMusicSearch extends React.Component{
         this.handleChange=this.handleChange.bind(this);
     }
 
+    componentWillMount(){
+        setTimeout(()=>{
+            this.props.onGetAppContent().parentNode.scrollTop=0;
+        },50)
+    }
+
+    componentWillUpdate(nextProps){
+        let keyword=transformHash(this.props.location.hash)["keyword"];
+        let newKeyword=transformHash(nextProps.location.hash)["keyword"];
+        if(keyword!=newKeyword){
+            this.props.onGetAppContent().parentNode.scrollTop=0;
+        }
+    }
+
     handleChange(activeKey){
         let newHashObj={...transformHash(this.props.location.hash),activeKey};
         this.props.history.push({
@@ -51,6 +65,7 @@ export class AppMusicSearch extends React.Component{
             currentMusicIsPlaying,
             onInputSearch,
             onChangeCurrentMusic,
+            onGetAppContent,
             onChangeCurrentMusicIsPlaying,
             }=this.props;
         const {keyword,activeKey}=transformHash(location.hash);
@@ -71,7 +86,7 @@ export class AppMusicSearch extends React.Component{
                             onInputSearch={onInputSearch}
                             keyword={keyword}
                             onChangeCurrentMusic={onChangeCurrentMusic}
-                            onGetAppContent={this.props.onGetAppContent}
+                            onGetAppContent={onGetAppContent}
                             musicNamePage={musicNamePage}
                             currentMusicId={currentMusicId}
                             onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying}
@@ -85,7 +100,7 @@ export class AppMusicSearch extends React.Component{
                         key="artist"
                     >
                         <SearchByArtist
-                            onGetAppContent={this.props.onGetAppContent}
+                            onGetAppContent={onGetAppContent}
                             artistPage={artistPage}
                             keyword={keyword}
                             onInputSearch={onInputSearch}
@@ -100,13 +115,14 @@ export class AppMusicSearch extends React.Component{
                         key="album"
                     >
                         <SearchByAlbum
-                            onGetAppContent={this.props.onGetAppContent}
+                            onGetAppContent={onGetAppContent}
                             albumPage={albumPage}
                             keyword={keyword}
                             onInputSearch={onInputSearch}
                             albumSearched={albumSearched}
                             activeKey={activeKey}
                             albumLoadState={albumLoadState}
+                            history={history}
                         />
                     </TabPane>
                 </Tabs>

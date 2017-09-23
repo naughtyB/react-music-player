@@ -12,7 +12,9 @@ export class AppMusicArtistDetailDescSimiArtist extends React.Component{
 
     componentWillMount(){
         this.props.onSearchSimiArtist(this.props.artistId);
-        this.props.onGetAppContent().parentNode.scrollTop = 0;
+        setTimeout(()=>{
+            this.props.onGetAppContent().parentNode.scrollTop=0;
+        },50)
     }
 
     componentWillUpdate(nextProps){

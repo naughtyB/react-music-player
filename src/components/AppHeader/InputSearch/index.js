@@ -3,7 +3,7 @@
  */
 import {Input} from "antd";
 import React from "react";
-import {withRouter} from "react-router-dom";
+
 import "./index.scss"
 
 
@@ -30,4 +30,4 @@ export class InputSearch extends React.Component{
 }
 
 
-export default withRouter(InputSearch);
+export default InputSearch;

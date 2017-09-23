@@ -37,7 +37,28 @@ const columns = [{
 export class AppMusicAlbumDetailDescContent extends React.Component{
     constructor(props){
         super(props);
+        this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
+    }
 
+    componentWillUpdate(nextProps){
+        if(this.props.activeKey!=nextProps){
+            this.props.onGetAppContent().parentNode.scrollTop=0;
+        }
+    }
+
+    handleRowDoubleClick(music){
+        if(music.musicId!=this.props.currentMusicId){
+            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),message)
+        }
+        else{
+            if(!this.props.currentMusicIsPlaying){
+                this.props.onChangeCurrentMusicIsPlaying()
+            }
+            //正在播放这首歌
+            else{
+                message.info("正在播放这首歌曲")
+            }
+        }
     }
 
     render(){
@@ -72,6 +93,7 @@ export class AppMusicAlbumDetailDescContent extends React.Component{
                             pagination={false}
                             size="small"
                             className="app-content-music-album-DetailDesc-list-content-table"
+                            onRowDoubleClick={this.handleRowDoubleClick}
                         />
                     </div>
                 </Spin>

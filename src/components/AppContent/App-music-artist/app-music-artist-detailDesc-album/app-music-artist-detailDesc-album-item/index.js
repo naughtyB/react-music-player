@@ -4,8 +4,8 @@
 import "./index.scss"
 import React from "react";
 import {Table,Icon,message} from "antd";
+import {Link} from "react-router-dom";
 import {timeTransform} from "../../../../../common/js/index"
-
 const columns = [{
     title:"序号",
     dataIndex:"orderNumber"
@@ -70,7 +70,12 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
         return (
             <div className="app-content-music-artist-detailDesc-list-album-item">
                 <div className="app-content-music-artist-detailDesc-list-album-item-img">
-                    <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src={artistAlbumData["hotAlbums"][albumIndex]["blurPicUrl"]}/>
+                    <Link to={{
+                        pathname:"/music-album",
+                        hash:"albumId="+albumData[albumIndex]["album"]["id"]+"&activeKey=albumContent"
+                    }}>
+                        <img className="app-content-music-artist-detailDesc-list-album-item-img-content" src={artistAlbumData["hotAlbums"][albumIndex]["blurPicUrl"]}/>
+                    </Link>
                 </div>
                 <div className="app-content-music-artist-detailDesc-list-album-item-main">
                     <h3 className="app-content-music-artist-detailDesc-list-album-item-main-title">{artistAlbumData["hotAlbums"][albumIndex]["name"]}</h3>

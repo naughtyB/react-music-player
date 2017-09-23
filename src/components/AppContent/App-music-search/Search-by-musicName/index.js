@@ -98,7 +98,12 @@ export class SearchByMusicName extends React.Component{
                         }}>
                         {musicData["artists"][0]["name"]}
                     </Link>,
-                    album:musicData["album"]["name"],
+                    album:<Link  to={{
+                            pathname:"/music-album",
+                            hash:"albumId="+musicData["album"]["id"]+"&activeKey=albumContent"
+                        }}>
+                        {musicData["album"]["name"]}
+                    </Link>,
                     time: timeTransform(musicData["duration"]),
                     musicId:musicData["id"],
                     duration:musicData["duration"]

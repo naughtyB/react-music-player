@@ -31,16 +31,20 @@ app.use('/artist',urlencodeParser,require('./express/router/artist'));
 //获取专辑内容
 app.use('/album',urlencodeParser,require('./express/router/album'));
 
-
 //获取相似歌手（在登录网易云帐号的前提下才能获取）
 app.use('/simi/artist',urlencodeParser,require('./express/router/simi_artists'));
 
+//通过sessionStorage来检验用户是否登录
+app.use('/login/test',urlencodeParser,require('./express/router/loginTest'));
 
+//用户登录
+app.use("/login",urlencodeParser,require("./express/router/login.js"));
 
+//用户注册
+app.use("/register",urlencodeParser,require("./express/router/register.js"));
 
-/*app.get("/login",(req,res)=>{
-    res.sendfile(path.join(__dirname,"./index.html"))
-});*/
+//用户忘记密码（重置密码）
+app.use("/resetPassword",urlencodeParser,require("./express/router/resetPassword.js"));
 
 app.get("*",(req,res)=>{
     //这里要用绝对路径
@@ -51,12 +55,10 @@ app.get("*",(req,res)=>{
 
 
 
-/*
-//用户登录
-app.post("/userlogin",urlencodeParser,require("./express/router/userlogin.js"));
 
 
-//用户注册
+
+/*//用户注册
 app.post("/userregister",urlencodeParser,require("./express/router/userregister.js"));*/
 
 

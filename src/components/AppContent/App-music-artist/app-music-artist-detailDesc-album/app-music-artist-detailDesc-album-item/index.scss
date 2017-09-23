@@ -9,6 +9,12 @@
 }
 .app-content-music-artist-detailDesc-list-album-item-img-content{
   width: 120px;
+  border-radius:20px;
+  transition:transform 500ms,box-shadow 500ms;
+}
+.app-content-music-artist-detailDesc-list-album-item-img-content:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 10px 0 #4e4e4e;
 }
 .app-content-music-artist-detailDesc-list-album-item-main{
   flex-grow: 1;
