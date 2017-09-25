@@ -8,8 +8,12 @@ let app=express();
 const http=require("http");
 const bodyParser=require("body-parser");
 const path=require("path");
+const fs=require("fs");
 
 let urlencodeParser=bodyParser.urlencoded({extends:false});
+
+app.use(bodyParser.json());
+
 
 app.use(express.static(__dirname));
 
@@ -45,6 +49,27 @@ app.use("/register",urlencodeParser,require("./express/router/register.js"));
 
 //用户忘记密码（重置密码）
 app.use("/resetPassword",urlencodeParser,require("./express/router/resetPassword.js"));
+
+//用户修改基本信息
+app.use("/modifyUserData",urlencodeParser,require("./express/router/modifyUserData.js"));
+
+
+
+
+//-------------------------------------------
+
+let multer  = require('multer');
+
+
+var upload =  multer({ dest: './uploads/' });
+
+
+// 单图上传
+app.post('/submitPortrait', upload.single('portrait'), function(req, res, next){
+    fs.renameSync(req.file.path,req.file.path+"."+req.file.originalname.split(".")[1]);
+    res.send({ret_code: '0'});
+});
+
 
 app.get("*",(req,res)=>{
     //这里要用绝对路径

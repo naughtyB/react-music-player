@@ -1,0 +1,95 @@
+.app-content-music-userModify-form-headPortrait{
+  width: 160px;
+}
+.app-content-music-userModify-form-headPortrait-img{
+  width: 160px;
+  height: 160px;
+}
+
+.app-content-music-userModify-form-headPortrait-button{
+  display:block;
+  margin:15px auto;
+}
+.app-content-music-userModify-form-headPortrait-file{
+  visibility: hidden;
+}
+
+
+.app-content-music-userModify-form-headPortrait-modal{
+  .ant-modal-body{
+    display:flex;
+  }
+}
+
+.app-content-music-userModify-form-headPortrait-modal-body-left{
+  display: flex;
+  align-items:center;
+  margin-left: 30px;
+  flex-shrink:0;
+  flex-grow:0;
+  width: 202px;
+  height: 202px;
+  border:1px solid #CCC;
+  background-color: rgba(221,221,221,0.1);
+  box-sizing:border-box;
+}
+
+.app-content-music-userModify-form-headPortrait-modal-body-left-frame{
+  position:relative;
+}
+.app-content-music-userModify-form-headPortrait-modal-body-left-frame-img{
+  vertical-align: bottom;
+  max-width:200px;
+  max-height:200px;
+}
+.app-content-music-userModify-form-headPortrait-modal-body-left-frame-selector{
+  position:absolute;
+  top: 0;
+  left: 0;
+  border:1px solid rgb(44, 206, 133);
+  background-color: rgba(0,0,255,0.1);
+  cursor:move;
+}
+.app-content-music-userModify-form-headPortrait-modal-body-left-frame-selector-resize{
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: black;
+  visibility: visible;
+  cursor:se-resize;
+}
+
+.app-content-music-userModify-form-headPortrait-modal-body-right{
+  margin-left: 50px;
+}
+
+.app-content-music-userModify-form-headPortrait-modal-body-right-displayBigger{
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border:1px solid #CCC;
+  box-sizing:content-box;
+  overflow:hidden;
+}
+.app-content-music-userModify-form-headPortrait-modal-body-right-displayBigger-img{
+  position:absolute;
+}
+.app-content-music-userModify-form-headPortrait-modal-body-right-displayBigger-img-introduction{
+  margin-bottom:5px;
+}
+
+.app-content-music-userModify-form-headPortrait-modal-body-right-displaySmaller{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border:1px solid #CCC;
+  box-sizing:content-box;
+  overflow:hidden;
+}
+.app-content-music-userModify-form-headPortrait-modal-body-right-displaySmaller-img{
+  position: absolute;
+}

@@ -22,7 +22,10 @@ mongoose.connection.on("discontented",()=>{
 let UserSchema=new mongoose.Schema({
     username:{type:String},
     password:{type:String},
-    mobileNumber:{type:String}
+    mobileNumber:{type:String},
+    introduction:{type:String},
+    birth:{type:String},
+    sex:{type:String}
 });
 let User=mongoose.model("users",UserSchema);
 

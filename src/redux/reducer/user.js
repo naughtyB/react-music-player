@@ -1,7 +1,6 @@
 /**
  * Created by Administrator on 2017/9/21.
  */
-
 import {
     CHANGE_USER_LOGIN_STATE,
     CHANGE_USER_DATA,

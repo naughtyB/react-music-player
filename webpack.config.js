@@ -10,7 +10,7 @@ module.exports={
     devtool:"source-map",
     entry:{
         bundle:"./src/index.js",
-        vendor:["react","react-dom","react-router-dom","react-redux","redux","isomorphic-fetch","promise-polyfill"]
+        vendor:["react","react-dom","react-router-dom","react-redux","redux","isomorphic-fetch","promise-polyfill","redux-thunk","moment"]
     },
     output:{
         path:path.resolve(__dirname,"./build"),

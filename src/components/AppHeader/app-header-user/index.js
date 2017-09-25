@@ -99,6 +99,7 @@ export class AppHeaderUser extends React.Component{
                     <span className="app-header-user-message-name">{loginState?userData["username"]:"登录"}</span>
                 </div>
                 <Modal
+                    maskClosable={false}
                     visible={loginFrameVisible}
                     className="app-header-user-loginFrame"
                     onCancel={this.handleCancelLoginFrame}

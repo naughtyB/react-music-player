@@ -52,6 +52,7 @@ export const SUBMIT_LOGIN_FRAME_RESET_PASSWORD_RECEIVE_SUCCESS_POST="SUBMIT_LOGI
 
 export const SUBMIT_LOGIN_FRAME_RESET_PASSWORD_RECEIVE_ERROR_POST="SUBMIT_LOGIN_FRAME_RESET_PASSWORD_RECEIVE_ERROR_POST";
 
+
 export const doChangeUserLoginState=(loginState)=>{
     return {
         type:CHANGE_USER_LOGIN_STATE,
@@ -86,6 +87,7 @@ export const doChangeUserResetPasswordFields=(resetPasswordFieldsChanged)=>{
         resetPasswordFieldsChanged
     }
 };
+
 
 export const doChangeLoginFrameActiveKey=(loginFrameActiveKey)=>{
     return {
@@ -239,3 +241,6 @@ export const doSubmitLoginFrameResetPassword=(mobileNumber,password,captcha)=>(d
         }
     })
 };
+
+
+

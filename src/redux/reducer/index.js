@@ -9,6 +9,7 @@ import currentMusic from "./currentMusic"
 import artist from "./artist";
 import album from "./album";
 import user from "./user";
+import userModify from "./userModify";
 
 
 
@@ -17,7 +18,8 @@ export const reducer = combineReducers({
     currentMusic,
     artist,
     album,
-    user
+    user,
+    userModify
 });
 
 export default reducer;

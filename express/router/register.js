@@ -8,7 +8,7 @@ module.exports=(req,res)=>{
         res.json({isSuccessful:false,errorType:"captcha",error:"验证码错误"})
     }
     else{
-        let userMessage={mobileNumber:decodeURIComponent(req.body.mobileNumber),password:decodeURIComponent(req.body.password),username:decodeURIComponent(req.body.username)};
+        let userMessage={mobileNumber:decodeURIComponent(req.body.mobileNumber),password:decodeURIComponent(req.body.password),username:decodeURIComponent(req.body.username),sex:decodeURIComponent("secret"),introduction:decodeURIComponent(""),birth:decodeURIComponent("2017-01-01")};
         User.find({mobileNumber:userMessage.mobileNumber},(err,findMobileNumberResponse)=>{
             if(err){
                 res.json({isSuccessful:false,errorType:"captcha",error:"发生错误!请重新提交"})
@@ -22,7 +22,7 @@ module.exports=(req,res)=>{
                         res.json({isSuccessful:false,errorType:"captcha",error:"发生错误！请重新提交"})
                     }
                     else if(findUserNameResponse.length>0){
-                        res.json({isSuccessful:false,errorType:"username",error:"该用户名已被使用"})
+                        res.json({isSuccessful:false,errorType:"username",error:"该昵称已被使用"})
                     }
                     else{
                         let newUser=new User(userMessage);
