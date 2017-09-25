@@ -9,10 +9,12 @@ const http=require("http");
 const bodyParser=require("body-parser");
 const path=require("path");
 const fs=require("fs");
+let multer  = require('multer');
+
 
 let urlencodeParser=bodyParser.urlencoded({extends:false});
+let upload =  multer({ dest: './uploads/' });
 
-app.use(bodyParser.json());
 
 
 app.use(express.static(__dirname));
@@ -22,6 +24,9 @@ app.use('/music/url', urlencodeParser,require('./express/router/musicUrl'));
 
 //通过搜索关键词获得音乐
 app.use('/search',urlencodeParser, require('./express/router/search'));
+
+//通过关键词进行建议
+app.use("/search_suggest",urlencodeParser,require('./express/router/search_suggest'));
 
 //获取歌手详情
 app.use('/artist/desc',urlencodeParser,require('./express/router/artist_desc'));
@@ -53,22 +58,8 @@ app.use("/resetPassword",urlencodeParser,require("./express/router/resetPassword
 //用户修改基本信息
 app.use("/modifyUserData",urlencodeParser,require("./express/router/modifyUserData.js"));
 
-
-
-
-//-------------------------------------------
-
-let multer  = require('multer');
-
-
-var upload =  multer({ dest: './uploads/' });
-
-
 // 单图上传
-app.post('/submitPortrait', upload.single('portrait'), function(req, res, next){
-    fs.renameSync(req.file.path,req.file.path+"."+req.file.originalname.split(".")[1]);
-    res.send({ret_code: '0'});
-});
+app.post('/submitPortrait', upload.single('portrait'),require("./express/router/submitPortrait.js"));
 
 
 app.get("*",(req,res)=>{

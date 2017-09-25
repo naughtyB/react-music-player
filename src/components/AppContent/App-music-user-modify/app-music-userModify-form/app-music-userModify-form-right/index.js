@@ -2,66 +2,74 @@
  * Created by Administrator on 2017/9/25.
  */
 import React from "react";
-import {Button,Modal,Spin} from "antd";
+import {Button,Modal,Spin,message} from "antd";
 import "./index.scss"
 export class AppMusicUserModifyFormRight extends React.Component{
     constructor(props){
         super(props);
         this.handleLoadImage=this.handleLoadImage.bind(this);
-        this.handleShowImage=this.handleShowImage.bind(this);
+        this.handleFileChange=this.handleFileChange.bind(this);
         this.handleMoveMouseDown=this.handleMoveMouseDown.bind(this);
         this.handleResizeMouseDown=this.handleResizeMouseDown.bind(this);
         this.handleSubmitPortrait=this.handleSubmitPortrait.bind(this);
+        this.handleCancelSubmitPortrait=this.handleCancelSubmitPortrait.bind(this);
+    }
+
+    handleCancelSubmitPortrait(){
+        this.refs["file"].value="";
+        this.props.onChangeUserModifyModalVisibility(false);
     }
 
     handleSubmitPortrait(){
         let formData=new FormData();
         let imgChanged=this.refs["imgChanged"];
+        let selector=this.refs["selector"];
         formData.append("portrait",this.refs["file"]["files"][0]);
         formData.append("user_id",this.props.userData["_id"]);
-        formData.append("preImgWidth",imgChanged.offsetWidth);
-        formData.append("preImgHeight",imgChanged.offsetHeight);
-        formData.append("selectorLeft",this.refs["selector"].offsetLeft);
-        formData.append("selectorTop",this.refs["selector"].offsetTop);
-        formData.append("selectorWidth",this.refs["selector"].offsetWidth);
-        formData.append("selectorHeight",this.refs["selector"].offsetHeight);
-        this.props.onSubmitModifyUserPortrait(formData);
+        formData.append("widthRate",imgChanged.offsetWidth/selector.offsetWidth);
+        formData.append("heightRate",imgChanged.offsetHeight/selector.offsetHeight);
+        formData.append("leftRate",selector.offsetLeft/selector.offsetWidth);
+        formData.append("topRate",selector.offsetTop/selector.offsetHeight);
+        formData.append("mobileNumber",this.props.userData["mobileNumber"]);
+        this.props.onSubmitModifyUserPortrait(formData,message);
     }
 
     handleLoadImage(){
         this.refs["file"].click();
     }
 
-    handleShowImage(e){
-        this.props.onChangeUserModifyPortraitPreviewUrl(window.URL.createObjectURL(e.target.files[0]));
-        this.props.onChangeUserModifyModalVisibility(true);
-        this.timer=setTimeout(()=>{
-            let imgDisplayBigger=this.refs["imgDisplayBigger"];
-            let imgDisplaySmaller=this.refs["imgDisplaySmaller"];
-            let imgChanged=this.refs["imgChanged"];
-            let selector=this.refs["selector"];
-            if(imgChanged.offsetWidth>=imgChanged.offsetHeight){
-                selector.style.width=imgChanged.offsetHeight+"px";
-                selector.style.height=imgChanged.offsetHeight+"px";
-                selector.style.left="0";
-                selector.style.top="0";
-            }
-            else{
-                selector.style.width=imgChanged.offsetWidth+"px";
-                selector.style.height=imgChanged.offsetWidth+"px";
-                selector.style.left="0";
-                selector.style.top="0";
-            }
-            imgDisplayBigger.style.width=imgChanged.offsetWidth*(100/selector.offsetWidth)+"px";
-            imgDisplayBigger.style.height=imgChanged.offsetHeight*(100/selector.offsetHeight)+"px";
-            imgDisplayBigger.style.left=-(selector.offsetLeft*(100/selector.offsetWidth))+"px";
-            imgDisplayBigger.style.top=-(selector.offsetTop*(100/selector.offsetHeight))+"px";
-            imgDisplaySmaller.style.width=imgChanged.offsetWidth*(60/selector.offsetWidth)+"px";
-            imgDisplaySmaller.style.height=imgChanged.offsetHeight*(60/selector.offsetHeight)+"px";
-            imgDisplaySmaller.style.left=-(selector.offsetLeft*(60/selector.offsetWidth))+"px";
-            imgDisplaySmaller.style.top=-(selector.offsetTop*(60/selector.offsetHeight))+"px";
-            imgChanged.parentNode.onselectstart=function(){return false};
-        },50)
+    handleFileChange(e){
+        if(e.target.value!=""){
+            this.props.onChangeUserModifyPortraitPreviewUrl(window.URL.createObjectURL(e.target.files[0]));
+            this.props.onChangeUserModifyModalVisibility(true);
+            this.timer=setTimeout(()=>{
+                let imgDisplayBigger=this.refs["imgDisplayBigger"];
+                let imgDisplaySmaller=this.refs["imgDisplaySmaller"];
+                let imgChanged=this.refs["imgChanged"];
+                let selector=this.refs["selector"];
+                if(imgChanged.offsetWidth>=imgChanged.offsetHeight){
+                    selector.style.width=imgChanged.offsetHeight+"px";
+                    selector.style.height=imgChanged.offsetHeight+"px";
+                    selector.style.left="0";
+                    selector.style.top="0";
+                }
+                else{
+                    selector.style.width=imgChanged.offsetWidth+"px";
+                    selector.style.height=imgChanged.offsetWidth+"px";
+                    selector.style.left="0";
+                    selector.style.top="0";
+                }
+                imgDisplayBigger.style.width=imgChanged.offsetWidth*(100/selector.offsetWidth)+"px";
+                imgDisplayBigger.style.height=imgChanged.offsetHeight*(100/selector.offsetHeight)+"px";
+                imgDisplayBigger.style.left=-(selector.offsetLeft*(100/selector.offsetWidth))+"px";
+                imgDisplayBigger.style.top=-(selector.offsetTop*(100/selector.offsetHeight))+"px";
+                imgDisplaySmaller.style.width=imgChanged.offsetWidth*(60/selector.offsetWidth)+"px";
+                imgDisplaySmaller.style.height=imgChanged.offsetHeight*(60/selector.offsetHeight)+"px";
+                imgDisplaySmaller.style.left=-(selector.offsetLeft*(60/selector.offsetWidth))+"px";
+                imgDisplaySmaller.style.top=-(selector.offsetTop*(60/selector.offsetHeight))+"px";
+                imgChanged.parentNode.onselectstart=function(){return false};
+            },50)
+        }
     }
 
     handleMoveMouseDown(e){
@@ -180,16 +188,32 @@ export class AppMusicUserModifyFormRight extends React.Component{
         const {
             modalVisibility,
             onChangeUserModifyModalVisibility,
+            userData,
             portraitIsUploading
             }=this.props;
+        let style={};
+        if(userData.portrait){
+            style={
+                width:userData.portrait.widthRate*160+"px",
+                height:userData.portrait.heightRate*160+"px",
+                left:-(userData.portrait.leftRate*160)+"px",
+                top:-(userData.portrait.topRate*160)+"px"
+            }
+        }
         return (
             <div className="app-content-music-userModify-form-headPortrait">
-                <img className="app-content-music-userModify-form-headPortrait-img" src="/src/common/img/imgTested.jpg"/>
+                <div className="app-content-music-userModify-form-headPortrait-img">
+                    <img
+                        className="app-content-music-userModify-form-headPortrait-img-content"
+                        src={userData.portrait?userData.portrait.url:"/src/common/img/user.jpg"}
+                        style={{...style}}
+                    />
+                </div>
                 <Button className="app-content-music-userModify-form-headPortrait-button" onClick={this.handleLoadImage}>
                     修改头像
                 </Button>
                 <form name="portrait" ref="portrait">
-                    <input ref="file" type="file" className="app-content-music-userModify-form-headPortrait-file" onChange={this.handleShowImage}/>
+                    <input ref="file" type="file" className="app-content-music-userModify-form-headPortrait-file" onChange={this.handleFileChange}/>
                 </form>
                 <Spin spinning={portraitIsUploading} tip="Loading...">
                     <Modal
@@ -198,7 +222,7 @@ export class AppMusicUserModifyFormRight extends React.Component{
                         className="app-content-music-userModify-form-headPortrait-modal"
                         visible={modalVisibility}
                         onOk={this.handleSubmitPortrait}
-                        onCancel={()=>{onChangeUserModifyModalVisibility(false)}}
+                        onCancel={this.handleCancelSubmitPortrait}
                     >
                         <div className="app-content-music-userModify-form-headPortrait-modal-body-left">
                             <div className="app-content-music-userModify-form-headPortrait-modal-body-left-frame">

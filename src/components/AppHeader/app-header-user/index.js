@@ -3,7 +3,7 @@
  */
 import "./index.scss";
 import React from "react";
-import {Avatar,Modal,Tabs} from "antd"
+import {Modal,Tabs,Avatar} from "antd"
 import {connect} from "react-redux";
 import {doChangeUserLoginState,doChangeUserData,doChangeUserLoginFields,doChangeLoginFrameActiveKey,doChangeLoginFrameVisible,doSubmitLoginFrameLogin,doChangeUserRegisterFields,doSubmitLoginFrameRegister,doChangeUserResetPasswordFields,doSubmitLoginFrameResetPassword} from "../../../redux/action/user"
 import AppHeaderUserLogin from "./app-header-user-login/index";
@@ -88,14 +88,30 @@ export class AppHeaderUser extends React.Component{
             onChangeUserResetPasswordFields,
             onSubmitLoginFrameResetPassword
             }=this.props;
+        let style={};
+        if(userData.portrait){
+            style={
+                width:userData.portrait.widthRate*24+"px",
+                height:userData.portrait.heightRate*24+"px",
+                left:-(userData.portrait.leftRate*24)+"px",
+                top:-(userData.portrait.topRate*24)+"px"
+            }
+        }
         return (
             <div className="app-header-user">
                 <div className="app-header-user-message" onClick={this.handleShowLoginFrame}>
-                    <Avatar
+                    {!loginState?<Avatar
                         icon="user"
                         className="app-header-user-message-headPortrait"
                         size="small"
-                    />
+                    />:
+                        <div className="app-header-user-message-portrait">
+                             <img
+                              src={userData.portrait?userData.portrait.url:"/src/common/img/user.jpg"}
+                                className="app-header-user-message-portrait-content"
+                              style={{...style}}
+                            />
+                        </div>}
                     <span className="app-header-user-message-name">{loginState?userData["username"]:"登录"}</span>
                 </div>
                 <Modal

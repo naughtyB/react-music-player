@@ -15,7 +15,11 @@ module.exports=(req,res)=>{
             if(err){
                 res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"password"})
             }
+            else if(response.n==0){
+                res.json({isSuccessful:false,error:"该手机号还没被注册",errorType:"mobileNumber"})
+            }
             else{
+                console.log(response);
                 User.find(userMessage,(err,findResponse)=>{
                     //万一找不到发生了错误就尴尬了
                     res.json({isSuccessful:true,userData:findResponse[0]})

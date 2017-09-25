@@ -13,6 +13,26 @@
   cursor:pointer;
 }
 
+.app-header-user-message-portrait{
+  position:relative;
+  display:inline-block;
+  margin-right:10px;
+  width: 24px;
+  height: 24px;
+  border:1px solid #CCC;
+  border-radius:13px;
+  box-sizing:content-box;
+  overflow: hidden;
+}
+
+.app-header-user-message-portrait-content{
+  position:absolute;
+  width:43px;
+  height: 24px;
+  left: -9.5px;
+  top: 0;
+}
+
 .app-header-user-message-headPortrait{
   margin-right: 10px;
 }

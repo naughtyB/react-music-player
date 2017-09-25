@@ -19,15 +19,27 @@ mongoose.connection.on("discontented",()=>{
     console.log('Mongoose connection disconnected');
 });
 
+let PortraitSchema=new mongoose.Schema({
+    url:{type:String},
+    widthRate:{type:Number},
+    heightRate:{type:Number},
+    leftRate:{type:Number},
+    topRate:{type:Number}
+});
+
 let UserSchema=new mongoose.Schema({
     username:{type:String},
     password:{type:String},
     mobileNumber:{type:String},
     introduction:{type:String},
     birth:{type:String},
-    sex:{type:String}
+    sex:{type:String},
+    portrait:PortraitSchema
 });
+
+
 let User=mongoose.model("users",UserSchema);
+
 
 
 

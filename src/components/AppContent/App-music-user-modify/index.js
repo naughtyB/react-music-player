@@ -4,7 +4,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import AppMusicUserModifyForm from "./app-music-userModify-form/index";
-import {doChangeUserModifyFields,doSubmitModifyUserData,doChangeUserModifyModalVisibility,doChangeUserModifyPortraitPreviewUrl,doSubmitModifyUserPortrait} from "../../../redux/action/userModify";
+import {doChangeUserModifyFields,doSubmitModifyUserData,doChangeUserModifyModalVisibility,doChangeUserModifyPortraitPreviewUrl,doSubmitModifyUserPortrait} from "../../../redux/action/user";
 import "./index.scss";
 import moment from 'moment';
 
@@ -53,6 +53,7 @@ export class AppMusicUserModify extends React.Component{
 
     render(){
         const {
+            history,
             userData,
             modalVisibility,
             portraitPreviewUrl,
@@ -80,6 +81,7 @@ export class AppMusicUserModify extends React.Component{
                     onChangeUserModifyFields={onChangeUserModifyFields}
                     onSubmitModifyUserData={onSubmitModifyUserData}
                     onSubmitModifyUserPortrait={onSubmitModifyUserPortrait}
+                    history={history}
                 />
             </div>
         )
@@ -89,21 +91,21 @@ export class AppMusicUserModify extends React.Component{
 const mapStateToProps=(state)=>{
     return {
         userData:state.user.userData,
-        userModifyFields:state.userModify.userModifyFields,
-        isSubmittingModify:state.userModify.isSubmittingModify,
-        modalVisibility:state.userModify.modalVisibility,
-        portraitPreviewUrl:state.userModify.portraitPreviewUrl,
-        portraitIsUploading:state.userModify.portraitIsUploading
+        userModifyFields:state.user.userModifyFields,
+        isSubmittingModify:state.user.isSubmittingModify,
+        modalVisibility:state.user.modalVisibility,
+        portraitPreviewUrl:state.user.portraitPreviewUrl,
+        portraitIsUploading:state.user.portraitIsUploading
     }
 };
 
 const mapDispatchToProps=(dispatch)=>{
     return{
         onChangeUserModifyFields:(userModifyFieldsChanged)=>dispatch(doChangeUserModifyFields(userModifyFieldsChanged)),
-        onSubmitModifyUserData:(username,introduction,sex,birth,mobileNumber)=>dispatch(doSubmitModifyUserData(username,introduction,sex,birth,mobileNumber)),
+        onSubmitModifyUserData:(username,introduction,sex,birth,mobileNumber,message)=>dispatch(doSubmitModifyUserData(username,introduction,sex,birth,mobileNumber,message)),
         onChangeUserModifyModalVisibility:(visible)=>dispatch(doChangeUserModifyModalVisibility(visible)),
         onChangeUserModifyPortraitPreviewUrl:(portraitPreviewUrl)=>dispatch(doChangeUserModifyPortraitPreviewUrl(portraitPreviewUrl)),
-        onSubmitModifyUserPortrait:(formData)=>dispatch(doSubmitModifyUserPortrait(formData))
+        onSubmitModifyUserPortrait:(formData,message)=>dispatch(doSubmitModifyUserPortrait(formData,message))
     }
 };
 

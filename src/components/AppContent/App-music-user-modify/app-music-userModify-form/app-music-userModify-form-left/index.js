@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/9/25.
  */
 import React from "react";
-import { Form, Icon, Input, Button,Radio,DatePicker} from 'antd';
+import { Form, Icon, Input, Button,Radio,DatePicker,message} from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const RadioGroup = Radio.Group;
@@ -13,10 +13,18 @@ export class AppMusicUserModifyFormLeft extends React.Component{
     constructor(props){
         super(props);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleCancel=this.handleCancel.bind(this);
     }
 
     handleSubmit(){
-        this.props.onSubmitModifyUserData(this.props.username["value"],this.props.introduction["value"],this.props.sex["value"],this.props.birth["value"].format("YYYY-MM-DD"),sessionStorage.getItem("mobileNumber"))
+        this.props.onSubmitModifyUserData(this.props.username["value"],this.props.introduction["value"],this.props.sex["value"],this.props.birth["value"].format("YYYY-MM-DD"),sessionStorage.getItem("mobileNumber"),message)
+    }
+
+    handleCancel(){
+        this.props.history.push({
+            pathname:"music-user",
+            hash:"user_id"+this.props.userData["_id"]
+        })
     }
 
     render(){
@@ -69,8 +77,8 @@ export class AppMusicUserModifyFormLeft extends React.Component{
                 <Button style={{width:"80px"}} type="primary"  loading={isSubmittingModify} onClick={this.handleSubmit}>
                     保存
                 </Button>
-                <Button style={{width:"80px",marginLeft:"20px"}}>
-                    取消
+                <Button style={{width:"80px",marginLeft:"20px"}} onClick={this.handleCancel}>
+                    返回
                 </Button>
             </Form>
         )

@@ -23,7 +23,7 @@ module.exports=(req,res)=>{
         }
         else{
             User.update(userMessage,newUserMessage,(err,response)=>{
-                if(err){
+                if(err || response["n"]==0){
                     res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"birth"})
                 }
                 else{

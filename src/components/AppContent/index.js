@@ -70,7 +70,12 @@ export class AppContent extends React.Component{
                 />
                 <Route
                     path="/music-userModify"
-                    component={AppMusicUserModify}
+                    render={({history,location})=>{
+                        return <AppMusicUserModify
+                                    history={history}
+                                    location={location}
+                                 />
+                    }}
                 />
             </div>
         )

@@ -17,6 +17,7 @@ export class AppMusicUserModifyForm extends React.Component{
         const {
             userData,
             isSubmittingModify,
+            history,
             modalVisibility,
             portraitPreviewUrl,
             userModifyFields,
@@ -33,6 +34,8 @@ export class AppMusicUserModifyForm extends React.Component{
                 <div className="app-content-music-userModify-form-left">
                     <AppMusicUserModifyFormLeft
                         {...userModifyFields}
+                        history={history}
+                        userData={userData}
                         isSubmittingModify={isSubmittingModify}
                         onSubmitModifyUserData={onSubmitModifyUserData}
                         onChangeUserModifyFields={onChangeUserModifyFields}

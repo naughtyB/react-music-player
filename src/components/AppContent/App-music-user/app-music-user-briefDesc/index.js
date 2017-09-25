@@ -17,10 +17,23 @@ export class AppMusicUserBriefDesc extends React.Component{
 
     render(){
         const {userData}=this.props;
+        let style={};
+        if(userData.portrait){
+            style={
+                width:userData.portrait.widthRate*160+"px",
+                height:userData.portrait.heightRate*160+"px",
+                left:-(userData.portrait.leftRate*160)+"px",
+                top:-(userData.portrait.topRate*160)+"px"
+            }
+        }
         return (
             <div className="app-content-music-user-BriefDesc">
                 <div className="app-content-music-user-BriefDesc-headPortrait">
-                    <img className="app-content-music-user-BriefDesc-headPortrait-img" src={userData["headPortraitUrl"] || "/src/common/img/imgTested.jpg"}/>
+                    <img
+                        className="app-content-music-user-BriefDesc-headPortrait-img"
+                        src={userData.portrait?userData.portrait.url:"/src/common/img/user.jpg"}
+                        style={{...style}}
+                    />
                 </div>
                 <div className="app-content-music-user-BriefDesc-introduction">
                     <div className="app-content-music-user-BriefDesc-introduction-header">
