@@ -1,0 +1,379 @@
+{
+  "result": {
+    "albums": [
+      {
+        "id": 10755,
+        "name": "她说 概念自选辑",
+        "artist": {
+          "id": 3684,
+          "name": "林俊杰",
+          "picUrl": "http://p1.music.126.net/_cB2figc8IpT89DYhpARxA==/3389794350704969.jpg",
+          "alias": [
+            "JJ"
+          ],
+          "albumSize": 34,
+          "picId": 3389794350704969,
+          "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+          "img1v1": 0,
+          "alia": [
+            "JJ"
+          ],
+          "trans": null
+        },
+        "publishTime": 1291737600000,
+        "size": 14,
+        "copyrightId": 14026,
+        "status": 1,
+        "picId": 96757023257715
+      },
+      {
+        "id": 3154269,
+        "name": "About Time",
+        "artist": {
+          "id": 8687,
+          "name": "林二汶",
+          "picUrl": "http://p1.music.126.net/u8pdffvayUFmgkEL5AoJ1w==/7985752953533698.jpg",
+          "alias": [],
+          "albumSize": 12,
+          "picId": 7985752953533698,
+          "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+          "img1v1": 0,
+          "trans": null
+        },
+        "publishTime": 1435248000007,
+        "size": 3,
+        "copyrightId": 0,
+        "status": 0,
+        "picId": 7708676023185253
+      }
+    ],
+    "artists": [
+      {
+        "id": 3684,
+        "name": "林俊杰",
+        "picUrl": "http://p1.music.126.net/_cB2figc8IpT89DYhpARxA==/3389794350704969.jpg",
+        "alias": [
+          "JJ"
+        ],
+        "albumSize": 34,
+        "picId": 3389794350704969,
+        "img1v1Url": "http://p1.music.126.net/cnGpIQ6rQCKVrDyVVSpzeg==/3263350518850877.jpg",
+        "img1v1": 3263350518850877,
+        "alia": [
+          "JJ"
+        ],
+        "trans": null
+      },
+      {
+        "id": 3685,
+        "name": "林宥嘉",
+        "picUrl": "http://p1.music.126.net/_E-STBR8iiP_y54D018dVA==/63771674428582.jpg",
+        "alias": [
+          "Yoga"
+        ],
+        "albumSize": 21,
+        "picId": 63771674428582,
+        "img1v1Url": "http://p1.music.126.net/EU5_byUSbzNf4Wqrmi4HrA==/122045790701560.jpg",
+        "img1v1": 122045790701560,
+        "alia": [
+          "Yoga"
+        ],
+        "trans": null
+      },
+      {
+        "id": 95439,
+        "name": "Linkin Park",
+        "picUrl": "http://p1.music.126.net/mj9mPN1pTsDm1hSum4yAIQ==/18914898532881883.jpg",
+        "alias": [],
+        "albumSize": 106,
+        "picId": 18914898532881883,
+        "img1v1Url": "http://p1.music.126.net/AYXUoutbQccbqULagzXYPw==/18723583511044010.jpg",
+        "img1v1": 18723583511044010,
+        "transNames": [
+          "林肯公园"
+        ],
+        "trans": "林肯公园"
+      }
+    ],
+    "songs": [
+      {
+        "id": 404784564,
+        "name": "林中鸟",
+        "artists": [
+          {
+            "id": 168010,
+            "name": "葛林",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          }
+        ],
+        "album": {
+          "id": 34527151,
+          "name": "林中鸟",
+          "artist": {
+            "id": 0,
+            "name": "",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          },
+          "publishTime": 1456761600007,
+          "size": 5,
+          "copyrightId": 36031,
+          "status": 1,
+          "picId": 1417270490213770
+        },
+        "duration": 231794,
+        "copyrightId": 36031,
+        "status": 0,
+        "alias": [],
+        "rtype": 0,
+        "ftype": 0,
+        "mvid": 0,
+        "fee": 8,
+        "rUrl": null
+      },
+      {
+        "id": 37196629,
+        "name": "不为谁而作的歌",
+        "artists": [
+          {
+            "id": 3684,
+            "name": "林俊杰",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          }
+        ],
+        "album": {
+          "id": 3397890,
+          "name": "不为谁而作的歌",
+          "artist": {
+            "id": 0,
+            "name": "",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          },
+          "publishTime": 1449072000007,
+          "size": 1,
+          "copyrightId": 7002,
+          "status": 3,
+          "picId": 18362943695761234
+        },
+        "duration": 265848,
+        "copyrightId": 7002,
+        "status": 0,
+        "alias": [],
+        "rtype": 0,
+        "ftype": 0,
+        "mvid": 522358,
+        "fee": 8,
+        "rUrl": null
+      },
+      {
+        "id": 108242,
+        "name": "她说",
+        "artists": [
+          {
+            "id": 3684,
+            "name": "林俊杰",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          }
+        ],
+        "album": {
+          "id": 10755,
+          "name": "她说 概念自选辑",
+          "artist": {
+            "id": 0,
+            "name": "",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          },
+          "publishTime": 1291737600000,
+          "size": 14,
+          "copyrightId": 14026,
+          "status": 1,
+          "picId": 96757023257715
+        },
+        "duration": 320000,
+        "copyrightId": 14026,
+        "status": 0,
+        "alias": [],
+        "rtype": 0,
+        "ftype": 0,
+        "mvid": 28219,
+        "fee": 0,
+        "rUrl": null
+      },
+      {
+        "id": 432509483,
+        "name": "全世界谁倾听你 ",
+        "artists": [
+          {
+            "id": 3685,
+            "name": "林宥嘉",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          }
+        ],
+        "album": {
+          "id": 34897385,
+          "name": "全世界谁倾听你",
+          "artist": {
+            "id": 0,
+            "name": "",
+            "picUrl": null,
+            "alias": [],
+            "albumSize": 0,
+            "picId": 0,
+            "img1v1Url": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+            "img1v1": 0,
+            "trans": null
+          },
+          "publishTime": 1475251200007,
+          "size": 1,
+          "copyrightId": 503010,
+          "status": 1,
+          "picId": 3438172871728558,
+          "alia": [
+            "电影《从你的全世界路过》插曲"
+          ]
+        },
+        "duration": 259440,
+        "copyrightId": 503010,
+        "status": 0,
+        "alias": [
+          "电影《从你的全世界路过》插曲"
+        ],
+        "rtype": 0,
+        "ftype": 0,
+        "mvid": 5362458,
+        "fee": 8,
+        "rUrl": null,
+        "alias": [
+          "电影《从你的全世界路过》插曲"
+        ]
+      }
+    ],
+    "mvs": [
+      {
+        "id": 5365924,
+        "cover": "http://p4.music.126.net/Fa0oVG8xyWxGJrUZAEceJQ==/18641120138768226.jpg",
+        "name": "相依为命 (Live)",
+        "playCount": 1777304,
+        "briefDesc": null,
+        "desc": null,
+        "artistName": "郑伊健",
+        "artistId": 6491,
+        "duration": 173000,
+        "mark": 0,
+        "subed": false,
+        "artists": [
+          {
+            "id": 6491,
+            "name": "郑伊健",
+            "alias": [
+              "Ekin",
+              "Ekin Cheng"
+            ],
+            "transNames": null
+          },
+          {
+            "id": 2112,
+            "name": "陈小春",
+            "alias": [
+              "Jordan Chan"
+            ],
+            "transNames": null
+          },
+          {
+            "id": 5897,
+            "name": "谢天华",
+            "alias": [
+              "Michael Tse"
+            ],
+            "transNames": null
+          },
+          {
+            "id": 187088,
+            "name": "钱嘉乐",
+            "alias": [],
+            "transNames": null
+          },
+          {
+            "id": 187081,
+            "name": "林晓峰",
+            "alias": [],
+            "transNames": null
+          }
+        ]
+      },
+      {
+        "id": 5666088,
+        "cover": "http://p4.music.126.net/TIBoGFAWyQYos3eHbVq-4w==/109951163027605888.jpg",
+        "name": "One More Light",
+        "playCount": 162168,
+        "briefDesc": "特别版MV收录Chester生前珍贵影像",
+        "desc": null,
+        "artistName": "Linkin Park",
+        "artistId": 95439,
+        "duration": 272000,
+        "mark": 0,
+        "subed": false,
+        "artists": [
+          {
+            "id": 95439,
+            "name": "Linkin Park",
+            "alias": [
+              "林肯公园"
+            ],
+            "transNames": [
+              "林肯公园"
+            ]
+          }
+        ]
+      }
+    ],
+    "order": [
+      "songs",
+      "artists",
+      "albums",
+      "mvs"
+    ]
+  },
+  "code": 200
+}

@@ -76,6 +76,8 @@ export const SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_SUCCESS_POST="SUBMIT_MODIFY_USE
 export const SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST="SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST";
 
 
+
+
 export const doChangeUserLoginState=(loginState)=>{
     return {
         type:CHANGE_USER_LOGIN_STATE,
@@ -351,7 +353,7 @@ export const doSubmitModifyUserPortraitReceiveErrorPost=()=>{
     }
 };
 
-export const doSubmitModifyUserPortrait=(formData,message)=>(dispatch)=>{
+export const doSubmitModifyUserPortrait=(formData,message,file)=>(dispatch)=>{
     dispatch(doSubmitModifyUserPortraitRequestPost());
     return fetch("/submitPortrait",{
         method:"POST",
@@ -361,7 +363,8 @@ export const doSubmitModifyUserPortrait=(formData,message)=>(dispatch)=>{
     }).then(res=>{
         if(res.isSuccessful){
             dispatch(doSubmitModifyUserPortraitReceiveSuccessPost(res.userData));
-            message.info("保存头像成功")
+            message.info("保存头像成功");
+            file.value="";
         }
         else{
             dispatch(doSubmitModifyUserPortraitReceiveErrorPost());

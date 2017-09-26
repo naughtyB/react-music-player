@@ -105,7 +105,7 @@ const mapDispatchToProps=(dispatch)=>{
         onSubmitModifyUserData:(username,introduction,sex,birth,mobileNumber,message)=>dispatch(doSubmitModifyUserData(username,introduction,sex,birth,mobileNumber,message)),
         onChangeUserModifyModalVisibility:(visible)=>dispatch(doChangeUserModifyModalVisibility(visible)),
         onChangeUserModifyPortraitPreviewUrl:(portraitPreviewUrl)=>dispatch(doChangeUserModifyPortraitPreviewUrl(portraitPreviewUrl)),
-        onSubmitModifyUserPortrait:(formData,message)=>dispatch(doSubmitModifyUserPortrait(formData,message))
+        onSubmitModifyUserPortrait:(formData,message,file)=>dispatch(doSubmitModifyUserPortrait(formData,message,file))
     }
 };
 

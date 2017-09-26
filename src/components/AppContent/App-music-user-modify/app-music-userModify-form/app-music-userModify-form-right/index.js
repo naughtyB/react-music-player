@@ -31,7 +31,7 @@ export class AppMusicUserModifyFormRight extends React.Component{
         formData.append("leftRate",selector.offsetLeft/selector.offsetWidth);
         formData.append("topRate",selector.offsetTop/selector.offsetHeight);
         formData.append("mobileNumber",this.props.userData["mobileNumber"]);
-        this.props.onSubmitModifyUserPortrait(formData,message);
+        this.props.onSubmitModifyUserPortrait(formData,message,this.refs["file"]);
     }
 
     handleLoadImage(){

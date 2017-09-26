@@ -1,0 +1,29 @@
+
+.app-header-music-search-overlay-list-item{
+  &-title{
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    background-color: rgba(230, 230, 230, 0.22);
+    cursor:pointer;
+
+    &-content{
+      margin-left: 5px;
+    }
+  }
+  &-content{
+    &-item{
+      padding: 0 16px 0 27px;
+      height: 30px;
+      line-height: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      cursor:pointer;
+    }
+
+    &-item:hover{
+      background-color: rgba(230, 230, 230, 0.5);
+    }
+  }
+}

@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     const cookie = req.get('Cookie') ? req.get('Cookie') : '';
     const data = {
         csrf_token: '',
-        s: req.query.keywords || ''
+        s: req.body.keywords || ''
     };
 
     createWebAPIRequest(
