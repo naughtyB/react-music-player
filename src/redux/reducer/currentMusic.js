@@ -19,6 +19,9 @@ import {
 const initialCurrentMusic={
     id:"",//id:37196629,//音乐id
     url:"",
+    albumImgUrl:"",
+    artist:"",
+    name:"",
     isFetching:false,//留着转圈，主要用于循环
     playlist:"",//歌单 以后扩展，主要用于循环
     isPlaying:false,//歌曲是否正在播放
@@ -26,7 +29,7 @@ const initialCurrentMusic={
     volume:50,//歌曲音量
     lastVolume:50,//用户静音前的音量，用于恢复音量要读取的值
     volumeIsChanging:false,//用户是否正在滑动音量条，通过判断来记录lastVolume
-    duration:265,//音乐时长
+    duration:0,//音乐时长
     timeSliderState:"readying"//三种状态  readying using finish  之所以还要设置readying,你可以省略这个，但是你就需要在finish完成对audio新currentTime的修改操作,我希望所有对于audio的操作，都体现在Audio的组件里面，所以这样设置，如果你不设置readying，仅仅设置finish，那么你判断状态等于finish的时候就要去更新currentTime,那么更新完后你要怎么避免这个更新，所以为了减少冗杂以及耦合，我决定设置3个状态，并且更currentTime的设置分开来（这个地方有待思考，是分开来还是一起，一起就是把currentTime和timeSliderState的修改整到一个action里面去，这样一来可以减少3个action的数量）
 };
 

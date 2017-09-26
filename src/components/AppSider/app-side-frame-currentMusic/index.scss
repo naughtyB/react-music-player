@@ -1,0 +1,47 @@
+.app-side-frame-currentMusic{
+  display:flex;
+  flex-direction: row;
+  flex-grow:0;
+  flex-shrink:0;
+  height:65px;
+  border-top:1px solid rgba(177, 177, 177, 0.33);
+  .anticon-heart{
+    margin-top:6px;
+    margin-bottom:5px;
+    color:#e3e3e3;
+    font-size:15px;
+    cursor:pointer;
+    transition:transform 200ms,color 200ms;
+    &:hover{
+      color:rgb(255, 134, 134);
+      transform:scale(1.2);
+    }
+  }
+}
+
+.app-side-frame-currentMusic-img{
+  width: 64px;
+  height: 64px;
+}
+
+.app-side-frame-currentMusic-img-content{
+  vertical-align: bottom;
+  width: 64px;
+  height: 64px;
+}
+
+.app-side-frame-currentMusic-briefDesc{
+  padding:12px 0 12px 12px;
+  width: 140px;
+  &-songName,&-artist{
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.app-side-frame-currentMusic-handle{
+  padding:10px 0;
+}
