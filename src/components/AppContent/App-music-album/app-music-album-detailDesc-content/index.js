@@ -62,21 +62,31 @@ export class AppMusicAlbumDetailDescContent extends React.Component{
     }
 
     render(){
-        const {albumData:{songs}}=this.props;
+        const {albumData:{songs},currentMusicId}=this.props;
         const data = [];
         if(songs && songs.length>0){
             for (let [index,song] of songs.entries()) {
+                let artists=song["ar"];
                 data.push({
                     key:index+1,
-                    orderNumber:<span className="app-content-music-album-DetailDesc-list-content-table-row-orderNumber-content">{song["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-album-DetailDesc-list-content-table-row-isPlaying"/>:(index+1)<10?"0"+(index+1):index+1}</span>,
+                    orderNumber:<span className="app-content-music-album-DetailDesc-list-content-table-row-orderNumber-content">{song["id"]==currentMusicId?<Icon type="mySound" className="app-content-music-album-DetailDesc-list-content-table-row-isPlaying"/>:(index+1)<10?"0"+(index+1):index+1}</span>,
                     handle:<Icon type="heart" style={{width:"25px"}}/>,
                     musicName: song["name"],
-                    singer:<Link  to={{
-                            pathname:"/music-artist",
-                            hash:"artistId="+song["ar"][0]["id"]+"&activeKey=artistDetailAlbum"
-                        }}>
-                        {song["ar"][0]["name"]}
-                    </Link>,
+                    singer:artists.map((artist,index)=>{
+                        return (<span key={index}>
+                            {artist["id"]?
+                                <Link
+                                    to={{
+                                        pathname:"/music-artist",
+                                        hash:"artistId="+artist["id"]+"&activeKey=artistDetailAlbum"
+                                    }}>
+                                    {artist["name"]}
+                                </Link>:
+                                <span>{artist["name"]}</span>
+                            }
+                            <span>{index!=artists.length-1?"/":""}</span>
+                        </span>)
+                    }),
                     album:song["al"]["name"],
                     time: timeTransform(song["dt"]),
                     musicId:song["id"],

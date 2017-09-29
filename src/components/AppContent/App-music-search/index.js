@@ -8,8 +8,9 @@ import "./index.scss";
 import SearchByMusicName from "./Search-by-musicName/index";
 import SearchByArtist from "./Search-by-artist/index";
 import SearchByAlbum from "./Search-by-album/index";
-import {doInputSearch,doChangeInputSearchActiveKey} from "../../../redux/action/inputSearch";
+import {doInputSearch} from "../../../redux/action/inputSearch";
 import {doChangeCurrentMusic,doChangeCurrentMusicIsPlaying} from "../../../redux/action/currentMusic";
+import {doAddMusicToPlaylist,doRemoveMusicFromPlaylist} from "../../../redux/action/user";
 import {transformHash} from "../../../common/js/index"
 const TabPane = Tabs.TabPane;
 
@@ -50,8 +51,12 @@ export class AppMusicSearch extends React.Component{
     }
 
     render(){
-        const {history,
+        const {
+            history,
+            loginState,
             location,
+            userData,
+            isHandlingMusicInPlaylist,
             musicLoadState,
             artistLoadState,
             albumLoadState,
@@ -67,6 +72,8 @@ export class AppMusicSearch extends React.Component{
             onChangeCurrentMusic,
             onGetAppContent,
             onChangeCurrentMusicIsPlaying,
+            onAddMusicToPlaylist,
+            onRemoveMusicFromPlaylist
             }=this.props;
         const {keyword,activeKey}=transformHash(location.hash);
         return (
@@ -82,6 +89,8 @@ export class AppMusicSearch extends React.Component{
                         key="music"
                     >
                         <SearchByMusicName
+                            userData={userData}
+                            loginState={loginState}
                             musicSearched={musicSearched}
                             onInputSearch={onInputSearch}
                             keyword={keyword}
@@ -93,6 +102,9 @@ export class AppMusicSearch extends React.Component{
                             currentMusicIsPlaying={currentMusicIsPlaying}
                             activeKey={activeKey}
                             musicLoadState={musicLoadState}
+                            onAddMusicToPlaylist={onAddMusicToPlaylist}
+                            isHandlingMusicInPlaylist={isHandlingMusicInPlaylist}
+                            onRemoveMusicFromPlaylist={onRemoveMusicFromPlaylist}
                         />
                     </TabPane>
                     <TabPane
@@ -143,15 +155,20 @@ const mapStateToProps=(state)=>{
         artistPage:state.inputSearch.artistPage,
         albumPage:state.inputSearch.albumPage,
         currentMusicId:state.currentMusic.id,
-        currentMusicIsPlaying:state.currentMusic.isPlaying
+        currentMusicIsPlaying:state.currentMusic.isPlaying,
+        userData:state.user.userData,
+        loginState:state.user.loginState,
+        isHandlingMusicInPlaylist:state.user.isHandlingMusicInPlaylist
     }
 };
 
 const mapDispatchToProps=(dispatch)=>{
     return {
         onInputSearch:(keyword,inputType,limit,offset,page)=>dispatch(doInputSearch(keyword,inputType,limit,offset,page)),
-        onChangeCurrentMusic:(id,duration,message)=>dispatch(doChangeCurrentMusic(id,duration,message)),
-        onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())
+        onChangeCurrentMusic:(id,duration,musicName,artist,message)=>dispatch(doChangeCurrentMusic(id,duration,musicName,artist,message)),
+        onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying()),
+        onAddMusicToPlaylist:(playlistId,userId,music,message)=>dispatch(doAddMusicToPlaylist(playlistId,userId,music,message)),
+        onRemoveMusicFromPlaylist:(playlistId,userId,musicId,message)=>dispatch(doRemoveMusicFromPlaylist(playlistId,userId,musicId,message))
     }
 };
 

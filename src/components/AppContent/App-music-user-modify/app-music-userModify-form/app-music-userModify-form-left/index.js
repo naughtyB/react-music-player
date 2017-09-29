@@ -38,7 +38,7 @@ export class AppMusicUserModifyFormLeft extends React.Component{
                     {getFieldDecorator('username', {
                         validateFirst:true,
                         rules: [
-                            { pattern:/[a-zA-Z0-9\-_]{4,30}/,message:"昵称为4-30个字,且不包含出_和-以外的字符"}
+                            { pattern:/[\u4e00-\u9fa5a-zA-Z0-9\-_]{4,30}/,message:"昵称为4-30个字,且不包含出_和-以外的字符"}
                         ]
                     })(
                         <Input className="app-content-music-userModify-form-username-input" type="username"/>

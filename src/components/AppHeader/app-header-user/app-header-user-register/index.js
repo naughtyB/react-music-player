@@ -69,7 +69,7 @@ export class AppHeaderUserRegister extends React.Component{
                         validateFirst:true,
                         rules: [
                             { required: true, message: '请输入昵称' },
-                            { pattern:/[a-zA-Z0-9\-_]{4,30}/,message:"昵称为4-30个字,且不包含出_和-以外的字符"}
+                            { pattern:/[\u4e00-\u9fa5a-zA-Z0-9\-_]{4,30}/,message:"昵称为4-30个字,且不包含出_和-以外的字符"}
                         ]
                     })(
                         <Input className="app-header-user-register-username-input" prefix={<Icon type="user" style={{ fontSize: 13}} />} type="username" placeholder="昵称" />

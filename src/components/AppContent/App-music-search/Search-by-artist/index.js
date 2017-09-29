@@ -51,9 +51,9 @@ export class SearchByArtist extends React.Component{
 
     render(){
         const {artistSearched,artistLoadState}=this.props;
-        const data = [];
-        const current=this.props.artistPage-1;
         if(artistSearched.result && artistSearched.result.artistCount>0){
+            const data = [];
+            const current=this.props.artistPage-1;
             for (let [index,artistData] of artistSearched.result.artists.entries()) {
                 data.push({
                     key: 30*current+index+1,

@@ -58,7 +58,7 @@ export class InputSearch extends React.Component{
     }
 
     handleClick(){
-        if(this.props.keyword!="" && this.props.onChangeSearchSuggestVisible==false){
+        if(this.props.keyword!="" && this.props.searchSuggestVisible==false){
             this.props.onChangeIsSamePage(true);
             this.props.onInputSearchSuggest(this.props.keyword);
         }

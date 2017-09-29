@@ -27,7 +27,13 @@ import {
     SUBMIT_MODIFY_USER_DATA_RECEIVE_ERROR_POST,
     SUBMIT_MODIFY_USER_PORTRAIT_REQUEST_POST,
     SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_SUCCESS_POST,
-    SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST
+    SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST,
+    ADD_MUSIC_TO_PLAYLIST_REQUEST_POST,
+    ADD_MUSIC_TO_PLAYLIST_RECEIVE_SUCCESS_POST,
+    ADD_MUSIC_TO_PLAYLIST_RECEIVE_ERROR_POST,
+    REMOVE_MUSIC_FROM_PLAYLIST_REQUEST_POST,
+    REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_SUCCESS_POST,
+    REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_ERROR_POST
 } from "../action/user"
 const initialUser={
     loginState:false,
@@ -85,7 +91,8 @@ const initialUser={
     isSubmittingModify:false,
     modalVisibility:false,
     portraitPreviewUrl:"",
-    portraitIsUploading:false
+    portraitIsUploading:false,
+    isHandlingMusicInPlaylist:false
 };
 
 export const user=(state=initialUser,action)=>{
@@ -181,6 +188,18 @@ export const user=(state=initialUser,action)=>{
             return {...state,portraitIsUploading:false,modalVisibility:false,userData:action.userData};
         case SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST:
             return {...state,portraitIsUploading:false};
+        case ADD_MUSIC_TO_PLAYLIST_REQUEST_POST:
+            return {...state,isHandlingMusicInPlaylist:true};
+        case ADD_MUSIC_TO_PLAYLIST_RECEIVE_SUCCESS_POST:
+            return {...state,isHandlingMusicInPlaylist:false,userData:{...state.userData,playlist:action.playlist}};
+        case ADD_MUSIC_TO_PLAYLIST_RECEIVE_ERROR_POST:
+            return {...state,isHandlingMusicInPlaylist:false};
+        case REMOVE_MUSIC_FROM_PLAYLIST_REQUEST_POST:
+            return {...state,isHandlingMusicInPlaylist:true};
+        case REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_SUCCESS_POST:
+            return {...state,isHandlingMusicInPlaylist:false,userData:{...state.userData,playlist:action.playlist}};
+        case REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_ERROR_POST:
+            return {...state,isHandlingMusicInPlaylist:false};
         default:
             return state;
     }

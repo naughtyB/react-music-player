@@ -13,6 +13,7 @@ let multer  = require('multer');
 
 
 let urlencodeParser=bodyParser.urlencoded({extends:false});
+let jsonParser=bodyParser.json({extends:false});
 let upload =  multer({ dest: './uploads/' });
 
 
@@ -58,8 +59,18 @@ app.use("/resetPassword",urlencodeParser,require("./express/router/resetPassword
 //用户修改基本信息
 app.use("/modifyUserData",urlencodeParser,require("./express/router/modifyUserData.js"));
 
+//获取单曲具体信息
+app.use("/song_detail",urlencodeParser,require("./express/router/song_detail.js"));
+
+//添加喜欢的音乐到指定的歌单
+app.use("/addMusicToPlaylist",jsonParser,require("./express/router/addMusicToPlaylist.js"));
+
+//删除歌单中的指定音乐
+app.use("/removeMusicFromPlaylist",jsonParser,require("./express/router/removeMusicFromPlaylist.js"));
+
 // 单图上传
 app.post('/submitPortrait', upload.single('portrait'),require("./express/router/submitPortrait.js"));
+
 
 
 app.get("*",(req,res)=>{
@@ -73,9 +84,6 @@ app.get("*",(req,res)=>{
 
 
 
-
-/*//用户注册
-app.post("/userregister",urlencodeParser,require("./express/router/userregister.js"));*/
 
 
 

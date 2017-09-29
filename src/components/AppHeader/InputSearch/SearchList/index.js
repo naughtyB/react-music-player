@@ -53,7 +53,7 @@ export class SearchList extends React.Component{
         });
     }
 
-    handleSongClick(id,duration){
+    handleSongClick(id,duration,message){
         if(id!=this.props.currentMusicId){
             this.props.onChangeCurrentMusic(id,Math.floor(duration/1000),message);
         }
@@ -84,10 +84,21 @@ export class SearchList extends React.Component{
                     </div>
                     <ul className="app-header-music-search-overlay-list-item-content">
                         {songs.map((song,index)=>{
+                            let name=song["artists"].reduce((pre,next,index,arr)=>{
+                                if(index==0 && arr.length>1){
+                                    return next["name"]+"/"
+                                }
+                                else if(index!=arr.length-1){
+                                    return pre+next["name"]+"/";
+                                }
+                                else{
+                                    return pre+next["name"];
+                                }
+                            },"");
                             return <li
                                 key={index}
-                                onClick={()=>{this.handleSongClick(song.id,song.duration)}}
-                                className="app-header-music-search-overlay-list-item-content-item">{song["name"]+"-"+song["artists"][0]["name"]}
+                                onClick={()=>{this.handleSongClick(song["id"],song.duration,message)}}
+                                className="app-header-music-search-overlay-list-item-content-item">{song["name"]+" - "+name}
                             </li>
                         })}
                     </ul>
@@ -125,7 +136,7 @@ export class SearchList extends React.Component{
                             return <li
                                 key={index}
                                 onClick={()=>this.handleAlbumItemClick(album["id"])}
-                                className="app-header-music-search-overlay-list-item-content-item">{album["name"]+"-"+album["artist"]["name"]}</li>
+                                className="app-header-music-search-overlay-list-item-content-item">{album["name"]+" - "+album["artist"]["name"]}</li>
                         })}
                     </ul>
                 </li>

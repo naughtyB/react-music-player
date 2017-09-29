@@ -37,6 +37,13 @@ export const CHANGE_CURRENT_MUSIC_VOLUME_IS_CHANGING="CHANGE_CURRENT_MUSIC_VOLUM
 //记录上次音乐音量
 export const RECORD_CURRENT_MUSIC_LAST_VOLUME="RECORD_CURRENT_MUSIC_LAST_VOLUME";
 
+//获取当前音乐资料
+export const GET_CURRENT_MUSIC_DATA_REQUEST_POST="GET_CURRENT_MUSIC_DATA_REQUEST_POST";
+
+export const GET_CURRENT_MUSIC_DATA_RECEIVE_SUCCESS_POST="GET_CURRENT_MUSIC_DATA_RECEIVE_SUCCESS_POST";
+
+export const GET_CURRENT_MUSIC_DATA_RECEIVE_ERROR_POST="GET_CURRENT_MUSIC_DATA_RECEIVE_ERROR_POST";
+
 
 
 export const doChangeCurrentMusicRequestPost=()=>{
@@ -45,12 +52,14 @@ export const doChangeCurrentMusicRequestPost=()=>{
     }
 };
 
-export const doChangeCurrentMusicReceivePostSuccess=(id,url,duration)=>{
+export const doChangeCurrentMusicReceivePostSuccess=(id,url,duration,musicName,artist)=>{
     return {
         type:CHANGE_CURRENT_MUSIC_RECEIVE_POST_SUCCESS,
         id,
         url,
-        duration
+        duration,
+        musicName,
+        artist
     }
 };
 
@@ -137,3 +146,42 @@ export const doRecordCurrentMusicLastVolume=(volume)=>{
         volume
     }
 };
+
+export const doGetCurrentMusicDataRequestPost=()=>{
+    return {
+        type:GET_CURRENT_MUSIC_DATA_REQUEST_POST
+    }
+};
+
+export const doGetCurrentMusicDataReceiveSuccessPost=(currentMusicData)=>{
+    return {
+        type:GET_CURRENT_MUSIC_DATA_RECEIVE_SUCCESS_POST,
+        currentMusicData
+    }
+};
+
+export const doGetCurrentMusicDataReceiveErrorPost=()=>{
+    return {
+        type:GET_CURRENT_MUSIC_DATA_RECEIVE_ERROR_POST
+    }
+};
+
+export const doGetCurrentMusicData=(id)=>(dispatch)=>{
+    dispatch(doGetCurrentMusicDataRequestPost());
+    return fetch("/song_detail",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded"
+        },
+        body:"ids="+id
+    }).then(res=>{
+        return res.json()
+    }).then(res=>{
+        if(res.code==200){
+            dispatch(doGetCurrentMusicDataReceiveSuccessPost(res["songs"]))
+        }
+        else{
+            dispatch(doGetCurrentMusicDataReceiveErrorPost())
+        }
+    })
+}

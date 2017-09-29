@@ -19,7 +19,9 @@ mongoose.connection.on("discontented",()=>{
     console.log('Mongoose connection disconnected');
 });
 
-let PortraitSchema=new mongoose.Schema({
+let Schema=mongoose.Schema;
+
+let PortraitSchema=new Schema({
     url:{type:String},
     widthRate:{type:Number},
     heightRate:{type:Number},
@@ -27,7 +29,8 @@ let PortraitSchema=new mongoose.Schema({
     topRate:{type:Number}
 });
 
-let UserSchema=new mongoose.Schema({
+
+let UserSchema=new Schema({
     username:{type:String},
     password:{type:String},
     mobileNumber:{type:String},
@@ -38,11 +41,35 @@ let UserSchema=new mongoose.Schema({
 });
 
 
-let User=mongoose.model("users",UserSchema);
+let User=mongoose.model("user",UserSchema);
 
+
+let MusicSchema=new Schema({
+    musicId:{type:Number},
+    artistId:[String],
+    albumId:{type:Number},
+    musicName:{type:String},
+    artistName:[String],
+    albumName:{type:String},
+    duration:{type:Number}
+});
+let Music=mongoose.model("music",MusicSchema);
+
+let PlaylistSchema=new Schema({
+    userId:{type:Schema.Types.ObjectId,ref:"user"},
+    name:{type:String},
+    favorite:{type:Boolean},
+    music:[{type:Schema.Types.ObjectId,ref:"music"}],
+    createTime:{type:Number}
+});
+
+
+let Playlist=mongoose.model("playlist",PlaylistSchema);
 
 
 
 module.exports={
-    User
+    User,
+    Playlist,
+    Music
 };

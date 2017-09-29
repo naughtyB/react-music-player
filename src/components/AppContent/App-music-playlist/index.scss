@@ -1,0 +1,17 @@
+.app-content-music-album-detailDesc{
+  .ant-tabs-bar{
+    margin: 0;
+    padding:0 30px;
+    border-bottom: 1px solid #a0ceef;
+  }
+
+  .ant-tabs-tab{
+    background-color: white !important;
+  }
+
+  .ant-tabs-tab-active{
+    background-color: #a0ceef !important;
+    //background-color: #e2e2e4 !important;
+    color:#fff !important;
+  }
+}

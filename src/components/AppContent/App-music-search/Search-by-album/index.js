@@ -55,9 +55,9 @@ export class SearchByAlbum extends React.Component{
 
     render(){
         const {albumSearched,albumLoadState}=this.props;
-        const data = [];
-        const current=this.props.albumPage-1;
         if(albumSearched.result && albumSearched.result.albumCount>0){
+            const data = [];
+            const current=this.props.albumPage-1;
             for (let [index,albumData] of albumSearched.result.albums.entries()) {
                 data.push({
                     key: 30*current+index+1,

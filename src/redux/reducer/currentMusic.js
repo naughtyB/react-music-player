@@ -13,15 +13,19 @@ import {
     READY_TIME_SLIDER,
     CHANGE_CURRENT_MUSIC_VOLUME,
     CHANGE_CURRENT_MUSIC_VOLUME_IS_CHANGING,
-    RECORD_CURRENT_MUSIC_LAST_VOLUME
+    RECORD_CURRENT_MUSIC_LAST_VOLUME,
+    GET_CURRENT_MUSIC_DATA_REQUEST_POST,
+    GET_CURRENT_MUSIC_DATA_RECEIVE_SUCCESS_POST,
+    GET_CURRENT_MUSIC_DATA_RECEIVE_ERROR_POST
 } from "../action/currentMusic";
 
 const initialCurrentMusic={
     id:"",//id:37196629,//音乐id
     url:"",
+    isGettingMusicData:false,
     albumImgUrl:"",
-    artist:"",
-    name:"",
+    artists:[],
+    musicName:"",
     isFetching:false,//留着转圈，主要用于循环
     playlist:"",//歌单 以后扩展，主要用于循环
     isPlaying:false,//歌曲是否正在播放
@@ -59,6 +63,19 @@ export const currentMusic=(state=initialCurrentMusic,action)=>{
             return {...state,volumeIsChanging:!state.volumeIsChanging};
         case RECORD_CURRENT_MUSIC_LAST_VOLUME:
             return {...state,lastVolume:action.volume};
+        case GET_CURRENT_MUSIC_DATA_REQUEST_POST:
+            return {...state,isGettingMusicData:true};
+        case GET_CURRENT_MUSIC_DATA_RECEIVE_SUCCESS_POST:
+            let currentMusicData=action.currentMusicData[0];
+            return {
+                ...state,
+                isGettingMusicData:false,
+                musicName:currentMusicData["name"],
+                artists:currentMusicData["ar"],
+                albumImgUrl:currentMusicData["al"]["picUrl"]
+            };
+        case GET_CURRENT_MUSIC_DATA_RECEIVE_ERROR_POST:
+            return {...state,isGettingMusicData:true};
         default:
             return state;
     }

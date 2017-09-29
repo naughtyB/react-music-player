@@ -11,6 +11,7 @@ import AppMusicArtist from "./App-music-artist/index";
 import AppMusicAlbum from "./App-music-album/index";
 import AppMusicUser from "./App-music-user/index"
 import AppMusicUserModify from "./App-music-user-modify/index";
+import AppMusicPlayList from "./App-music-playlist/index"
 
 
 export class AppContent extends React.Component{
@@ -75,6 +76,15 @@ export class AppContent extends React.Component{
                                     history={history}
                                     location={location}
                                  />
+                    }}
+                />
+                <Route
+                    path="/music-playlist"
+                    render={({history,location})=>{
+                        return <AppMusicPlayList
+                                    history={history}
+                                    location={location}
+                        />
                     }}
                 />
             </div>

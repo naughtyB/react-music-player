@@ -3,6 +3,9 @@
  */
 let User=require("../mongodb/index")["User"];
 let fs=require("fs");
+let Playlist=require("../mongodb/index")["Playlist"];
+
+
 module.exports=(req,res)=>{
     let path=req.file.path+"."+req.file.originalname.split(".")[1];
     fs.rename(req.file.path,path,(err)=>{
@@ -25,9 +28,20 @@ module.exports=(req,res)=>{
                     res.json({isSuccessful:false,error:"上传失败，请重新上传"})
                 }
                 else{
-                    User.find(userMessage,(err,findResponse)=>{
-                        //万一找不到发生了错误就尴尬了
-                        res.json({isSuccessful:true,userData:findResponse[0]})
+                    User.find(userMessage,(err,findUserResponse)=>{
+                        if(err){
+                            res.json({isSuccessful:false,error:"上传失败，请重新上传"})
+                        }
+                        else{
+                            Playlist.find({"userId":findUserResponse[0]["_id"]}).populate("music").exec((err,findPlaylistResponse)=>{
+                                if(err){
+                                    res.json({isSuccessful:false,error:"上传失败，请重新上传"})
+                                }
+                                else{
+                                    res.json({isSuccessful:true,userData:Object.assign(findUserResponse[0]["_doc"],{playlist:findPlaylistResponse})})
+                                }
+                            });
+                        }
                     })
                 }
             })

@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/9/24.
  */
 let User=require("../mongodb/index")["User"];
-
+let Playlist=require("../mongodb/index")["Playlist"];
 
 module.exports=(req,res)=>{
     let newUserMessage={
@@ -27,9 +27,20 @@ module.exports=(req,res)=>{
                     res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"birth"})
                 }
                 else{
-                    User.find(userMessage,(err,findResponse)=>{
-                        //万一找不到发生了错误就尴尬了
-                        res.json({isSuccessful:true,userData:findResponse[0]})
+                    User.find(userMessage,(err,findUserResponse)=>{
+                        if(err){
+                            res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"birth"})
+                        }
+                        else{
+                            Playlist.find({"userId":findUserResponse[0]["_id"]}).populate("music").exec((err,findPlaylistResponse)=>{
+                                if(err){
+                                    res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"birth"})
+                                }
+                                else{
+                                    res.json({isSuccessful:true,userData:Object.assign(findUserResponse[0]["_doc"],{playlist:findPlaylistResponse})})
+                                }
+                            });
+                        }
                     })
                 }
             })

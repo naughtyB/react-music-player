@@ -1,0 +1,85 @@
+{
+  "songs": [
+    {
+      "name": "林中鸟",
+      "id": 404784564,
+      "pst": 0,
+      "t": 0,
+      "ar": [
+        {
+          "id": 168010,
+          "name": "葛林",
+          "tns": [],
+          "alias": []
+        }
+      ],
+      "alia": [],
+      "pop": 100.0,
+      "st": 0,
+      "rt": null,
+      "fee": 8,
+      "v": 11,
+      "crbt": null,
+      "cf": "",
+      "al": {
+        "id": 34527151,
+        "name": "林中鸟",
+        "picUrl": "http://p1.music.126.net/_Lm-YrKOfArrLVT9PfRqkw==/1417270490213770.jpg",
+        "tns": [],
+        "pic": 1417270490213770
+      },
+      "dt": 231794,
+      "h": {
+        "br": 320000,
+        "fid": 0,
+        "size": 9274557,
+        "vd": -3.1
+      },
+      "m": {
+        "br": 160000,
+        "fid": 0,
+        "size": 4637301,
+        "vd": -2.68
+      },
+      "l": {
+        "br": 96000,
+        "fid": 0,
+        "size": 2782398,
+        "vd": -2.72
+      },
+      "a": null,
+      "cd": "1",
+      "no": 1,
+      "rtUrl": null,
+      "ftype": 0,
+      "rtUrls": [],
+      "djId": 0,
+      "copyright": 2,
+      "s_id": 0,
+      "mst": 9,
+      "cp": 36031,
+      "mv": 0,
+      "rtype": 0,
+      "rurl": null
+    }
+  ],
+  "privileges": [
+    {
+      "id": 404784564,
+      "fee": 8,
+      "payed": 0,
+      "st": 0,
+      "pl": 128000,
+      "dl": 0,
+      "sp": 7,
+      "cp": 1,
+      "subp": 1,
+      "cs": false,
+      "maxbr": 999000,
+      "fl": 128000,
+      "toast": false,
+      "flag": 0
+    }
+  ],
+  "code": 200
+}
