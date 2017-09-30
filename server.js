@@ -62,11 +62,14 @@ app.use("/modifyUserData",urlencodeParser,require("./express/router/modifyUserDa
 //获取单曲具体信息
 app.use("/song_detail",urlencodeParser,require("./express/router/song_detail.js"));
 
-//添加喜欢的音乐到指定的歌单
-app.use("/addMusicToPlaylist",jsonParser,require("./express/router/addMusicToPlaylist.js"));
+//操作歌单
+app.use("/handlePlaylistMusic",jsonParser,require("./express/router/handlePlaylistMusic.js"));
 
-//删除歌单中的指定音乐
-app.use("/removeMusicFromPlaylist",jsonParser,require("./express/router/removeMusicFromPlaylist.js"));
+//获取歌单
+app.use("/getPlaylistData",urlencodeParser,require("./express/router/getPlaylistData.js"));
+
+//创建歌单
+app.use("/addPlaylist",urlencodeParser,require("./express/router/addPlaylist.js"));
 
 // 单图上传
 app.post('/submitPortrait', upload.single('portrait'),require("./express/router/submitPortrait.js"));

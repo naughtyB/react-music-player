@@ -8,14 +8,19 @@
   .anticon-heart{
     margin-top:6px;
     margin-bottom:5px;
-    color:#e3e3e3;
     font-size:15px;
     cursor:pointer;
     transition:transform 200ms,color 200ms;
+  }
+  .anticon-heart-unfavorite{
+    color:#e3e3e3;
     &:hover{
       color:rgb(255, 134, 134);
       transform:scale(1.2);
     }
+  }
+  .anticon-heart-favorite{
+    color:rgb(255, 134, 134);
   }
 }
 

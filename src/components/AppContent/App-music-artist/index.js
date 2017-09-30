@@ -13,6 +13,7 @@ import AppMusicArtistDetailDescSimiArtist from "./app-music-artist-detailDesc-si
 import {transformHash} from "../../../common/js/index"
 import {doSearchArtist,doSearchArtistAlbum,doSearchAlbum,doChangeTopItemCheckAllState,doChangeItemCheckAllState,doClearAlbumData,doSearchArtistDesc,doSearchSimiArtist} from "../../../redux/action/artist";
 import {doChangeCurrentMusic,doChangeCurrentMusicIsPlaying} from "../../../redux/action/currentMusic";
+import {doHandlePlaylistMusic} from "../../../redux/action/user";
 const TabPane = Tabs.TabPane;
 export class AppMusicArtist extends React.Component{
     constructor(props){
@@ -53,6 +54,9 @@ export class AppMusicArtist extends React.Component{
         const {
             location,
             simiArtistDataLoadState,
+            userData,
+            loginState,
+            isHandlingPlaylistMusic,
             simiArtistData,
             artistLoadState,
             topItemCheckAllState,
@@ -76,6 +80,7 @@ export class AppMusicArtist extends React.Component{
             onClearAlbumData,
             onSearchArtistDesc,
             onSearchSimiArtist,
+            onHandlePlaylistMusic,
             shouldUpdate
             }=this.props;
         let {activeKey,artistId}=transformHash(location.hash);
@@ -117,6 +122,10 @@ export class AppMusicArtist extends React.Component{
                                         onGetAppContent={onGetAppContent}
                                         onClearAlbumData={onClearAlbumData}
                                         shouldUpdate={shouldUpdate}
+                                        userData={userData}
+                                        loginState={loginState}
+                                        isHandlingPlaylistMusic={isHandlingPlaylistMusic}
+                                        onHandlePlaylistMusic={onHandlePlaylistMusic}
                                     />
                                 </TabPane>
                                 <TabPane
@@ -181,7 +190,10 @@ const mapStateToProps=(state)=>{
         itemAlbumDataLoadStates:state.artist.itemAlbumDataLoadStates,
         simiArtistDataLoadState:state.artist.simiArtistDataLoadState,
         simiArtistData:state.artist.simiArtistData,
-        shouldUpdate:state.artist.shouldUpdate
+        shouldUpdate:state.artist.shouldUpdate,
+        userData:state.user.userData,
+        loginState:state.user.loginState,
+        isHandlingPlaylistMusic:state.user.isHandlingPlaylistMusic
     }
 };
 
@@ -196,7 +208,8 @@ const mapDispatchToProps=(dispatch)=>{
         onChangeItemCheckAllState:(itemCheckAllState,albumIndex)=>dispatch(doChangeItemCheckAllState(itemCheckAllState,albumIndex)),
         onClearAlbumData:()=>dispatch(doClearAlbumData()),
         onSearchArtistDesc:(artistId)=>dispatch(doSearchArtistDesc(artistId)),
-        onSearchSimiArtist:(artistId)=>dispatch(doSearchSimiArtist(artistId))
+        onSearchSimiArtist:(artistId)=>dispatch(doSearchSimiArtist(artistId)),
+        onHandlePlaylistMusic:(handle,playlistId,userId,music,message)=>dispatch(doHandlePlaylistMusic(handle,playlistId,userId,music,message))
     }
 };
 

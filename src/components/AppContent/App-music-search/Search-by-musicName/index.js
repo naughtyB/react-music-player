@@ -69,7 +69,7 @@ export class SearchByMusicName extends React.Component{
 
     handleRowDoubleClick(music){
         if(music.musicId!=this.props.currentMusicId){
-            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),music.musicName,music.artist,message)
+            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),message)
         }
         else{
             if(!this.props.currentMusicIsPlaying){
@@ -83,10 +83,23 @@ export class SearchByMusicName extends React.Component{
     }
 
     handleIconClick(musicData){
-        if(this.props.loginState && !this.props.isHandlingMusicInPlaylist){
+        if(this.props.loginState && !this.props.isHandlingPlaylistMusic){
             let playlist=this.props.userData.playlist;
             let favoritePlaylist;
             let favoritePlaylistMusicId;
+            let music={
+                musicId:musicData["id"],
+                musicName:musicData["name"],
+                albumId:musicData["album"]["id"],
+                albumName:musicData["album"]["name"],
+                duration:musicData["duration"],
+                artistId:musicData["artists"].map((artist,index)=>{
+                    return artist["id"]
+                }),
+                artistName:musicData["artists"].map((artist,index)=>{
+                    return artist["name"]
+                })
+            };
             for(let [index,list] of playlist.entries()){
                 if(list.favorite){
                     favoritePlaylist=list;
@@ -96,29 +109,17 @@ export class SearchByMusicName extends React.Component{
                 return music.musicId;
             });
             if(favoritePlaylistMusicId.includes(musicData["id"])){
-                this.props.onRemoveMusicFromPlaylist(favoritePlaylist["_id"],this.props.userData["_id"],musicData["id"],message)
+                this.props.onHandlePlaylistMusic("remove",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
             }
             else{
-                this.props.onAddMusicToPlaylist(favoritePlaylist["_id"],this.props.userData["_id"],{
-                    musicId:musicData["id"],
-                    musicName:musicData["name"],
-                    albumId:musicData["album"]["id"],
-                    albumName:musicData["album"]["name"],
-                    duration:musicData["duration"],
-                    artistId:musicData["artists"].map((artist,index)=>{
-                        return artist["id"]
-                    }),
-                    artistName:musicData["artists"].map((artist,index)=>{
-                        return artist["name"]
-                    })
-                },message)
+                this.props.onHandlePlaylistMusic("add",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
             }
             //到时这里弄个id判断，决定是删除还是增加
         }
         else if(!this.props.loginState){
             message.info("请先登录")
         }
-        else if(this.props.isHandlingMusicInPlaylist){
+        else if(this.props.isHandlingPlaylistMusic){
             message.info("不要频繁操作")
         }
     }

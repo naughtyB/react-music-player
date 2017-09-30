@@ -69,7 +69,11 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
             currentMusicIsPlaying,
             onChangeCurrentMusicIsPlaying,
             onChangeTopItemCheckAllState,
-            onChangeItemCheckAllState
+            onChangeItemCheckAllState,
+            userData,
+            loginState,
+            isHandlingPlaylistMusic,
+            onHandlePlaylistMusic
             }=this.props;
         let appMusicArtistDetailDescAlbumItemArr=[];
         if(albumData.length>0&& !albumData.includes(undefined)){
@@ -88,6 +92,10 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
                         itemCheckAllStates={itemCheckAllStates}
                         onChangeItemCheckAllState={onChangeItemCheckAllState}
                         itemAlbumDataLoadStates={itemAlbumDataLoadStates}
+                        userData={userData}
+                        loginState={loginState}
+                        isHandlingPlaylistMusic={isHandlingPlaylistMusic}
+                        onHandlePlaylistMusic={onHandlePlaylistMusic}
                     />
                 )
             }
@@ -102,6 +110,10 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
                     onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying}
                     onChangeTopItemCheckAllState={onChangeTopItemCheckAllState}
                     topItemCheckAllState={topItemCheckAllState}
+                    userData={userData}
+                    loginState={loginState}
+                    isHandlingPlaylistMusic={isHandlingPlaylistMusic}
+                    onHandlePlaylistMusic={onHandlePlaylistMusic}
                 />
                 <Spin spinning={artistAlbumLoadState} tip="Loading...">
                     {appMusicArtistDetailDescAlbumItemArr.length>0?appMusicArtistDetailDescAlbumItemArr:<div style={{height:"300px"}}></div>}

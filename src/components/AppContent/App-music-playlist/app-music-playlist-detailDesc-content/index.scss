@@ -1,0 +1,54 @@
+.app-content-music-playlist-DetailDesc-list-content-table{
+  table{
+    padding:0 !important;
+  }
+
+  .ant-table{
+    border:none;
+  }
+
+  .ant-pagination{
+    float: none;
+  }
+
+  .anticon-heart{
+    margin-top:6px;
+    margin-bottom:5px;
+    font-size:15px;
+    cursor:pointer;
+    transition:transform 200ms,color 200ms;
+  }
+  .anticon-heart-unfavorite{
+    color:#e3e3e3;
+    &:hover{
+      color:rgb(255, 134, 134);
+      transform:scale(1.2);
+    }
+  }
+  .anticon-heart-favorite{
+    color:rgb(255, 134, 134);
+  }
+}
+
+.app-content-music-playlist-DetailDesc-list-content-table-row{
+  &:nth-of-type(odd){
+    background-color: rgba(226, 226, 226, 0.1);
+  }
+  &:nth-of-type(even){
+    background-color: rgba(216, 216, 216, 0.2);
+  }
+}
+
+
+
+.app-content-music-playlist-DetailDesc-list-content-table-row-isPlaying{
+  //color:#4d00ff;
+  color:#108ee9;
+  font-size:15px;
+}
+
+.app-content-music-playlist-DetailDesc-list-content-table-row-orderNumber-content{
+  display:inline-block;
+  width: 35px;
+  text-align:right;
+}

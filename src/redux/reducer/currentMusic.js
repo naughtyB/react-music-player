@@ -24,8 +24,11 @@ const initialCurrentMusic={
     url:"",
     isGettingMusicData:false,
     albumImgUrl:"",
-    artists:[],
+    artistName:[],
+    artistId:[],
     musicName:"",
+    albumId:"",
+    albumName:"",
     isFetching:false,//留着转圈，主要用于循环
     playlist:"",//歌单 以后扩展，主要用于循环
     isPlaying:false,//歌曲是否正在播放
@@ -71,7 +74,14 @@ export const currentMusic=(state=initialCurrentMusic,action)=>{
                 ...state,
                 isGettingMusicData:false,
                 musicName:currentMusicData["name"],
-                artists:currentMusicData["ar"],
+                artistId:currentMusicData["ar"].map((artist,index)=>{
+                    return artist["id"]
+                }),
+                artistName:currentMusicData["ar"].map((artist,index)=>{
+                    return artist["name"]
+                }),
+                albumId:currentMusicData["al"]["id"],
+                albumName:currentMusicData["al"]["name"],
                 albumImgUrl:currentMusicData["al"]["picUrl"]
             };
         case GET_CURRENT_MUSIC_DATA_RECEIVE_ERROR_POST:

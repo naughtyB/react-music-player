@@ -10,6 +10,7 @@ import AppMusicAlbumDetailDescContent from "./app-music-album-detailDesc-content
 import AppMusicAlbumDetailDescIntroduction from "./app-music-album-detailDesc-introduction/index"
 import {doSearchAlbum} from "../../../redux/action/album";
 import {doChangeCurrentMusic,doChangeCurrentMusicIsPlaying} from "../../../redux/action/currentMusic"
+import {doHandlePlaylistMusic} from "../../../redux/action/user";
 import {transformHash} from "../../../common/js/index"
 const TabPane = Tabs.TabPane;
 
@@ -58,11 +59,15 @@ export class AppMusicAlbum extends React.Component{
             albumDataLoadState,
             albumData,
             location,
+            userData,
+            loginState,
+            isHandlingPlaylistMusic,
             currentMusicId,
             currentMusicIsPlaying,
             onChangeCurrentMusic,
             onChangeCurrentMusicIsPlaying,
-            onGetAppContent
+            onGetAppContent,
+            onHandlePlaylistMusic
             }=this.props;
         let {activeKey}=transformHash(location.hash);
         if(albumData.songs && albumData.songs.length>0){
@@ -89,6 +94,10 @@ export class AppMusicAlbum extends React.Component{
                                         onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying}
                                         activeKey={activeKey}
                                         onGetAppContent={onGetAppContent}
+                                        userData={userData}
+                                        loginState={loginState}
+                                        isHandlingPlaylistMusic={isHandlingPlaylistMusic}
+                                        onHandlePlaylistMusic={onHandlePlaylistMusic}
                                     />
                                 </TabPane>
                                 <TabPane
@@ -123,7 +132,10 @@ const mapStateToProps=(state)=>{
         albumDataLoadState:state.album.albumDataLoadState,
         albumData:state.album.albumData,
         currentMusicId:state.currentMusic.id,
-        currentMusicIsPlaying:state.currentMusic.isPlaying
+        currentMusicIsPlaying:state.currentMusic.isPlaying,
+        userData:state.user.userData,
+        loginState:state.user.loginState,
+        isHandlingPlaylistMusic:state.user.isHandlingPlaylistMusic
     }
 };
 
@@ -131,7 +143,8 @@ const mapDispatchToProps=(dispatch)=>{
     return {
         onSearchAlbum:(albumId)=>dispatch(doSearchAlbum(albumId)),
         onChangeCurrentMusic:(id,duration,message)=>dispatch(doChangeCurrentMusic(id,duration,message)),
-        onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying())
+        onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying()),
+        onHandlePlaylistMusic:(handle,playlistId,userId,music,message)=>dispatch(doHandlePlaylistMusic(handle,playlistId,userId,music,message))
     }
 };
 

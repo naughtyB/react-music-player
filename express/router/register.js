@@ -36,7 +36,7 @@ module.exports=(req,res)=>{
                                 let time=new Date().getTime();
                                 let newPlayList=new Playlist({
                                     userId:newUser._id,
-                                    name:"我最喜欢的音乐",
+                                    name:"我喜欢的音乐",
                                     favorite:true,
                                     music:[],
                                     createTime:time

@@ -7,7 +7,7 @@ import "./index.scss";
 
 export class AppMusicAlbumDetailDescIntroduction extends React.Component{
     componentWillUpdate(nextProps){
-        if(this.props.activeKey!=nextProps){
+        if(this.props.activeKey!=nextProps.activeKey){
             this.props.onGetAppContent().parentNode.scrollTop=0;
         }
     }

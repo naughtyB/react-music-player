@@ -41,7 +41,7 @@ export class AppMusicAlbumDetailDescContent extends React.Component{
     }
 
     componentWillUpdate(nextProps){
-        if(this.props.activeKey!=nextProps){
+        if(this.props.activeKey!=nextProps.activeKey){
             this.props.onGetAppContent().parentNode.scrollTop=0;
         }
     }
@@ -61,16 +61,76 @@ export class AppMusicAlbumDetailDescContent extends React.Component{
         }
     }
 
+    handleIconClick(song){
+        if(this.props.loginState && !this.props.isHandlingPlaylistMusic){
+            let playlist=this.props.userData.playlist;
+            let favoritePlaylist;
+            let favoritePlaylistMusicId;
+            let music={
+                musicId:song["id"],
+                musicName:song["name"],
+                albumId:song["al"]["id"],
+                albumName:song["al"]["name"],
+                duration:song["dt"],
+                artistId:song["ar"].map((artist,index)=>{
+                    return artist["id"]
+                }),
+                artistName:song["ar"].map((artist,index)=>{
+                    return artist["name"]
+                })
+            };
+            for(let [index,list] of playlist.entries()){
+                if(list.favorite){
+                    favoritePlaylist=list;
+                }
+            }
+            favoritePlaylistMusicId=favoritePlaylist.music.map((music,index)=>{
+                return music.musicId;
+            });
+            if(favoritePlaylistMusicId.includes(song["id"])){
+                this.props.onHandlePlaylistMusic("remove",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
+            }
+            else{
+                this.props.onHandlePlaylistMusic("add",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
+            }
+            //到时这里弄个id判断，决定是删除还是增加
+        }
+        else if(!this.props.loginState){
+            message.info("请先登录")
+        }
+        else if(this.props.isHandlingPlaylistMusic){
+            message.info("不要频繁操作")
+        }
+    }
+
     render(){
-        const {albumData:{songs},currentMusicId}=this.props;
-        const data = [];
+        const {albumData:{songs},currentMusicId,loginState,userData}=this.props;
         if(songs && songs.length>0){
+            const data = [];
+            let favoritePlaylistMusicId;
+            if(loginState){
+                let playlist=userData.playlist;
+                let favoritePlaylist;
+                for(let [index,list] of playlist.entries()){
+                    if(list.favorite){
+                        favoritePlaylist=list;
+                    }
+                }
+                favoritePlaylistMusicId=favoritePlaylist.music.map((music,index)=>{
+                    return music.musicId;
+                });
+            }
             for (let [index,song] of songs.entries()) {
                 let artists=song["ar"];
                 data.push({
                     key:index+1,
                     orderNumber:<span className="app-content-music-album-DetailDesc-list-content-table-row-orderNumber-content">{song["id"]==currentMusicId?<Icon type="mySound" className="app-content-music-album-DetailDesc-list-content-table-row-isPlaying"/>:(index+1)<10?"0"+(index+1):index+1}</span>,
-                    handle:<Icon type="heart" style={{width:"25px"}}/>,
+                    handle:<Icon
+                        type="heart"
+                        style={{width:"25px"}}
+                        className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(song["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
+                        onClick={()=>{this.handleIconClick(song)}}
+                    />,
                     musicName: song["name"],
                     singer:artists.map((artist,index)=>{
                         return (<span key={index}>

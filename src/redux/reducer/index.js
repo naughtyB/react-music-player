@@ -9,6 +9,8 @@ import currentMusic from "./currentMusic"
 import artist from "./artist";
 import album from "./album";
 import user from "./user";
+import playlist from "./playlist"
+import menu from "./menu"
 
 
 
@@ -19,7 +21,9 @@ export const reducer = combineReducers({
     currentMusic,
     artist,
     album,
-    user
+    user,
+    playlist,
+    menu
 });
 
 export default reducer;

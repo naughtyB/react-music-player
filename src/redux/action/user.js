@@ -75,19 +75,22 @@ export const SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_SUCCESS_POST="SUBMIT_MODIFY_USE
 
 export const SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST="SUBMIT_MODIFY_USER_PORTRAIT_RECEIVE_ERROR_POST";
 
-//添加音乐至歌单
-export const ADD_MUSIC_TO_PLAYLIST_REQUEST_POST="ADD_MUSIC_TO_PLAYLIST_REQUEST_POST";
+//操作歌单
+export const HANDLE_PLAYLIST_MUSIC_REQUEST_POST="HANDLE_PLAYLIST_MUSIC_REQUEST_POST";
 
-export const ADD_MUSIC_TO_PLAYLIST_RECEIVE_SUCCESS_POST="ADD_MUSIC_TO_PLAYLIST_RECEIVE_SUCCESS_POST";
+export const HANDLE_PLAYLIST_MUSIC_RECEIVE_SUCCESS_POST="HANDLE_PLAYLIST_MUSIC_RECEIVE_SUCCESS_POST";
 
-export const ADD_MUSIC_TO_PLAYLIST_RECEIVE_ERROR_POST="ADD_MUSIC_TO_PLAYLIST_RECEIVE_ERROR_POST";
+export const HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST="HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST";
 
-//删除歌单的音乐
-export const REMOVE_MUSIC_FROM_PLAYLIST_REQUEST_POST="REMOVE_MUSIC_FROM_PLAYLIST_REQUEST_POST";
+//添加歌单
+export const ADD_PLAYLIST_REQUEST_POST="ADD_PLAYLIST_REQUEST_POST";
 
-export const REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_SUCCESS_POST="REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_SUCCESS_POST";
+export const ADD_PLAYLIST_RECEIVE_SUCCESS_POST="ADD_PLAYLIST_RECEIVE_SUCCESS_POST";
 
-export const REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_ERROR_POST="REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_ERROR_POST";
+export const ADD_PLAYLIST_RECEIVE_ERROR_POST="ADD_PLAYLIST_RECEIVE_ERROR_POST";
+
+
+
 
 
 export const doChangeUserLoginState=(loginState)=>{
@@ -387,89 +390,95 @@ export const doSubmitModifyUserPortrait=(formData,message,file)=>(dispatch)=>{
 
 
 
-export const doAddMusicToPlaylistRequestPost=()=>{
+export const doHandlePlaylistMusicRequestPost=()=>{
     return {
-        type:ADD_MUSIC_TO_PLAYLIST_REQUEST_POST
+        type:HANDLE_PLAYLIST_MUSIC_REQUEST_POST
     }
 };
 
-export const doAddMusicToPlaylistReceiveSuccessPost=(playlist)=>{
+export const doHandlePlaylistMusicReceiveSuccessPost=(playlist)=>{
     return {
-        type:ADD_MUSIC_TO_PLAYLIST_RECEIVE_SUCCESS_POST,
+        type:HANDLE_PLAYLIST_MUSIC_RECEIVE_SUCCESS_POST,
         playlist
     }
 };
 
-export const doAddMusicToPlaylistReceiveErrorPost=()=>{
+export const doHandlePlaylistMusicReceiveErrorPost=()=>{
     return {
-        type:ADD_MUSIC_TO_PLAYLIST_RECEIVE_ERROR_POST
+        type:HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST
     }
 };
 
-export const doAddMusicToPlaylist=(playlistId,userId,music,message)=>(dispatch)=>{
-    dispatch(doAddMusicToPlaylistRequestPost());
-    return fetch("/addMusicToPlaylist",{
+export const doHandlePlaylistMusic=(handle,playlistId,userId,music,message)=>(dispatch)=>{
+    dispatch(doHandlePlaylistMusicRequestPost());
+    return fetch("/handlePlaylistMusic",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
         },
-        body:JSON.stringify({playlistId,music,userId})
+        body:JSON.stringify({handle,playlistId,music,userId})
     }).then(res=>{
         return res.json();
     }).then(res=>{
         if(res.isSuccessful){
-            dispatch(doAddMusicToPlaylistReceiveSuccessPost(res.playlist));
-            message.info("添加歌曲成功");
+            dispatch(doHandlePlaylistMusicReceiveSuccessPost(res.playlist));
+            if(handle=="add"){
+                message.info("已收藏到歌单");
+            }
+            else if(handle=="remove"){
+                message.info("已移出歌单")
+            }
         }
         else{
-            dispatch(doAddMusicToPlaylistReceiveErrorPost());
-            message.info("添加歌曲失败");
+            dispatch(doHandlePlaylistMusicReceiveErrorPost());
+            message.info(res.error)
         }
     })
 };
 
 
-export const doRemoveMusicFromPlaylistRequestPost=()=>{
+export const doAddPlaylistRequestPost=()=>{
     return {
-        type:REMOVE_MUSIC_FROM_PLAYLIST_REQUEST_POST
+        type:ADD_PLAYLIST_REQUEST_POST
     }
 };
 
-export const doRemoveMusicFromPlaylistReceiveSuccessPost=(playlist)=>{
+export const doAddPlaylistReceiveSuccessPost=(playlist)=>{
     return {
-        type:REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_SUCCESS_POST,
+        type:ADD_PLAYLIST_RECEIVE_SUCCESS_POST,
         playlist
     }
 };
 
-export const doRemoveMusicFromPlaylistReceiveErrorPost=()=>{
+export const doAddPlaylistReceiveErrorPost=()=>{
     return {
-        type:REMOVE_MUSIC_FROM_PLAYLIST_RECEIVE_ERROR_POST
+        type:ADD_PLAYLIST_RECEIVE_ERROR_POST
     }
 };
 
 
-export const doRemoveMusicFromPlaylist=(playlistId,userId,musicId,message)=>(dispatch)=>{
-    dispatch(doRemoveMusicFromPlaylistRequestPost());
-    return fetch("/removeMusicFromPlaylist",{
+export const doAddPlaylist=(userId,playlistName)=>(dispatch)=>{
+    dispatch(doAddPlaylistRequestPost());
+    return fetch("/addPlaylist",{
         method:"POST",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"application/x-www-form-urlencoded"
         },
-        body:JSON.stringify({playlistId,musicId,userId})
+        body:"playlistName="+encodeURIComponent(playlistName)+"&userId="+userId
     }).then(res=>{
-        return res.json();
+        return res.json()
     }).then(res=>{
         if(res.isSuccessful){
-            dispatch(doRemoveMusicFromPlaylistReceiveSuccessPost(res.playlist));
-            message.info("删除歌曲成功");
+            dispatch(doAddPlaylistReceiveSuccessPost(res.playlist))
         }
         else{
-            dispatch(doRemoveMusicFromPlaylistReceiveErrorPost());
-            message.info("删除歌曲失败");
+            dispatch(doAddPlaylistReceiveErrorPost())
         }
     })
 };
+
+
+
 
 
 

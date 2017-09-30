@@ -3,7 +3,27 @@
   flex-direction: column-reverse;
   height:100%;
   border-right: 1px solid rgba(204, 204, 204, 0.33);
-  background-color: white
+  background-color: white;
+
+  .app-side-frame-menu-addPlaylist{
+    margin-left: 100px;
+    vertical-align: -1px;
+    color: #d6d6d6;
+    font-size: 14px;
+  }
+  .app-side-frame-menu-addPlaylist:hover{
+    color:#a7a7a7;
+  }
+
+}
+
+.app-side-frame-menu-addPlaylist-frame{
+  .ant-popover-message-title{
+    padding-left:0;
+  }
+  .anticon-exclamation-circle{
+    display:none !important;;
+  }
 }
 
 
