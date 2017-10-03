@@ -33,7 +33,7 @@ module.exports=(req,res)=>{
                             res.json({isSuccessful:false,error:"上传失败，请重新上传"})
                         }
                         else{
-                            Playlist.find({"userId":findUserResponse[0]["_id"]}).populate("music").exec((err,findPlaylistResponse)=>{
+                            Playlist.find({"user":findUserResponse[0]["_id"]}).populate("music").exec((err,findPlaylistResponse)=>{
                                 if(err){
                                     res.json({isSuccessful:false,error:"上传失败，请重新上传"})
                                 }

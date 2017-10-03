@@ -6,7 +6,7 @@ export const CHANGE_SELECTED_KEYS="CHANGE_SELECTED_KEYS";
 
 export const doChangeSelectedKeys=(selectedKeys)=>{
     return {
-        type:doChangeSelectedKeys,
+        type:CHANGE_SELECTED_KEYS,
         selectedKeys
     }
 };

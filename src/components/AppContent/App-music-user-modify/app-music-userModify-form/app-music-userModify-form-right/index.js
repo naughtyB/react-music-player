@@ -215,15 +215,15 @@ export class AppMusicUserModifyFormRight extends React.Component{
                 <form name="portrait" ref="portrait">
                     <input ref="file" type="file" className="app-content-music-userModify-form-headPortrait-file" onChange={this.handleFileChange}/>
                 </form>
-                <Spin spinning={portraitIsUploading} tip="Loading...">
-                    <Modal
-                        maskClosable={false}
-                        title="上传头像"
-                        className="app-content-music-userModify-form-headPortrait-modal"
-                        visible={modalVisibility}
-                        onOk={this.handleSubmitPortrait}
-                        onCancel={this.handleCancelSubmitPortrait}
-                    >
+                <Modal
+                    maskClosable={false}
+                    title="上传头像"
+                    className="app-content-music-userModify-form-headPortrait-modal"
+                    visible={modalVisibility}
+                    onOk={this.handleSubmitPortrait}
+                    onCancel={this.handleCancelSubmitPortrait}
+                >
+                    <Spin spinning={portraitIsUploading} tip="Loading...">
                         <div className="app-content-music-userModify-form-headPortrait-modal-body-left">
                             <div className="app-content-music-userModify-form-headPortrait-modal-body-left-frame">
                                 <img ref="imgChanged" className="app-content-music-userModify-form-headPortrait-modal-body-left-frame-img" src={this.props.portraitPreviewUrl || ""} alt=""/>
@@ -251,8 +251,8 @@ export class AppMusicUserModifyFormRight extends React.Component{
                             </div>
                             <p className="app-content-music-userModify-form-headPortrait-modal-body-right-displaySmaller-img-introduction">小尺寸封面</p>
                         </div>
-                    </Modal>
-                </Spin>
+                    </Spin>
+                </Modal>
             </div>
         )
     }

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 413864 */
-  src: url('//at.alicdn.com/t/font_413864_x0ifh54ua6r5p14i.eot');
-  src: url('//at.alicdn.com/t/font_413864_x0ifh54ua6r5p14i.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_413864_x0ifh54ua6r5p14i.woff') format('woff'),
-  url('//at.alicdn.com/t/font_413864_x0ifh54ua6r5p14i.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_413864_x0ifh54ua6r5p14i.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_413864_u7nah7kbu2jll3di.eot');
+  src: url('//at.alicdn.com/t/font_413864_u7nah7kbu2jll3di.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_413864_u7nah7kbu2jll3di.woff') format('woff'),
+  url('//at.alicdn.com/t/font_413864_u7nah7kbu2jll3di.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_413864_u7nah7kbu2jll3di.svg#iconfont') format('svg');
 }
 
 .anticon-mySound:before{
@@ -41,3 +41,13 @@
    font-family:iconfont !important;
    content:"\e616";
  }
+
+.anticon-addMusicToPlaylist:before{
+  font-family:iconfont !important;
+  content:"\e61d";
+}
+
+.anticon-playlist:before{
+  font-family:iconfont !important;
+  content:"\e61a";
+}

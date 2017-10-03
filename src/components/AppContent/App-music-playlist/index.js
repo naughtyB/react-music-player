@@ -22,15 +22,35 @@ export class AppMusicPlaylist extends React.Component{
     }
 
     componentWillMount(){
+        let isUserPlaylist=false;
         let playlistId=transformHash(this.props.location.hash)["playlistId"];
-        this.props.onGetPlaylistData(playlistId);
+        if(this.props.userData.playlist){
+            for(let [index,list] of this.props.userData.playlist.entries()){
+                if(list["_id"]==playlistId){
+                    isUserPlaylist=true;
+                }
+            }
+        }
+        if(!isUserPlaylist){
+            this.props.onGetPlaylistData(playlistId);
+        }
     }
 
     componentWillUpdate(nextProps){
         let playlistId=transformHash(this.props.location.hash)["playlistId"];
         let newPlaylistId=transformHash(nextProps.location.hash)["playlistId"];
         if(playlistId!=newPlaylistId){
-            this.props.onGetPlaylistData(newPlaylistId);
+            let isUserPlaylist=false;
+            if(nextProps.userData.playlist){
+                for(let [index,list] of nextProps.userData.playlist.entries()){
+                    if(list["_id"]==newPlaylistId){
+                        isUserPlaylist=true;
+                    }
+                }
+            }
+            if(!isUserPlaylist){
+                this.props.onGetPlaylistData(newPlaylistId);
+            }
         }
     }
 
@@ -50,7 +70,7 @@ export class AppMusicPlaylist extends React.Component{
     }
 
     render(){
-        const {
+        let {
             isGettingPlaylistData,
             playlistData,
             currentMusicId,
@@ -61,6 +81,16 @@ export class AppMusicPlaylist extends React.Component{
             onChangeCurrentMusicIsPlaying,
             onHandlePlaylistMusic
             }=this.props;
+        let playlistId=transformHash(this.props.location.hash)["playlistId"];
+        let isUserPlaylist=false;
+        if(loginState){
+            for(let [index,list] of userData.playlist.entries()){
+                if(list["_id"]==playlistId){
+                    playlistData=list;
+                    isUserPlaylist=true;
+                }
+            }
+        }
         if(playlistData.name){
             return (
                 <Spin spinning={isGettingPlaylistData} tip="Loading...">
@@ -86,6 +116,7 @@ export class AppMusicPlaylist extends React.Component{
                                         onChangeCurrentMusic={onChangeCurrentMusic}
                                         onChangeCurrentMusicIsPlaying={onChangeCurrentMusicIsPlaying}
                                         onHandlePlaylistMusic={onHandlePlaylistMusic}
+                                        isUserPlaylist={isUserPlaylist}
                                     />
                                 </TabPane>
                             </Tabs>

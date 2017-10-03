@@ -45,6 +45,15 @@
   .anticon-heart-favorite{
     color:rgb(255, 134, 134);
   }
+  .anticon-addMusicToPlaylist{
+    margin-left: 5px;
+    font-size:15px;
+    transition:all 200ms;
+    cursor:pointer;
+  }
+  .anticon-addMusicToPlaylist:hover{
+    color:black;
+  }
 }
 
 .app-content-music-artist-detailDesc-list-album-item-main-table-row{
@@ -73,4 +82,24 @@
 
 .app-content-music-artist-detailDesc-list-album-item-checkAll-button{
   cursor:pointer;
+}
+
+
+.app-content-music-artist-detailDesc-list-album-item-main-table-row-handle{
+  display:inline-block;
+}
+
+.app-content-music-artist-detailDesc-list-album-item-main-table-row-handle-addMusicToPlaylist{
+  .ant-popover-inner-content{
+    padding:0;
+  }
+}
+
+.app-content-music-artist-detailDesc-list-album-item-main-table-row-handle-addMusicToPlaylist-item{
+  padding:8px 16px;
+  cursor:pointer;
+}
+
+.app-content-music-artist-detailDesc-list-album-item-main-table-row-handle-addMusicToPlaylist-item:hover{
+  background-color: rgba(230, 230, 230, 0.5);
 }

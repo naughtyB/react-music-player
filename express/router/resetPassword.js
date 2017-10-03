@@ -24,7 +24,7 @@ module.exports=(req,res)=>{
                         res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"captcha"})
                     }
                     else{
-                        Playlist.find({"userId":findUserResponse[0]["_id"]}).populate("music").exec((err,findPlaylistResponse)=>{
+                        Playlist.find({"user":findUserResponse[0]["_id"]}).populate("music user").exec((err,findPlaylistResponse)=>{
                             if(err){
                                 res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"captcha"})
                             }

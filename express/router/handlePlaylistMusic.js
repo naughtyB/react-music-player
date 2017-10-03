@@ -32,7 +32,7 @@ module.exports=(req,res)=>{
                                 res.json({"isSuccessful":false,"error":"收藏到歌单失败"})
                             }
                             else{
-                                Playlist.find({"userId":req.body.userId}).populate("music").exec((err,findPlaylistResponse)=>{
+                                Playlist.find({"user":req.body.userId}).populate("music user").exec((err,findPlaylistResponse)=>{
                                     if(err){
                                         res.json({isSuccessful:false,error:"收藏到歌单失败"})
                                     }
@@ -51,7 +51,7 @@ module.exports=(req,res)=>{
                         res.json({"isSuccessful":false,"error":"收藏到歌单失败"})
                     }
                     else{
-                        Playlist.find({"userId":req.body.userId}).populate("music").exec((err,findPlaylistResponse)=>{
+                        Playlist.find({"user":req.body.userId}).populate("music user").exec((err,findPlaylistResponse)=>{
                             if(err){
                                 res.json({isSuccessful:false,error:"收藏到歌单失败"})
                             }
@@ -76,7 +76,7 @@ module.exports=(req,res)=>{
                         res.json({"isSuccessful":false,error:"移出歌单失败"})
                     }
                     else{
-                        Playlist.find({"userId":req.body.userId}).populate("music").exec((err,findPlaylistResponse)=>{
+                        Playlist.find({"user":req.body.userId}).populate("music user").exec((err,findPlaylistResponse)=>{
                             if(err){
                                 res.json({isSuccessful:false,error:"移出歌单失败"})
                             }

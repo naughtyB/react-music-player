@@ -7,7 +7,7 @@ let User=require("../mongodb/index")["User"];
 module.exports=(req,res)=>{
     let time=new Date().getTime();
     let newPlayList=new Playlist({
-        userId:req.body.userId,
+        user:req.body.userId,
         name:decodeURIComponent(req.body.playlistName),
         favorite:false,
         music:[],
@@ -18,7 +18,7 @@ module.exports=(req,res)=>{
             res.json({isSuccessful:false,errorType:"captcha",error:"发生错误!请重新提交"});
         }
         else{
-            Playlist.find({"userId":req.body.userId}).populate("music").exec((err,findPlaylistRes)=>{
+            Playlist.find({"user":req.body.userId}).populate("music user").exec((err,findPlaylistRes)=>{
                 if(err){
 
                 }

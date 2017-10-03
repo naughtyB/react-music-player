@@ -12,7 +12,7 @@
     margin-left: 20px;
 
     &-name{
-      margin-bottom:40px;
+      margin-bottom:10px;
 
       &-tag{
         display: inline-block;
@@ -24,5 +24,45 @@
         background-color: #11598c;
       }
     }
+
+    &-user{
+      display:flex;
+      align-items: center;
+
+      &-portrait{
+        position:relative;
+        display:inline-block;
+        margin-right:10px;
+        width: 24px;
+        height: 24px;
+        border:1px solid #CCC;
+        border-radius:13px;
+        box-sizing:content-box;
+        overflow: hidden;
+
+        &-content{
+          position:absolute;
+          width:43px;
+          height: 24px;
+          left: -9.5px;
+          top: 0;
+        }
+      }
+
+      &-name{
+        font-size:14px;
+      }
+
+      &-createTime{
+        margin-left: 20px;
+        font-size:10px;
+      }
+    }
   }
 }
+
+
+
+
+
+

@@ -37,6 +37,7 @@ export class AppMusicAlbum extends React.Component{
             //只需要在此处设置这个，便可补足其不足
             this.props.onGetAppContent().parentNode.scrollTop=0;
         }
+
     }
 
     handleActiveKeyChange(activeKey){

@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/9/6.
  */
 import React from "react";
-import {Table,Icon,message,Spin} from "antd";
+import {Table,Icon,message,Spin,Popover} from "antd";
 import {Link} from "react-router-dom";
 import {timeTransform} from "../../../../common/js/index"
 import "./index.scss"
@@ -40,7 +40,7 @@ export class SearchByMusicName extends React.Component{
         this.onPageToTop=this.onPageToTop.bind(this);
         this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
         this.handleTableChange=this.handleTableChange.bind(this);
-        this.handleIconClick=this.handleIconClick.bind(this);
+        this.addMusicToFavoritePlaylist=this.addMusicToFavoritePlaylist.bind(this);
     }
 
     onPageToTop(){
@@ -82,7 +82,7 @@ export class SearchByMusicName extends React.Component{
         }
     }
 
-    handleIconClick(musicData){
+    addMusicToFavoritePlaylist(musicData){
         if(this.props.loginState && !this.props.isHandlingPlaylistMusic){
             let playlist=this.props.userData.playlist;
             let favoritePlaylist;
@@ -124,6 +124,37 @@ export class SearchByMusicName extends React.Component{
         }
     }
 
+    addMusicToPlaylist(musicData,list){
+        if(this.props.isHandlingPlaylistMusic){
+            message.info("不要频繁操作")
+        }
+        else{
+            let musicIdArr=list.music.map((song,index)=>{
+                return song["musicId"]
+            });
+            if(musicIdArr.includes(musicData["id"])){
+               message.info("歌曲已存在")
+            }
+            else{
+                let music={
+                    musicId:musicData["id"],
+                    musicName:musicData["name"],
+                    albumId:musicData["album"]["id"],
+                    albumName:musicData["album"]["name"],
+                    duration:musicData["duration"],
+                    artistId:musicData["artists"].map((artist,index)=>{
+                        return artist["id"]
+                    }),
+                    artistName:musicData["artists"].map((artist,index)=>{
+                        return artist["name"]
+                    })
+                };
+                this.props.onHandlePlaylistMusic("add",list["_id"],this.props.userData["_id"],music,message);
+            }
+        }
+    }
+
+
     render(){
         const {musicSearched,musicLoadState,userData,loginState}=this.props;
         if(musicSearched.result && musicSearched.result.songCount>0){
@@ -146,18 +177,47 @@ export class SearchByMusicName extends React.Component{
                 let artists=musicData["artists"];
                 data.push({
                     key: 30*current+index+1,
-                    orderNumber:<span className="app-content-music-searchByMusicName-table-row-orderNumber-content">{musicData["id"]==this.props.currentMusicId?
+                    orderNumber:<span className="app-content-music-searchByMusicName-table-row-orderNumber-content" >{musicData["id"]==this.props.currentMusicId?
                         <Icon
                             type="mySound"
                             className="app-content-music-searchByMusicName-table-row-isPlaying"
                         />:
                         (current*30+index+1)<10?"0"+(current*30+index+1):current*30+index+1}</span>,
-                    handle:<Icon
-                        type="heart"
-                        style={{width:"25px"}}
-                        className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(musicData["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
-                        onClick={()=>{this.handleIconClick(musicData)}}
-                    />,
+                    handle:<span
+                        className="app-content-music-searchByMusicName-table-row-handle"
+                        style={{width:loginState?"50px":"25px"}}
+                    >
+                        <Icon
+                            type="heart"
+                            style={{width:"25px"}}
+                            className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(musicData["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
+                            onClick={()=>{this.addMusicToFavoritePlaylist(musicData)}}
+                        />
+                        <Popover
+                            placement="right"
+                            trigger="hover"
+                            overlayClassName="app-content-music-searchByMusicName-table-row-handle-addMusicToPlaylist"
+                            title="添加到歌单"
+                            content={(
+                                <ul>
+                                    {userData.playlist?userData.playlist.map((list,index)=>{
+                                        return <li
+                                            key={index}
+                                            className="app-content-music-searchByMusicName-table-row-handle-addMusicToPlaylist-item"
+                                            onClick={()=>{this.addMusicToPlaylist(musicData,list)}}
+                                        >
+                                            {list.name}
+                                        </li>
+                                    }):""}
+                                </ul>
+                            )}
+                        >
+                            <Icon
+                                type="addMusicToPlaylist"
+                                style={{display:loginState?"inline-block":"none"}}
+                            />
+                        </Popover>
+                    </span>,
                     musicName: musicData["name"],
                     singer:artists.map((artist,index)=>{
                         return (<span key={index}>

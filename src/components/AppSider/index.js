@@ -10,9 +10,10 @@ import AppSideFrameCurrentMusic from "./app-side-frame-currentMusic/index";
 import {doGetCurrentMusicData} from "../../redux/action/currentMusic"
 import {doHandlePlaylistMusic,doAddPlaylist} from "../../redux/action/user";
 import {doChangeSelectedKeys} from "../../redux/action/menu";
-
+import {transformHash} from "../../common/js/index"
 
 const {SubMenu}=Menu;
+
 export class AppSider extends React.Component{
     constructor(props){
         super(props);
@@ -20,6 +21,28 @@ export class AppSider extends React.Component{
         this.handleAddPlaylist=this.handleAddPlaylist.bind(this);
     }
 
+    componentWillUpdate(nextProps){
+        if(this.props.location!=nextProps.location){
+            let nextPlaylistId=transformHash(nextProps.location.hash)["playlistId"];
+            if(nextPlaylistId){
+                let isUserPlaylist=false;
+                for(let [index,list] of nextProps.userData.playlist.entries()){
+                    if(list["_id"]==nextPlaylistId){
+                        isUserPlaylist=true;
+                    }
+                }
+                if(isUserPlaylist){
+                    this.props.onChangeSelectedKeys([nextPlaylistId])
+                }
+                else{
+                    this.props.onChangeSelectedKeys(["1"])
+                }
+            }
+            else{
+                this.props.onChangeSelectedKeys(["1"]);
+            }
+        }
+    }
 
     handleSelect({key,selectedKeys,item}){
         this.props.onChangeSelectedKeys(selectedKeys);
@@ -43,6 +66,7 @@ export class AppSider extends React.Component{
 
     render(){
         const {
+            location,
             currentMusicId,
             userData,
             musicName,
@@ -81,7 +105,7 @@ export class AppSider extends React.Component{
                         <Menu
                             mode="inline"
                             defaultOpenKeys={["findMusic","myPlaylist"]}
-                            selected={selectedKeys}
+                            selectedKeys={selectedKeys}
                             onSelect={this.handleSelect}
                         >
                             <SubMenu key="findMusic" title={<span><Icon type="findMusic"/><span>发现音乐</span></span>}>
@@ -94,7 +118,7 @@ export class AppSider extends React.Component{
                                     <Icon type="user"/>
                                     <span>我的歌单</span>
                                     <Popconfirm placement="top" title={<Input placeholder="请输入歌单名称" ref="Input"/>}  okText="Yes" cancelText="No" overlayClassName="app-side-frame-menu-addPlaylist-frame" onConfirm={this.handleAddPlaylist}>
-                                        <Icon className="app-side-frame-menu-addPlaylist" type="plus-circle" onClick={(e)=>{e.stopPropagation();this.refs["Input"]["refs"]["input"]["value"]=""}}/>
+                                        <Icon className="app-side-frame-menu-addPlaylist" type="plus-circle" onClick={(e)=>{e.stopPropagation()}}/>
                                     </Popconfirm>
                                 </span>
                             }>
@@ -143,4 +167,4 @@ const mapDispatchToProps=(dispatch)=>{
     }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(AppSider))
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(AppSider));

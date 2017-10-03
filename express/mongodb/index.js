@@ -56,7 +56,7 @@ let MusicSchema=new Schema({
 let Music=mongoose.model("music",MusicSchema);
 
 let PlaylistSchema=new Schema({
-    userId:{type:Schema.Types.ObjectId,ref:"user"},
+    user:{type:Schema.Types.ObjectId,ref:"user"},
     name:{type:String},
     favorite:{type:Boolean},
     music:[{type:Schema.Types.ObjectId,ref:"music"}],

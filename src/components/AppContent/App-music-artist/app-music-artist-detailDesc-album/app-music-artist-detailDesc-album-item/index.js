@@ -3,7 +3,7 @@
  */
 import "./index.scss"
 import React from "react";
-import {Table,Icon,message} from "antd";
+import {Table,Icon,message,Popover} from "antd";
 import {Link} from "react-router-dom";
 import {timeTransform} from "../../../../../common/js/index"
 const columns = [{
@@ -28,6 +28,8 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
         super(props);
         this.handleRowDoubleClick=this.handleRowDoubleClick.bind(this);
         this.handleCheckAll=this.handleCheckAll.bind(this);
+        this.addMusicToFavoritePlaylist=this.addMusicToFavoritePlaylist.bind(this);
+        this.addMusicToPlaylist=this.addMusicToPlaylist.bind(this);
     }
 
     handleCheckAll(){
@@ -49,7 +51,7 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
         }
     }
 
-    handleIconClick(song){
+    addMusicToFavoritePlaylist(song){
         if(this.props.loginState && !this.props.isHandlingPlaylistMusic){
             let playlist=this.props.userData.playlist;
             let favoritePlaylist;
@@ -91,6 +93,36 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
         }
     }
 
+    addMusicToPlaylist(song,list){
+        if(this.props.isHandlingPlaylistMusic){
+            message.info("不要频繁操作")
+        }
+        else{
+            let musicIdArr=list.music.map((song,index)=>{
+                return song["musicId"]
+            });
+            if(musicIdArr.includes(song["id"])){
+                message.info("歌曲已存在")
+            }
+            else{
+                let music={
+                    musicId:song["id"],
+                    musicName:song["name"],
+                    albumId:song["al"]["id"],
+                    albumName:song["al"]["name"],
+                    duration:song["dt"],
+                    artistId:song["ar"].map((artist,index)=>{
+                        return artist["id"]
+                    }),
+                    artistName:song["ar"].map((artist,index)=>{
+                        return artist["name"]
+                    })
+                };
+                this.props.onHandlePlaylistMusic("add",list["_id"],this.props.userData["_id"],music,message);
+            }
+        }
+    }
+
 
     render(){
         const {artistAlbumData,albumData,albumIndex,itemCheckAllStates,userData,loginState}=this.props;
@@ -112,12 +144,41 @@ export class AppMusicArtistDetailDescAlbumItem extends React.Component{
             data.push({
                 key:index,
                 orderNumber:<span className="app-content-music-artist-detailDesc-list-album-item-main-table-row-orderNumber-content">{song["id"]==this.props.currentMusicId?<Icon type="mySound" className="app-content-music-artist-detailDesc-list-album-item-main-table-row-isPlaying"/>:index+1<10?"0"+(index+1):index+1}</span>,
-                handle:<Icon
-                    type="heart"
-                    style={{width:"25px"}}
-                    className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(song["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
-                    onClick={()=>{this.handleIconClick(song)}}
-                />,
+                handle:<span
+                    className="app-content-music-artist-detailDesc-list-album-item-main-table-row-handle"
+                    style={{width:loginState?"50px":"25px"}}
+                >
+                        <Icon
+                            type="heart"
+                            style={{width:"25px"}}
+                            className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(song["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
+                            onClick={()=>{this.addMusicToFavoritePlaylist(song)}}
+                        />
+                        <Popover
+                            placement="right"
+                            trigger="hover"
+                            overlayClassName="app-content-music-artist-detailDesc-list-album-item-main-table-row-handle-addMusicToPlaylist"
+                            title="添加到歌单"
+                            content={(
+                                <ul>
+                                    {userData.playlist?userData.playlist.map((list,index)=>{
+                                        return <li
+                                            key={index}
+                                            className="app-content-music-artist-detailDesc-list-album-item-main-table-row-handle-addMusicToPlaylist-item"
+                                            onClick={()=>{this.addMusicToPlaylist(song,list)}}
+                                        >
+                                            {list.name}
+                                        </li>
+                                    }):""}
+                                </ul>
+                            )}
+                        >
+                            <Icon
+                                type="addMusicToPlaylist"
+                                style={{display:loginState?"inline-block":"none"}}
+                            />
+                        </Popover>
+                    </span>,
                 music:song["name"],
                 time:timeTransform(song["dt"]),
                 musicId:song["id"],

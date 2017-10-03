@@ -28,6 +28,15 @@
   .anticon-heart-favorite{
     color:rgb(255, 134, 134);
   }
+  .anticon-addMusicToPlaylist{
+    margin-left: 5px;
+    font-size:15px;
+    transition:all 200ms;
+    cursor:pointer;
+  }
+  .anticon-addMusicToPlaylist:hover{
+    color:black;
+  }
 }
 
 .app-content-music-album-DetailDesc-list-content-table-row{
@@ -51,4 +60,23 @@
   display:inline-block;
   width: 35px;
   text-align:right;
+}
+
+.app-content-music-album-DetailDesc-list-content-table-row-handle{
+  display:inline-block;
+}
+
+.app-content-music-album-DetailDesc-list-content-table-row-handle-addMusicToPlaylist{
+  .ant-popover-inner-content{
+    padding:0;
+  }
+}
+
+.app-content-music-album-DetailDesc-list-content-table-row-handle-addMusicToPlaylist-item{
+  padding:8px 16px;
+  cursor:pointer;
+}
+
+.app-content-music-album-DetailDesc-list-content-table-row-handle-addMusicToPlaylist-item:hover{
+  background-color: rgba(230, 230, 230, 0.5);
 }
