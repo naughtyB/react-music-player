@@ -40,7 +40,7 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
 
     handleRowDoubleClick(music){
         if(music.musicId!=this.props.currentMusicId){
-            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),message)
+            this.props.onChangeCurrentMusic(music.musicId,music.duration,message)
         }
         else{
             if(!this.props.currentMusicIsPlaying){
@@ -69,7 +69,8 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
                 }),
                 artistName:song["ar"].map((artist,index)=>{
                     return artist["name"]
-                })
+                }),
+                imgUrl:song["al"]["picUrl"]
             };
             for(let [index,list] of playlist.entries()){
                 if(list.favorite){
@@ -118,7 +119,8 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
                     }),
                     artistName:song["ar"].map((artist,index)=>{
                         return artist["name"]
-                    })
+                    }),
+                    imgUrl:song["al"]["picUrl"]
                 };
                 this.props.onHandlePlaylistMusic("add",list["_id"],this.props.userData["_id"],music,message);
             }
@@ -156,6 +158,7 @@ export class AppMusicArtistDetailDescAlbumTopItem extends React.Component{
                             style={{width:"25px"}}
                             className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(song["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
                             onClick={()=>{this.addMusicToFavoritePlaylist(song)}}
+                            onDoubleClick={(e)=>{e.stopPropagation()}}
                         />
                         <Popover
                             placement="right"

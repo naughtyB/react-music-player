@@ -82,12 +82,32 @@ export const HANDLE_PLAYLIST_MUSIC_RECEIVE_SUCCESS_POST="HANDLE_PLAYLIST_MUSIC_R
 
 export const HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST="HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST";
 
+//修改添加歌单框框的显示
+export const CHANGE_ADD_PLAYLIST_POPCONFIRM_VISIBLE="CHANGE_ADD_PLAYLIST_POPCONFIRM_VISIBLE";
+
+//修改添加歌单输入框的值
+export const CHANGE_ADD_PLAYLIST_INPUT_VALUE="CHANGE_ADD_PLAYLIST_INPUT_VALUE";
+
 //添加歌单
 export const ADD_PLAYLIST_REQUEST_POST="ADD_PLAYLIST_REQUEST_POST";
 
 export const ADD_PLAYLIST_RECEIVE_SUCCESS_POST="ADD_PLAYLIST_RECEIVE_SUCCESS_POST";
 
 export const ADD_PLAYLIST_RECEIVE_ERROR_POST="ADD_PLAYLIST_RECEIVE_ERROR_POST";
+
+//修改用来修改歌单名称的框框的显示
+export const CHANGE_MODIFY_PLAYLIST_NAME_POPCONFIRM_VISIBLE="CHANGE_MODIFY_PLAYLIST_NAME_POPCONFIRM_VISIBLE";
+
+//修改用来修改歌单名称的输入框的值
+export const CHANGE_MODIFY_PLAYLIST_NAME_INPUT_VALUE="CHANGE_MODIFY_PLAYLIST_NAME_INPUT_VALUE";
+
+//修改歌单名称
+export const MODIFY_PLAYLIST_NAME_REQUEST_POST="MODIFY_PLAYLIST_NAME_REQUEST_POST";
+
+export const MODIFY_PLAYLIST_NAME_RECEIVE_SUCCESS_POST="MODIFY_PLAYLIST_NAME_RECEIVE_SUCCESS_POST";
+
+export const MODIFY_PLAYLIST_NAME_RECEIVE_ERROR_POST="MODIFY_PLAYLIST_NAME_RECEIVE_ERROR_POST";
+
 
 
 
@@ -438,6 +458,20 @@ export const doHandlePlaylistMusic=(handle,playlistId,userId,music,message)=>(di
     })
 };
 
+export const doChangeAddPlaylistPopconfirmVisible=(visible)=>{
+    return {
+        type:CHANGE_ADD_PLAYLIST_POPCONFIRM_VISIBLE,
+        visible
+    }
+};
+
+export const doChangeAddPlaylistInputValue=(value)=>{
+    return {
+        type:CHANGE_ADD_PLAYLIST_INPUT_VALUE,
+        value
+    }
+};
+
 
 export const doAddPlaylistRequestPost=()=>{
     return {
@@ -459,7 +493,7 @@ export const doAddPlaylistReceiveErrorPost=()=>{
 };
 
 
-export const doAddPlaylist=(userId,playlistName)=>(dispatch)=>{
+export const doAddPlaylist=(userId,playlistName,message)=>(dispatch)=>{
     dispatch(doAddPlaylistRequestPost());
     return fetch("/addPlaylist",{
         method:"POST",
@@ -471,10 +505,68 @@ export const doAddPlaylist=(userId,playlistName)=>(dispatch)=>{
         return res.json()
     }).then(res=>{
         if(res.isSuccessful){
-            dispatch(doAddPlaylistReceiveSuccessPost(res.playlist))
+            dispatch(doAddPlaylistReceiveSuccessPost(res.playlist));
+            dispatch(doChangeAddPlaylistPopconfirmVisible(false));
+            message.info("创建歌单成功")
         }
         else{
             dispatch(doAddPlaylistReceiveErrorPost())
+        }
+    })
+};
+
+export const doChangeModifyPlaylistNamePopconfirmVisible=(visible)=>{
+    return {
+        type:CHANGE_MODIFY_PLAYLIST_NAME_POPCONFIRM_VISIBLE,
+        visible
+    }
+};
+
+export const doChangeModifyPlaylistNameInputValue=(value)=>{
+    return {
+        type:CHANGE_MODIFY_PLAYLIST_NAME_INPUT_VALUE,
+        value
+    }
+};
+
+export const doModifyPlaylistNameRequestPost=()=>{
+    return {
+        type:MODIFY_PLAYLIST_NAME_REQUEST_POST
+    }
+};
+
+export const doModifyPlaylistNameReceiveSuccessPost=(playlist)=>{
+    return {
+        type:MODIFY_PLAYLIST_NAME_RECEIVE_SUCCESS_POST,
+        playlist
+    }
+};
+
+export const doModifyPlaylistNameReceiveErrorPost=()=>{
+    return {
+        type:MODIFY_PLAYLIST_NAME_RECEIVE_ERROR_POST
+    }
+};
+
+export const doModifyPlaylistName=(playlistId,userId,playlistName,message)=>(dispatch)=>{
+    dispatch(doModifyPlaylistNameRequestPost());
+    return fetch("/modifyPlaylistName",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded"
+        },
+        body:"playlistId="+playlistId+"&userId="+userId+"&playlistName="+playlistName
+    }).then(res=>{
+        return res.json()
+    }).then(res=>{
+        if(res.isSuccessful){
+            dispatch(doModifyPlaylistNameReceiveSuccessPost(res.playlist));
+            dispatch(doChangeModifyPlaylistNamePopconfirmVisible(false));
+            message.info("修改成功")
+        }
+        else{
+            dispatch(doModifyPlaylistNameReceiveErrorPost());
+            message.info("修改失败")
         }
     })
 };

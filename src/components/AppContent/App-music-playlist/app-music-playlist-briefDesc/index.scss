@@ -59,6 +59,35 @@
       }
     }
   }
+
+  .anticon-edit{
+    margin-left: 5px;
+    color:#b1b1b1;
+    cursor:pointer;
+  }
+  .anticon-edit:hover{
+    color:#716E6E;
+  }
+
+  .anticon-delete{
+    margin-left: 5px;
+    color:#b1b1b1;
+    transition:all 200ms;
+    cursor:pointer;
+  }
+  .anticon-delete:hover{
+    color:#716e6e;
+  }
+}
+
+
+.app-content-music-playlist-BriefDesc-introduction-name-edit{
+  .ant-popover-message-title{
+    padding-left:0;
+  }
+  .anticon-exclamation-circle{
+    display:none !important;;
+  }
 }
 
 

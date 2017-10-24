@@ -14,7 +14,8 @@ module.exports=(req,res)=>{
             musicName:req.body.music.musicName,
             artistName:req.body.music.artistName,
             albumName:req.body.music.albumName,
-            duration:req.body.music.duration
+            duration:req.body.music.duration,
+            imgUrl:req.body.music.imgUrl
         };
         Music.find({musicId:musicData.musicId},(err,findMusicRes)=>{
             if(err){

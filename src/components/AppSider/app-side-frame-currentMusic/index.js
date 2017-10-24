@@ -33,7 +33,8 @@ export class AppSideFrameCurrentMusic extends React.Component{
             albumId,
             albumName,
             duration,
-            userData
+            userData,
+            albumImgUrl
             }=this.props;
         if(loginState && !isHandlingPlaylistMusic){
             let playlist=userData.playlist;
@@ -46,7 +47,8 @@ export class AppSideFrameCurrentMusic extends React.Component{
                 albumName:albumName,
                 duration:duration,
                 artistId:artistId,
-                artistName:artistName
+                artistName:artistName,
+                imgUrl:albumImgUrl
             };
             for(let [index,list] of playlist.entries()){
                 if(list.favorite){

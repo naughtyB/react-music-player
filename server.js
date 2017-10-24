@@ -17,7 +17,6 @@ let jsonParser=bodyParser.json({extends:false});
 let upload =  multer({ dest: './uploads/' });
 
 
-
 app.use(express.static(__dirname));
 
 //获取音乐url
@@ -62,16 +61,19 @@ app.use("/modifyUserData",urlencodeParser,require("./express/router/modifyUserDa
 //获取单曲具体信息
 app.use("/song_detail",urlencodeParser,require("./express/router/song_detail.js"));
 
-//操作歌单
+//操作歌单音乐
 app.use("/handlePlaylistMusic",jsonParser,require("./express/router/handlePlaylistMusic.js"));
 
 //获取歌单
 app.use("/getPlaylistData",urlencodeParser,require("./express/router/getPlaylistData.js"));
 
-//创建歌单
+//操作歌单
 app.use("/addPlaylist",urlencodeParser,require("./express/router/addPlaylist.js"));
 
-// 单图上传
+//修改歌单名称
+app.use("/modifyPlaylistName",urlencodeParser,require("./express/router/modifyPlaylistName.js"));
+
+// 头像上传
 app.post('/submitPortrait', upload.single('portrait'),require("./express/router/submitPortrait.js"));
 
 

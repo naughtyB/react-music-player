@@ -78,7 +78,8 @@ export class AppMusicAlbumDetailDescContent extends React.Component{
                 }),
                 artistName:song["ar"].map((artist,index)=>{
                     return artist["name"]
-                })
+                }),
+                imgUrl:this.props.albumData.album["blurPicUrl"]
             };
             for(let [index,list] of playlist.entries()){
                 if(list.favorite){
@@ -165,6 +166,7 @@ export class AppMusicAlbumDetailDescContent extends React.Component{
                             style={{width:"25px"}}
                             className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(song["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
                             onClick={()=>{this.addMusicToFavoritePlaylist(song)}}
+                            onDoubleClick={(e)=>{e.stopPropagation()}}
                         />
                         <Popover
                             placement="right"

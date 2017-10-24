@@ -1,7 +1,7 @@
 const { createWebAPIRequest } = require('../util/util');
 
 module.exports = (req, res)=> {
-    const cookie = req.get('Cookie') ? req.get('Cookie') : '';
+    const cookie = "MUSIC_U=cee3f4696655e8269b09d611e16e347542f3f4afc6fee4589b1af9203373679b8e53350f7fd9eae136f8b2127dc6e3dec26025343d5dddac165a01459c57e6992c82fdc20da7ba58bf122d59fa1ed6a2";
     const keywords = req.body.keywords;
     const type = req.body.type || 1;
     const limit = req.body.limit || 30;

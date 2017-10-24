@@ -37,7 +37,7 @@ export class AppMusicScheduleController extends React.Component{
                 </span>
                 <Slider
                     min={0}
-                    max={this.props.duration}
+                    max={Math.floor(this.props.duration/1000)}
                     className="app-music-schedule-controller-slider"
                     value={this.props.currentTime}
                     onChange={this.handleChange}
@@ -45,7 +45,7 @@ export class AppMusicScheduleController extends React.Component{
                     tipFormatter={(currentTime)=>{return transformSecondsToMinutes(currentTime)}}
                 />
                 <span>
-                    {transformSecondsToMinutes(this.props.duration)}
+                    {transformSecondsToMinutes(Math.floor(this.props.duration/1000))}
                 </span>
             </div>
         )

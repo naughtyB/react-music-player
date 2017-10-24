@@ -31,9 +31,16 @@ import {
     HANDLE_PLAYLIST_MUSIC_REQUEST_POST,
     HANDLE_PLAYLIST_MUSIC_RECEIVE_SUCCESS_POST,
     HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST,
+    CHANGE_ADD_PLAYLIST_POPCONFIRM_VISIBLE,
+    CHANGE_ADD_PLAYLIST_INPUT_VALUE,
     ADD_PLAYLIST_REQUEST_POST,
     ADD_PLAYLIST_RECEIVE_SUCCESS_POST,
-    ADD_PLAYLIST_RECEIVE_ERROR_POST
+    ADD_PLAYLIST_RECEIVE_ERROR_POST,
+    CHANGE_MODIFY_PLAYLIST_NAME_INPUT_VALUE,
+    CHANGE_MODIFY_PLAYLIST_NAME_POPCONFIRM_VISIBLE,
+    MODIFY_PLAYLIST_NAME_REQUEST_POST,
+    MODIFY_PLAYLIST_NAME_RECEIVE_SUCCESS_POST,
+    MODIFY_PLAYLIST_NAME_RECEIVE_ERROR_POST
 } from "../action/user"
 const initialUser={
     loginState:false,
@@ -93,7 +100,12 @@ const initialUser={
     portraitPreviewUrl:"",
     portraitIsUploading:false,
     isHandlingPlaylistMusic:false,
-    isAddingPlaylist:false
+    addPlaylistInputValue:"",
+    addPlaylistPopconfirmVisible:false,
+    isAddingPlaylist:false,
+    isModifyingPlaylistName:false,
+    modifyPlaylistNameInputValue:"",
+    modifyPlaylistNamePopconfirmVisible:false
 };
 
 export const user=(state=initialUser,action)=>{
@@ -195,12 +207,26 @@ export const user=(state=initialUser,action)=>{
             return {...state,isHandlingPlaylistMusic:false,userData:{...state.userData,playlist:action.playlist}};
         case HANDLE_PLAYLIST_MUSIC_RECEIVE_ERROR_POST:
             return {...state,isHandlingPlaylistMusic:false};
+        case CHANGE_ADD_PLAYLIST_POPCONFIRM_VISIBLE:
+            return {...state,addPlaylistPopconfirmVisible:action.visible};
+        case CHANGE_ADD_PLAYLIST_INPUT_VALUE:
+            return {...state,addPlaylistInputValue:action.value};
         case ADD_PLAYLIST_REQUEST_POST:
             return {...state,isAddingPlaylist:true};
         case ADD_PLAYLIST_RECEIVE_SUCCESS_POST:
             return {...state,isAddingPlaylist:false,userData:{...state.userData,playlist:action.playlist}};
         case ADD_PLAYLIST_RECEIVE_ERROR_POST:
             return {...state,isAddingPlaylist:false};
+        case CHANGE_MODIFY_PLAYLIST_NAME_POPCONFIRM_VISIBLE:
+            return {...state,modifyPlaylistNamePopconfirmVisible:action.visible};
+        case CHANGE_MODIFY_PLAYLIST_NAME_INPUT_VALUE:
+            return {...state,modifyPlaylistNameInputValue:action.value};
+        case MODIFY_PLAYLIST_NAME_REQUEST_POST:
+            return {...state,isModifyingPlaylistName:true};
+        case MODIFY_PLAYLIST_NAME_RECEIVE_SUCCESS_POST:
+            return {...state,isModifyingPlaylistName:false,userData:{...state.userData,playlist:action.playlist}};
+        case MODIFY_PLAYLIST_NAME_RECEIVE_ERROR_POST:
+            return {...state,isModifyingPlaylistName:false};
         default:
             return state;
     }

@@ -11,7 +11,7 @@ import AppMusicPlaylistBriefDesc from "./app-music-playlist-briefDesc/index"
 import AppMusicPlaylistDetailDescContent from "./app-music-playlist-detailDesc-content/index"
 import {doGetPlaylistData} from "../../../redux/action/playlist"
 import {doChangeCurrentMusicIsPlaying,doChangeCurrentMusic} from "../../../redux/action/currentMusic";
-import {doHandlePlaylistMusic} from "../../../redux/action/user";
+import {doHandlePlaylistMusic,doModifyPlaylistName,doChangeModifyPlaylistNamePopconfirmVisible,doChangeModifyPlaylistNameInputValue} from "../../../redux/action/user";
 import {transformHash} from "../../../common/js/index"
 const TabPane = Tabs.TabPane;
 
@@ -76,10 +76,17 @@ export class AppMusicPlaylist extends React.Component{
             currentMusicId,
             currentMusicIsPlaying,
             userData,
+            location,
             loginState,
             onChangeCurrentMusic,
             onChangeCurrentMusicIsPlaying,
-            onHandlePlaylistMusic
+            onHandlePlaylistMusic,
+            isModifyingPlaylistName,
+            modifyPlaylistNameInputValue,
+            modifyPlaylistNamePopconfirmVisible,
+            onChangeModifyPlaylistNameInputValue,
+            onModifyPlaylistName,
+            onChangeModifyPlaylistNamePopconfirmVisible
             }=this.props;
         let playlistId=transformHash(this.props.location.hash)["playlistId"];
         let isUserPlaylist=false;
@@ -97,6 +104,16 @@ export class AppMusicPlaylist extends React.Component{
                     <div className="app-content-music-playlist">
                         <AppMusicPlaylistBriefDesc
                             playlistData={playlistData}
+                            playlistId={playlistId}
+                            userData={userData}
+                            isUserPlaylist={isUserPlaylist}
+                            isModifyingPlaylistName={isModifyingPlaylistName}
+                            modifyPlaylistNameInputValue={modifyPlaylistNameInputValue}
+                            modifyPlaylistNamePopconfirmVisible={modifyPlaylistNamePopconfirmVisible}
+                            onChangeModifyPlaylistNameInputValue={onChangeModifyPlaylistNameInputValue}
+                            onModifyPlaylistName={onModifyPlaylistName}
+                            onChangeModifyPlaylistNamePopconfirmVisible={onChangeModifyPlaylistNamePopconfirmVisible}
+                            location={location}
                         />
                         <div className="app-content-music-playlist-detailDesc">
                             <Tabs
@@ -143,7 +160,10 @@ const mapStateToProps=(state)=>{
         currentMusicId:state.currentMusic.id,
         currentMusicIsPlaying:state.currentMusic.isPlaying,
         userData:state.user.userData,
-        loginState:state.user.loginState
+        loginState:state.user.loginState,
+        isModifyingPlaylistName:state.user.isModifyingPlaylistName,
+        modifyPlaylistNameInputValue:state.user.modifyPlaylistNameInputValue,
+        modifyPlaylistNamePopconfirmVisible:state.user.modifyPlaylistNamePopconfirmVisible
     }
 };
 
@@ -152,7 +172,10 @@ const mapDispatchToProps=(dispatch)=>{
         onGetPlaylistData:(playlistId)=>dispatch(doGetPlaylistData(playlistId)),
         onChangeCurrentMusic:(id,duration,message)=>dispatch(doChangeCurrentMusic(id,duration,message)),
         onChangeCurrentMusicIsPlaying:()=>dispatch(doChangeCurrentMusicIsPlaying()),
-        onHandlePlaylistMusic:(handle,playlistId,userId,music,message)=>dispatch(doHandlePlaylistMusic(handle,playlistId,userId,music,message))
+        onHandlePlaylistMusic:(handle,playlistId,userId,music,message)=>dispatch(doHandlePlaylistMusic(handle,playlistId,userId,music,message)),
+        onChangeModifyPlaylistNameInputValue:(value)=>dispatch(doChangeModifyPlaylistNameInputValue(value)),
+        onModifyPlaylistName:(playlistId,userId,playlistName,message)=>dispatch(doModifyPlaylistName(playlistId,userId,playlistName,message)),
+        onChangeModifyPlaylistNamePopconfirmVisible:(visible)=>dispatch(doChangeModifyPlaylistNamePopconfirmVisible(visible))
     }
 };
 

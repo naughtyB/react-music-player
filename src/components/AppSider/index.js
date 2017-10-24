@@ -8,7 +8,7 @@ import {withRouter} from "react-router-dom";
 import {Menu,Icon,Popconfirm,Input,Spin,message} from "antd";
 import AppSideFrameCurrentMusic from "./app-side-frame-currentMusic/index";
 import {doGetCurrentMusicData} from "../../redux/action/currentMusic"
-import {doHandlePlaylistMusic,doAddPlaylist} from "../../redux/action/user";
+import {doHandlePlaylistMusic,doAddPlaylist,doChangeAddPlaylistPopconfirmVisible,doChangeAddPlaylistInputValue} from "../../redux/action/user";
 import {doChangeSelectedKeys} from "../../redux/action/menu";
 import {transformHash} from "../../common/js/index"
 
@@ -18,7 +18,10 @@ export class AppSider extends React.Component{
     constructor(props){
         super(props);
         this.handleSelect=this.handleSelect.bind(this);
+        this.handleAddPlaylistConfirm=this.handleAddPlaylistConfirm.bind(this);
         this.handleAddPlaylist=this.handleAddPlaylist.bind(this);
+        this.handleAddPlaylistCancel=this.handleAddPlaylistCancel.bind(this);
+        this.handleAddPlaylistInputValueChange=this.handleAddPlaylistInputValueChange.bind(this);
     }
 
     componentWillUpdate(nextProps){
@@ -54,14 +57,41 @@ export class AppSider extends React.Component{
         }
     }
 
-    handleAddPlaylist(){
-        let value=this.refs["Input"]["refs"]["input"]["value"];
-        if(value){
-            this.props.onAddPlaylist(this.props.userData["_id"],this.refs["Input"]["refs"]["input"]["value"])
+    handleAddPlaylistConfirm(){
+        if(!this.props.isAddingPlaylist){
+            let value=this.props.addPlaylistInputValue;
+            if(value){
+                this.props.onAddPlaylist(this.props.userData["_id"],value,message)
+            }
+            else{
+                message.info("歌单名称不能为空")
+            }
         }
         else{
-            message.info("创建失败")
+            message.info("请勿频繁操作")
         }
+    }
+
+    handleAddPlaylist(e){
+        e.stopPropagation();
+        if(!this.props.addPlaylistPopconfirmVisible){
+            this.props.onChangeAddPlaylistPopconfirmVisible(true);
+            this.props.onChangeAddPlaylistInputValue("");
+            setTimeout(()=>{
+                this.refs["Input"]["refs"]["input"].focus();
+            },10);
+        }
+        else{
+            this.refs["Input"]["refs"]["input"].focus();
+        }
+    }
+
+    handleAddPlaylistCancel(){
+        this.props.onChangeAddPlaylistPopconfirmVisible(false);
+    }
+
+    handleAddPlaylistInputValueChange(e){
+        this.props.onChangeAddPlaylistInputValue(e.target.value);
     }
 
     render(){
@@ -76,10 +106,13 @@ export class AppSider extends React.Component{
             albumId,
             isAddingPlaylist,
             selectedKeys,
+            duration,
             albumImgUrl,
+            addPlaylistInputValue,
             loginState,
             isGettingMusicData,
             isHandlingPlaylistMusic,
+            addPlaylistPopconfirmVisible,
             onGetCurrentMusicData,
             onHandlePlaylistMusic
             }=this.props;
@@ -90,6 +123,7 @@ export class AppSider extends React.Component{
                     artistId={artistId}
                     artistName={artistName}
                     albumName={albumName}
+                    duration={duration}
                     albumId={albumId}
                     albumImgUrl={albumImgUrl}
                     currentMusicId={currentMusicId}
@@ -117,8 +151,27 @@ export class AppSider extends React.Component{
                                 <span>
                                     <Icon type="user"/>
                                     <span>我的歌单</span>
-                                    <Popconfirm placement="top" title={<Input placeholder="请输入歌单名称" ref="Input"/>}  okText="Yes" cancelText="No" overlayClassName="app-side-frame-menu-addPlaylist-frame" onConfirm={this.handleAddPlaylist}>
-                                        <Icon className="app-side-frame-menu-addPlaylist" type="plus-circle" onClick={(e)=>{e.stopPropagation()}}/>
+                                    <Popconfirm
+                                        placement="top"
+                                        title={<Input
+                                                placeholder="请输入歌单名称"
+                                                ref="Input"
+                                                value={addPlaylistInputValue}
+                                                onChange={this.handleAddPlaylistInputValueChange}
+                                                onPressEnter={this.handleAddPlaylistConfirm}
+                                            />}
+                                        okText="Yes"
+                                        cancelText="No"
+                                        overlayClassName="app-side-frame-menu-addPlaylist-frame"
+                                        onCancel={this.handleAddPlaylistCancel}
+                                        onConfirm={this.handleAddPlaylistConfirm}
+                                        visible={addPlaylistPopconfirmVisible}
+                                    >
+                                        <Icon
+                                            className="app-side-frame-menu-addPlaylist"
+                                            type="plus-circle"
+                                            onClick={this.handleAddPlaylist}
+                                        />
                                     </Popconfirm>
                                 </span>
                             }>
@@ -143,6 +196,7 @@ export class AppSider extends React.Component{
 const mapStateToProps=(state)=>{
     return {
         currentMusicId:state.currentMusic.id,
+        duration:state.currentMusic.duration,
         musicName:state.currentMusic.musicName,
         artistId:state.currentMusic.artistId,
         artistName:state.currentMusic.artistName,
@@ -154,7 +208,9 @@ const mapStateToProps=(state)=>{
         loginState:state.user.loginState,
         isHandlingPlaylistMusic:state.user.isHandlingPlaylistMusic,
         selectedKeys:state.menu.selectedKeys,
-        isAddingPlaylist:state.user.isAddingPlaylist
+        isAddingPlaylist:state.user.isAddingPlaylist,
+        addPlaylistPopconfirmVisible:state.user.addPlaylistPopconfirmVisible,
+        addPlaylistInputValue:state.user.addPlaylistInputValue
     }
 };
 
@@ -163,7 +219,9 @@ const mapDispatchToProps=(dispatch)=>{
         onGetCurrentMusicData:(currentMusicId)=>dispatch(doGetCurrentMusicData(currentMusicId)),
         onHandlePlaylistMusic:(handle,playlistId,userId,music,message)=>dispatch(doHandlePlaylistMusic(handle,playlistId,userId,music,message)),
         onChangeSelectedKeys:(selectedKeys)=>dispatch(doChangeSelectedKeys(selectedKeys)),
-        onAddPlaylist:(userId,playlistName)=>dispatch(doAddPlaylist(userId,playlistName))
+        onAddPlaylist:(userId,playlistName,message)=>dispatch(doAddPlaylist(userId,playlistName,message)),
+        onChangeAddPlaylistPopconfirmVisible:(visible)=>dispatch(doChangeAddPlaylistPopconfirmVisible(visible)),
+        onChangeAddPlaylistInputValue:(value)=>dispatch(doChangeAddPlaylistInputValue(value))
     }
 };
 

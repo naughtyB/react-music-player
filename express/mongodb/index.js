@@ -51,7 +51,8 @@ let MusicSchema=new Schema({
     musicName:{type:String},
     artistName:[String],
     albumName:{type:String},
-    duration:{type:Number}
+    duration:{type:Number},
+    imgUrl:{type:String}
 });
 let Music=mongoose.model("music",MusicSchema);
 

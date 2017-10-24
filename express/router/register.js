@@ -46,7 +46,14 @@ module.exports=(req,res)=>{
                                         res.json({isSuccessful:false,errorType:"captcha",error:"发生错误!请重新提交"});
                                     }
                                     else{
-                                        res.json({isSuccessful:true,userData:Object.assign(saveRes["_doc"],{playlist:[Object.assign(savePlayListRes["_doc"],{music:[]})]})});
+                                        Playlist.find({"user":newUser._id}).populate("music user").exec((err,findPlaylistResponse)=>{
+                                            if(err){
+                                                res.json({isSuccessful:false,error:"发生错误!请重新提交",errorType:"birth"})
+                                            }
+                                            else{
+                                                res.json({isSuccessful:true,userData:Object.assign(saveRes["_doc"],{playlist:findPlaylistResponse})})
+                                            }
+                                        });
                                     }
                                 })
                             }

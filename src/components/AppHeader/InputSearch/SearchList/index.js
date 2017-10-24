@@ -55,7 +55,7 @@ export class SearchList extends React.Component{
 
     handleSongClick(id,duration,message){
         if(id!=this.props.currentMusicId){
-            this.props.onChangeCurrentMusic(id,Math.floor(duration/1000),message);
+            this.props.onChangeCurrentMusic(id,duration,message);
         }
         else{
             if(!this.props.currentMusicIsPlaying){

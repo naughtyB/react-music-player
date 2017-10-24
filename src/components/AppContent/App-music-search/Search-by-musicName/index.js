@@ -6,6 +6,13 @@ import {Table,Icon,message,Spin,Popover} from "antd";
 import {Link} from "react-router-dom";
 import {timeTransform} from "../../../../common/js/index"
 import "./index.scss"
+import fetch from "isomorphic-fetch"
+import Promise from "promise-polyfill";
+//兼容性处理
+if(!window.Promise){
+    window.Promise=Promise
+}
+
 
 
 const columns = [{
@@ -69,7 +76,7 @@ export class SearchByMusicName extends React.Component{
 
     handleRowDoubleClick(music){
         if(music.musicId!=this.props.currentMusicId){
-            this.props.onChangeCurrentMusic(music.musicId,Math.floor(music.duration/1000),message)
+            this.props.onChangeCurrentMusic(music.musicId,music.duration,message)
         }
         else{
             if(!this.props.currentMusicIsPlaying){
@@ -87,34 +94,45 @@ export class SearchByMusicName extends React.Component{
             let playlist=this.props.userData.playlist;
             let favoritePlaylist;
             let favoritePlaylistMusicId;
-            let music={
-                musicId:musicData["id"],
-                musicName:musicData["name"],
-                albumId:musicData["album"]["id"],
-                albumName:musicData["album"]["name"],
-                duration:musicData["duration"],
-                artistId:musicData["artists"].map((artist,index)=>{
-                    return artist["id"]
-                }),
-                artistName:musicData["artists"].map((artist,index)=>{
-                    return artist["name"]
-                })
-            };
-            for(let [index,list] of playlist.entries()){
-                if(list.favorite){
-                    favoritePlaylist=list;
+            fetch("/song_detail",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded"
+                },
+                body:"ids="+musicData["id"]
+            }).then(res=>{
+                return res.json()
+            }).then(res=>{
+                let music={
+                    musicId:musicData["id"],
+                    musicName:musicData["name"],
+                    albumId:musicData["album"]["id"],
+                    albumName:musicData["album"]["name"],
+                    duration:musicData["duration"],
+                    artistId:musicData["artists"].map((artist,index)=>{
+                        return artist["id"]
+                    }),
+                    artistName:musicData["artists"].map((artist,index)=>{
+                        return artist["name"]
+                    }),
+                    imgUrl:res.songs[0]["al"]["picUrl"]
+                };
+                for(let [index,list] of playlist.entries()){
+                    if(list.favorite){
+                        favoritePlaylist=list;
+                    }
                 }
-            }
-            favoritePlaylistMusicId=favoritePlaylist.music.map((music,index)=>{
-                return music.musicId;
-            });
-            if(favoritePlaylistMusicId.includes(musicData["id"])){
-                this.props.onHandlePlaylistMusic("remove",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
-            }
-            else{
-                this.props.onHandlePlaylistMusic("add",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
-            }
-            //到时这里弄个id判断，决定是删除还是增加
+                favoritePlaylistMusicId=favoritePlaylist.music.map((music,index)=>{
+                    return music.musicId;
+                });
+                if(favoritePlaylistMusicId.includes(musicData["id"])){
+                    this.props.onHandlePlaylistMusic("remove",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
+                }
+                else{
+                    this.props.onHandlePlaylistMusic("add",favoritePlaylist["_id"],this.props.userData["_id"],music,message)
+                }
+                //到时这里弄个id判断，决定是删除还是增加
+            })
         }
         else if(!this.props.loginState){
             message.info("请先登录")
@@ -136,20 +154,31 @@ export class SearchByMusicName extends React.Component{
                message.info("歌曲已存在")
             }
             else{
-                let music={
-                    musicId:musicData["id"],
-                    musicName:musicData["name"],
-                    albumId:musicData["album"]["id"],
-                    albumName:musicData["album"]["name"],
-                    duration:musicData["duration"],
-                    artistId:musicData["artists"].map((artist,index)=>{
-                        return artist["id"]
-                    }),
-                    artistName:musicData["artists"].map((artist,index)=>{
-                        return artist["name"]
-                    })
-                };
-                this.props.onHandlePlaylistMusic("add",list["_id"],this.props.userData["_id"],music,message);
+                fetch("/song_detail",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/x-www-form-urlencoded"
+                    },
+                    body:"ids="+musicData["id"]
+                }).then(res=>{
+                    return res.json()
+                }).then(res=>{
+                    let music={
+                        musicId:musicData["id"],
+                        musicName:musicData["name"],
+                        albumId:musicData["album"]["id"],
+                        albumName:musicData["album"]["name"],
+                        duration:musicData["duration"],
+                        artistId:musicData["artists"].map((artist,index)=>{
+                            return artist["id"]
+                        }),
+                        artistName:musicData["artists"].map((artist,index)=>{
+                            return artist["name"]
+                        }),
+                        imgUrl:res.songs[0]["al"]["picUrl"]
+                    };
+                    this.props.onHandlePlaylistMusic("add",list["_id"],this.props.userData["_id"],music,message);
+                })
             }
         }
     }
@@ -192,6 +221,7 @@ export class SearchByMusicName extends React.Component{
                             style={{width:"25px"}}
                             className={!loginState?"anticon-heart-unfavorite":(favoritePlaylistMusicId.includes(musicData["id"])?"anticon-heart-favorite":"anticon-heart-unfavorite")}
                             onClick={()=>{this.addMusicToFavoritePlaylist(musicData)}}
+                            onDoubleClick={(e)=>{e.stopPropagation()}}
                         />
                         <Popover
                             placement="right"

@@ -16,6 +16,7 @@ export class AppMusicArtistDetailDescAlbum extends React.Component{
 
     componentWillMount(){
         this.props.onChangeTopItemCheckAllState(false);
+        this.props.onClearAlbumData();
         this.props.onSearchArtistAlbum(this.props.artistId);
         setTimeout(()=>{
             this.props.onGetAppContent().parentNode.scrollTop=0;
